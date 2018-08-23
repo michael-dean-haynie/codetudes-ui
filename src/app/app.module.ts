@@ -8,6 +8,7 @@ import { AboutComponent } from './components/about/about.component';
 import { CodetudesComponent } from './components/codetudes/codetudes.component';
 
 import { CodetudeService } from './services/codetude.service';
+import { SnippetPipe } from './pipes/snippet.pipe';
 
 const appRoutes: Routes = [
   { path: 'about', component: AboutComponent },
@@ -24,7 +25,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     AboutComponent,
-    CodetudesComponent
+    CodetudesComponent,
+    SnippetPipe
   ],
   imports: [
     BrowserModule,

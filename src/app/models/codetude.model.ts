@@ -5,9 +5,9 @@ export class Codetude {
   created: Date;
   updated: Date;
   started: Date;
-  finished: Date;
+  // finished: Date;
   title: string;
-  subtitle: string;
+  // subtitle: string;
   description: string;
   sourceCodeLink: string;
   liveDemoLink: string;

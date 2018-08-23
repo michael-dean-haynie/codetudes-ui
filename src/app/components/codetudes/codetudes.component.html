@@ -1,16 +1,21 @@
-<div id='codetudes-grid'>
+<div id='ct-grid'>
   <div class='header'>
     <h1>Codetudes</h1>
   </div>
 
-  <div id='codetude-list-grid'>
-    <div class="codetude-cell" *ngFor='let codetude of codetudes'>
-      <div class='codetude-card'>
-        <div class='codetude-card-preview'></div>
-        <div class='codetude-card-content'>
-          <h2>{{codetude.title}}</h2>
-          <h3>{{codetude.subtitle}}</h3>
-          <p>{{codetude.description}}</p>
+  <div id='ct-list-grid'>
+    <div class="ct-cell" *ngFor='let codetude of codetudes'>
+      <div class='ct-card'>
+        <div class='ct-card-preview'></div>
+        <div class='ct-card-content'>
+          <p class='ct-card-content-title'>{{codetude.title}}</p>
+          <p class='ct-card-content-description'>{{codetude.description | snippet:200}}</p>
+          <p *ngIf='codetude.started'>{{codetude.started | date:'MMMM y'}}</p>
+          <p>
+            <span class='ct-card-content-tag' *ngFor='let tag of codetude.tags'>
+              {{tag.name}}
+            </span>
+          </p>
         </div>
       </div>
     </div>
