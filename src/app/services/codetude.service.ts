@@ -10,11 +10,11 @@ import { Codetude } from '../models/codetude.model'
   providedIn: 'root'
 })
 export class CodetudeService {
-  private endpointBase: string = `${environment.backendApiBase}/codetudes`;
+  private ENDPOINT: string = `${environment.backendApiBase}/codetudes`;
 
   constructor(private http: HttpClient) { }
 
   public findAll(): Observable<Codetude[]> {
-    return this.http.get<Codetude[]>(`${this.endpointBase}`);
+    return this.http.get<Codetude[]>(`${this.ENDPOINT}`);
   }
 }
