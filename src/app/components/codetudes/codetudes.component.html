@@ -8,14 +8,17 @@
       <div class='ct-card'>
         <div class='ct-card-preview'></div>
         <div class='ct-card-content'>
-          <p class='ct-card-content-title'>{{codetude.title}}</p>
-          <p class='ct-card-content-description'>{{codetude.description | snippet:200}}</p>
-          <p *ngIf='codetude.started'>{{codetude.started | date:'MMMM y'}}</p>
-          <p>
-            <span class='ct-card-content-tag' *ngFor='let tag of codetude.tags'>
+          <p class='ct-card-content-title'>{{codetude.src.title}}</p>
+          <p class='ct-card-content-description'>{{codetude.src.description | snippet:200}}</p>
+          <p *ngIf='codetude.src.started'>{{codetude.src.started | date:'MMMM y'}}</p>
+          <div>
+            <span class='ct-card-content-tag' *ngFor='let tag of codetude.src.tags'>
               {{tag.name}}
             </span>
-          </p>
+          </div>
+          <div>
+              <a routerLink={{codetude.detailsUrl}}>Details</a>
+          </div>
         </div>
       </div>
     </div>

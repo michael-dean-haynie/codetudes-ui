@@ -11,11 +11,13 @@ import { CodetudesComponent } from './components/codetudes/codetudes.component';
 import { CodetudeService } from './services/codetude.service';
 import { SnippetPipe } from './pipes/snippet.pipe';
 import { LoginComponent } from './components/login/login.component';
+import { CodetudeDetailComponent } from './components/codetude-detail/codetude-detail.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'about', component: AboutComponent },
   { path: 'codetudes', component: CodetudesComponent },
+  { path: 'codetudes/:id', component: CodetudeDetailComponent },
   {
     path: '',
     redirectTo: 'codetudes',
@@ -30,7 +32,8 @@ const appRoutes: Routes = [
     AboutComponent,
     CodetudesComponent,
     SnippetPipe,
-    LoginComponent
+    LoginComponent,
+    CodetudeDetailComponent
   ],
   imports: [
     BrowserModule,

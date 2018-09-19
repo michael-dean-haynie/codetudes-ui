@@ -1,0 +1,10 @@
+<div *ngIf='codetude'>
+  <h1>{{codetude.src.title}}</h1>
+  <h2>{{codetude.src.subtitle}}</h2>
+  <p>{{codetude.src.description}}</p>
+  <p><a href='{{codetude.src.sourceCodeLink}}'>Source Code</a></p>
+  <p><a href='{{codetude.src.liveDemoLink}}'>Live Demo</a></p>
+  <ul>
+    <li *ngFor='let tag of codetude.src.tags'>{{tag.name}}</li>
+  </ul>
+</div>

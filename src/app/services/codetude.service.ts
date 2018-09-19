@@ -17,4 +17,8 @@ export class CodetudeService {
   public findAll(): Observable<Codetude[]> {
     return this.http.get<Codetude[]>(`${this.ENDPOINT}`);
   }
+
+  public findOne(id: number): Observable<Codetude> {
+    return this.http.get<Codetude>(`${this.ENDPOINT}/${id}`);
+  }
 }
