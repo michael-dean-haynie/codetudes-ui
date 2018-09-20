@@ -13,6 +13,7 @@ import { SnippetPipe } from './pipes/snippet.pipe';
 import { LoginComponent } from './components/login/login.component';
 import { CodetudeDetailComponent } from './components/codetude-detail/codetude-detail.component';
 import { TagComponent } from './components/tag/tag.component';
+import { TagSelectorComponent } from './components/tag-selector/tag-selector.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent},
@@ -35,7 +36,8 @@ const appRoutes: Routes = [
     SnippetPipe,
     LoginComponent,
     CodetudeDetailComponent,
-    TagComponent
+    TagComponent,
+    TagSelectorComponent
   ],
   imports: [
     BrowserModule,

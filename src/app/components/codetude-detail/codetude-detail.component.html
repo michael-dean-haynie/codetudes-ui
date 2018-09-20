@@ -36,7 +36,7 @@
         <input class="link-em" [(ngModel)]='model.src.liveDemoLink'>
     </div>
     <div>
-        <app-tag *ngFor='let tag of model.src.tags' [model]='tag'></app-tag>
+        <app-tag-selector></app-tag-selector>
     </div>
     <button (click)='toggleEditMode()'>Edit</button>
 </div>
