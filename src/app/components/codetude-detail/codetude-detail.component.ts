@@ -10,7 +10,7 @@ import { Codetude } from '../../models/codetude.model';
   styleUrls: ['./codetude-detail.component.css']
 })
 export class CodetudeDetailComponent implements OnInit {
-  codetude: DisplayCodetude;
+  model: DisplayCodetude;
 
   constructor(private route: ActivatedRoute, private codetudeService: CodetudeService) { }
 
@@ -18,10 +18,14 @@ export class CodetudeDetailComponent implements OnInit {
     this.fetchCodetude();
   }
 
+  toggleEditMode(): void {
+    this.model.isInEditMode = !this.model.isInEditMode;
+  }
+
   private fetchCodetude(): void {
     const id: number = parseInt(this.route.snapshot.paramMap.get('id'));
     this.codetudeService.findOne(id).subscribe((codetude: Codetude) =>{
-      this.codetude =  new DisplayCodetude(codetude);
+      this.model =  new DisplayCodetude(codetude);
     });
   }
 

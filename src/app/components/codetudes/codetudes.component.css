@@ -60,16 +60,6 @@
 
 }
 
-.ct-card-content-tag {
-  background-color: #546e7a;
-  color: white;
-
-  display:inline-block;
-  border-radius: 2px;
-  padding: .3em .5em .25em .5em;
-  margin: 0 .25em .25em 0;
-}
-
 @media (min-width: 700px) {
   #ct-list-grid {
     grid-template-columns: 1fr 1fr;

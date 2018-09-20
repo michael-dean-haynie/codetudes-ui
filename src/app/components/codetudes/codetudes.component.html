@@ -1,28 +1,26 @@
 <div id='ct-grid'>
-  <div class='header'>
-    <h1>Codetudes</h1>
-  </div>
-
-  <div id='ct-list-grid'>
-    <div class="ct-cell" *ngFor='let codetude of codetudes'>
-      <div class='ct-card'>
-        <div class='ct-card-preview'></div>
-        <div class='ct-card-content'>
-          <p class='ct-card-content-title'>{{codetude.src.title}}</p>
-          <p class='ct-card-content-description'>{{codetude.src.description | snippet:200}}</p>
-          <p *ngIf='codetude.src.started'>{{codetude.src.started | date:'MMMM y'}}</p>
-          <div>
-            <span class='ct-card-content-tag' *ngFor='let tag of codetude.src.tags'>
-              {{tag.name}}
-            </span>
-          </div>
-          <div>
-              <a routerLink={{codetude.detailsUrl}}>Details</a>
-          </div>
-        </div>
-      </div>
+    <div class='header'>
+        <h1>Codetudes</h1>
     </div>
-  </div>
+
+    <div id='ct-list-grid'>
+        <div class="ct-cell" *ngFor='let codetude of codetudes'>
+            <div class='ct-card'>
+                <div class='ct-card-preview'></div>
+                <div class='ct-card-content'>
+                    <p class='ct-card-content-title'>{{codetude.src.title}}</p>
+                    <p class='ct-card-content-description'>{{codetude.src.description | snippet:200}}</p>
+                    <p *ngIf='codetude.src.started'>{{codetude.src.started | date:'MMMM y'}}</p>
+                    <div>
+                        <app-tag *ngFor='let tag of codetude.src.tags' [model]="tag"></app-tag>
+                    </div>
+                    <div>
+                        <a routerLink={{codetude.detailsUrl}}>Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 
