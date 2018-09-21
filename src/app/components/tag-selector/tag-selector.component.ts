@@ -56,7 +56,7 @@ export class TagSelectorComponent implements OnInit, OnChanges{
     this.displayedTagsNotOnCodetude = [];
 
     this.allTags.forEach(tag => {
-      const tagIsWithinFilter: boolean = tag.name.toLowerCase().includes(this.filterValue.toLowerCase());
+      const tagIsWithinFilter: boolean = tag.name.toLowerCase().trim().includes(this.filterValue.toLowerCase().trim());
       if(tagIsWithinFilter || !this.filterValue.length) {
 
         const tagIsAlreadyOnCodetude: boolean = this.tagsOnCodetude.filter(t => {return t.id === tag.id;}).length > 0;
