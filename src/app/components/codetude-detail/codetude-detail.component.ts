@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DisplayCodetude } from '../../models/display-codetude';
 import { CodetudeService } from '../../services/codetude.service';
 import { Codetude } from '../../models/codetude.model';
+import { Tag } from '../../models/tag.model';
 
 @Component({
   selector: 'app-codetude-detail',
@@ -20,6 +21,22 @@ export class CodetudeDetailComponent implements OnInit {
 
   toggleEditMode(): void {
     this.model.isInEditMode = !this.model.isInEditMode;
+  }
+
+  onTagAdded(tag: Tag): void {
+    let newCodetude = JSON.parse(JSON.stringify(this.model.src)); // copy
+    newCodetude.tags.push(tag);
+    this.codetudeService.update(newCodetude).subscribe((codetude: Codetude) => {
+      this.model.src = codetude;
+    });
+  }
+
+  onTagRemoved(tag: Tag): void {
+    let newCodetude = JSON.parse(JSON.stringify(this.model.src)); // copy
+    newCodetude.tags = newCodetude.tags.filter(t => {return t.id != tag.id}); // remove tag
+    this.codetudeService.update(newCodetude).subscribe((codetude: Codetude) => {
+      this.model.src = codetude;
+    });
   }
 
   private fetchCodetude(): void {

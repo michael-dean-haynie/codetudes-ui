@@ -36,7 +36,7 @@
         <input class="link-em" [(ngModel)]='model.src.liveDemoLink'>
     </div>
     <div>
-        <app-tag-selector></app-tag-selector>
+        <app-tag-selector [tagsOnCodetude]='model.src.tags' (tagAdded)='onTagAdded($event)' (tagRemoved)='onTagRemoved($event)'></app-tag-selector>
     </div>
     <button (click)='toggleEditMode()'>Edit</button>
 </div>

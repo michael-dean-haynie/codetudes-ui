@@ -1,3 +1,12 @@
 <div>
-    <input [(ngModel)]='filter' placeholder='Viewing All Tags (type to filter)'>
+    <input [(ngModel)]='filterValue' (ngModelChange)='onFilterChange()' placeholder='Viewing All Tags (type to filter)'>
+    <p>Included</p>
+    <div>
+        <app-tag *ngFor='let tag of displayedTagsOnCodetude' [model]='tag' (click)='removeTag(tag)'></app-tag>
+    </div>
+    <p>Not Included</p>
+    <div>
+        <app-tag *ngFor='let tag of displayedTagsNotOnCodetude' [model]='tag' (click)='addTag(tag)'></app-tag>
+    </div>
+    <p>manage tags</p>
 </div>
