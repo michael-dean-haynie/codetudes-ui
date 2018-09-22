@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Codetude } from '../models/codetude.model'
 
+import { ServiceHelpers } from './service-helpers';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,14 +17,18 @@ export class CodetudeService {
   constructor(private http: HttpClient) { }
 
   findAll(): Observable<Codetude[]> {
-    return this.http.get<Codetude[]>(`${this.ENDPOINT}`);
+    let obs =  this.http.get<Codetude[]>(`${this.ENDPOINT}`);
+    return ServiceHelpers.pipeJsonToModel<Codetude[]>(obs, Codetude);
   }
 
   findOne(id: number): Observable<Codetude> {
-    return this.http.get<Codetude>(`${this.ENDPOINT}/${id}`);
+    let obs = this.http.get<Codetude>(`${this.ENDPOINT}/${id}`);
+    return ServiceHelpers.pipeJsonToModel<Codetude>(obs, Codetude);
   }
 
   update(codetude: Codetude): Observable<Codetude> {
-    return this.http.patch<Codetude>(`${this.ENDPOINT}`, codetude, {});
+    let obs = this.http.patch<Codetude>(`${this.ENDPOINT}`, codetude, {});
+    return ServiceHelpers.pipeJsonToModel<Codetude>(obs, Codetude);
   }
+
 }

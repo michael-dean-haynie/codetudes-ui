@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DisplayCodetude } from '../../models/display-codetude';
+import { EditableCodetude } from '../../models/editable-codetude.model';
 import { CodetudeService } from '../../services/codetude.service';
 import { Codetude } from '../../models/codetude.model';
 import { Tag } from '../../models/tag.model';
@@ -12,7 +12,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./codetude-detail.component.css']
 })
 export class CodetudeDetailComponent implements OnInit {
-  model: DisplayCodetude;
+  model: EditableCodetude;
   userCanEdit: boolean = false;
 
   constructor(private route: ActivatedRoute, private codetudeService: CodetudeService, private authService: AuthService) { }
@@ -45,7 +45,7 @@ export class CodetudeDetailComponent implements OnInit {
   private fetchCodetude(): void {
     const id: number = parseInt(this.route.snapshot.paramMap.get('id'));
     this.codetudeService.findOne(id).subscribe((codetude: Codetude) =>{
-      this.model =  new DisplayCodetude(codetude);
+      this.model =  new EditableCodetude(codetude);
     });
   }
 

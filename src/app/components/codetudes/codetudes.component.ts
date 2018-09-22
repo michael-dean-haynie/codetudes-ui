@@ -4,7 +4,7 @@ import { Codetude } from '../../models/codetude.model';
 
 import { CodetudeService } from '../../services/codetude.service';
 import { AuthService } from '../../services/auth.service';
-import { DisplayCodetude } from '../../models/display-codetude';
+import { EditableCodetude } from '../../models/editable-codetude.model';
 
 @Component({
   selector: 'app-codetudes',
@@ -12,22 +12,14 @@ import { DisplayCodetude } from '../../models/display-codetude';
   styleUrls: ['./codetudes.component.css']
 })
 export class CodetudesComponent implements OnInit {
-  codetudes: DisplayCodetude[];
+  codetudes: Codetude[];
 
   constructor(private codetudeService: CodetudeService, private authService: AuthService ) {}
 
   ngOnInit() {
     this.codetudeService.findAll().subscribe(codetudes => {
-      this.codetudes = codetudes.map(codetude => new DisplayCodetude(codetude));
+      this.codetudes = codetudes;
     });
   }
-
-  // toggleEditMode(id: number): void {
-  //   this.codetudes.forEach(codetude => {
-  //     if (codetude.src.id === id) {
-  //       codetude.isInEditMode = !codetude.isInEditMode;
-  //     }
-  //   });
-  // }
 
 }
