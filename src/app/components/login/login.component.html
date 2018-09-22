@@ -1,8 +1,12 @@
-<form>
-  <label>Password</label>
-  <input type="password" [(ngModel)]="password" name="password">
-  <button type="submit" (click)="login()">Login</button>
-</form>
-
-<button (click)="logout()">Logout</button>
+<div *ngIf="!userIsLoggedIn(); then thenBlock; else elseBlock"></div>
+<ng-template #thenBlock>
+    <form>
+        <label>Password</label>
+        <input type="password" [(ngModel)]="password" name="password">
+        <button type="submit" (click)="login()">Login</button>
+      </form>
+</ng-template>
+<ng-template #elseBlock>
+    <button (click)="logout()">Logout</button>
+</ng-template>
 

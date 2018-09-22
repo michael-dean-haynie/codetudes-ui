@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AboutComponent } from './components/about/about.component';
@@ -14,9 +15,12 @@ import { LoginComponent } from './components/login/login.component';
 import { CodetudeDetailComponent } from './components/codetude-detail/codetude-detail.component';
 import { TagComponent } from './components/tag/tag.component';
 import { TagSelectorComponent } from './components/tag-selector/tag-selector.component';
+import { AuthService } from './services/auth.service';
+import { JwtInterceptorService } from './services/jwt-interceptor.service';
+import { ErrorInterceptorService } from './services/error-interceptor.service';
 
 const appRoutes: Routes = [
-  { path: 'login', component: LoginComponent},
+  { path: 'auth', component: LoginComponent},
   { path: 'about', component: AboutComponent },
   { path: 'codetudes', component: CodetudesComponent },
   { path: 'codetudes/:id', component: CodetudeDetailComponent },
@@ -49,7 +53,19 @@ const appRoutes: Routes = [
     FormsModule
   ],
   providers: [
-    CodetudeService
+    CodetudeService,
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptorService,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptorService,
+      multi: true
+    }
+
   ],
   bootstrap: [AppComponent]
 })

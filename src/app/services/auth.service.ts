@@ -12,10 +12,10 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  public userIsAdmin(): boolean {
+  userIsLoggedIn(): boolean {
     let result = false;
 
-    let authToken = localStorage.getItem(this.TOKEN_KEY);
+    let authToken = this.getToken();
     if (authToken !== null) {
       let jwtHelper = new JwtHelperService();
       result = !jwtHelper.isTokenExpired(authToken);
@@ -24,7 +24,7 @@ export class AuthService {
     return result;
   }
 
-  public login(username: string, password: string): void {
+  login(username: string, password: string): void {
 
     this.http.post<any>(`${this.ENDPOINT}`, null, {
       headers: new HttpHeaders({
@@ -38,11 +38,16 @@ export class AuthService {
         localStorage.setItem(this.TOKEN_KEY, authToken);
       },
       error => { console.log('Something went wrong!'); }/*,
-      () => { console.log("User successfully authenticated: " + this.userIsAdmin()); }*/
+      () => { console.log("User successfully authenticated: " + this.userIsLoggedIn()); }*/
     );
   }
 
-  public logout(): void {
+  logout(): void {
     localStorage.removeItem(this.TOKEN_KEY);
   }
+
+  getToken(): string {
+    return localStorage.getItem(this.TOKEN_KEY);
+  }
+
 }
