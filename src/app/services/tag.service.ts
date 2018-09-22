@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Tag } from '../models/tag.model';
 
+import { ServiceHelpers } from './service-helpers';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,6 +15,16 @@ export class TagService {
   constructor(private http: HttpClient) { }
 
   public findAll(): Observable<Tag[]> {
-    return this.http.get<Tag[]>(`${this.ENDPOINT}`);
+    let obs =  this.http.get<Tag[]>(`${this.ENDPOINT}`);
+    return ServiceHelpers.pipeJsonToModel<Tag[]>(obs, Tag);
+  }
+
+  update(tag: Tag): Observable<Tag> {
+    let obs = this.http.patch<Tag>(`${this.ENDPOINT}`, tag, {});
+    return ServiceHelpers.pipeJsonToModel<Tag>(obs, Tag);
+  }
+
+  delete(id: number): Observable<number> {
+    return this.http.delete<number>(`${this.ENDPOINT}/${id}`);
   }
 }

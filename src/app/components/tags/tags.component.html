@@ -1,3 +1,23 @@
-<p>
-  tags works!
-</p>
+<div *ngIf='tags'>
+    <div *ngFor='let tag of tags'>
+        <div *ngIf='tag.isInEditMode then tagLineEditMode; else tagLineDisplayMode'></div>
+        <ng-template #tagLineDisplayMode>
+            <span>
+                {{tag.src.name}}
+            </span>
+            <span>
+                <button (click)='toggleEditMode(tag.src.id)'>EDIT</button>
+                <button (click)='delete(tag.src.id)'>DELETE</button>
+            </span>
+        </ng-template>
+        <ng-template #tagLineEditMode>
+            <span>
+                <input [(ngModel)]='tag.src.name'>
+            </span>
+            <span>
+                <button (click)='acceptChanges(tag.src.id)'>ACCEPT CHANGES</button>
+                <button (click)='discardChanges(tag.src.id)'>CANCEL</button>
+            </span>
+        </ng-template>
+      </div>
+</div>

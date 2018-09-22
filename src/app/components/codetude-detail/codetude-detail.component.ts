@@ -28,7 +28,7 @@ export class CodetudeDetailComponent implements OnInit {
 
   onTagAdded(tag: Tag): void {
     let newCodetude = JSON.parse(JSON.stringify(this.model.src)); // copy
-    newCodetude.tags.push(tag);
+    newCodetude.tags.push(tag); // add tag
     this.codetudeService.update(newCodetude).subscribe((codetude: Codetude) => {
       this.model.src = codetude;
     });
