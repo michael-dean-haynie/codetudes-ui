@@ -18,12 +18,16 @@ import { TagSelectorComponent } from './components/tag-selector/tag-selector.com
 import { AuthService } from './services/auth.service';
 import { JwtInterceptorService } from './services/jwt-interceptor.service';
 import { ErrorInterceptorService } from './services/error-interceptor.service';
+import { TagsComponent } from './components/tags/tags.component';
+import { AuthGuardService } from './services/auth-guard.service';
 
 const appRoutes: Routes = [
   { path: 'auth', component: LoginComponent},
   { path: 'about', component: AboutComponent },
   { path: 'codetudes', component: CodetudesComponent },
   { path: 'codetudes/:id', component: CodetudeDetailComponent },
+  { path: 'tags', component: TagsComponent, canActivate: [AuthGuardService]},
+
   {
     path: '',
     redirectTo: 'codetudes',
@@ -41,7 +45,8 @@ const appRoutes: Routes = [
     LoginComponent,
     CodetudeDetailComponent,
     TagComponent,
-    TagSelectorComponent
+    TagSelectorComponent,
+    TagsComponent
   ],
   imports: [
     BrowserModule,
@@ -55,6 +60,7 @@ const appRoutes: Routes = [
   providers: [
     CodetudeService,
     AuthService,
+    AuthGuardService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptorService,
