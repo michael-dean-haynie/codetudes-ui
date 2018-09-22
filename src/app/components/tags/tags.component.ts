@@ -10,6 +10,7 @@ import { Tag } from '../../models/tag.model';
 })
 export class TagsComponent implements OnInit {
   tags: EditableTag[];
+  newTagName: string = '';
 
   constructor(private tagService: TagService) { }
 
@@ -44,6 +45,13 @@ export class TagsComponent implements OnInit {
   delete(id: number): void {
     this.tagService.delete(id).subscribe((respId: number) => {
       this.tags = this.tags.filter(t => t.src.id != respId);
+    })
+  }
+
+  create(): void {
+    this.tagService.create(this.newTagName).subscribe((respTag: Tag) => {
+      this.tags.push(new EditableTag(respTag));
+      this.newTagName = '';
     })
   }
 

@@ -19,5 +19,13 @@
                 <button (click)='discardChanges(tag.src.id)'>CANCEL</button>
             </span>
         </ng-template>
-      </div>
+    </div>
+    <div>
+        <span>
+            <input [(ngModel)]='newTagName' placeholder="New Tag">
+        </span>
+        <span>
+            <button (click)='create()'>CREATE</button>
+        </span>
+    </div>
 </div>

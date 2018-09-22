@@ -27,4 +27,9 @@ export class TagService {
   delete(id: number): Observable<number> {
     return this.http.delete<number>(`${this.ENDPOINT}/${id}`);
   }
+
+  create(name: string): Observable<Tag> {
+    let obs = this.http.post<Tag>(`${this.ENDPOINT}`, { name: name });
+    return ServiceHelpers.pipeJsonToModel<Tag>(obs, Tag);
+  }
 }
