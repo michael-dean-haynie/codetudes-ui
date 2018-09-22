@@ -4,6 +4,7 @@ import { DisplayCodetude } from '../../models/display-codetude';
 import { CodetudeService } from '../../services/codetude.service';
 import { Codetude } from '../../models/codetude.model';
 import { Tag } from '../../models/tag.model';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-codetude-detail',
@@ -12,10 +13,12 @@ import { Tag } from '../../models/tag.model';
 })
 export class CodetudeDetailComponent implements OnInit {
   model: DisplayCodetude;
+  userCanEdit: boolean = false;
 
-  constructor(private route: ActivatedRoute, private codetudeService: CodetudeService) { }
+  constructor(private route: ActivatedRoute, private codetudeService: CodetudeService, private authService: AuthService) { }
 
   ngOnInit() {
+    this.userCanEdit = this.authService.userIsLoggedIn();
     this.fetchCodetude();
   }
 

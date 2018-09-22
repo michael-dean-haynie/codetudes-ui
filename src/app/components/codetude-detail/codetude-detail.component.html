@@ -17,7 +17,7 @@
     <div>
         <app-tag *ngFor='let tag of model.src.tags' [model]='tag'></app-tag>
     </div>
-    <button (click)='toggleEditMode()'>Edit</button>
+    <button *ngIf='userCanEdit' (click)='toggleEditMode()'>Edit</button>
 </div>
 <div *ngIf='model && model.isInEditMode'>
     <div>
