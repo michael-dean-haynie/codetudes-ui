@@ -13,6 +13,7 @@ export class Codetude {
   description: string;
   sourceCodeLink: string;
   liveDemoLink: string;
+  live: boolean;
   tags: Tag[];
 
   constructor(jsonCodetude: any) {
@@ -26,6 +27,7 @@ export class Codetude {
     this.description = jsonCodetude.description;
     this.sourceCodeLink = jsonCodetude.sourceCodeLink;
     this.liveDemoLink = jsonCodetude.liveDemoLink;
+    this.live = jsonCodetude.live;
     this.tags = jsonCodetude.tags ? jsonCodetude.tags.map(jsonTag => new Tag(jsonTag)) : [];
   }
 

@@ -38,7 +38,7 @@ export class CodetudesComponent implements OnInit {
   ngOnInit() {
     this.codetudeService.findAll().subscribe((codetudes: Codetude[]) => {
       this.allCodetudes = codetudes;
-      this.displayedCodetudes = codetudes;
+      this.updateDisplayedCodetudes();
     });
 
     this.tagService.findAll().subscribe((tags: Tag[]) => {
@@ -114,7 +114,12 @@ export class CodetudesComponent implements OnInit {
   private updateDisplayedCodetudes(){
     this.displayedCodetudes = [];
 
-    this.allCodetudes.forEach(codetude => {
+    // First, only admins (logged in users) can see non "live" codetudes
+    let isAdmin = this.userIsLoggedIn();
+    console.log(isAdmin);
+    let visibleCodetudes = this.allCodetudes.filter(codetude => isAdmin ? true : codetude.live);
+
+    visibleCodetudes.forEach(codetude => {
       let meetsAllCriteria: boolean = true; // default
 
       // All applied facets must match
