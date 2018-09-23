@@ -1,4 +1,6 @@
 import { Tag } from './tag.model';
+import { FilterFacet } from './filter-facet.model';
+import { FilterFacetType } from '../enums/filter-facet-type';
 
 export class Codetude {
   id: number;
@@ -30,5 +32,28 @@ export class Codetude {
   //derrived
   buildDetailsPath(): string {
     return `/codetudes/${this.id}`;
+  }
+
+  matchesFacet(facet: FilterFacet): boolean {
+    let result: boolean = false;
+
+    if (facet.type === FilterFacetType.Text){
+      result = this.title.toLowerCase().includes(facet.value.toLowerCase())
+        || this.subtitle.toLowerCase().includes(facet.value.toLowerCase())
+        || this.description.toLowerCase().includes(facet.value.toLowerCase())
+        ;
+        
+      // opt
+      if (result) { return result };
+    }
+
+    if (facet.type === FilterFacetType.Tag){
+      result = this.tags.filter(tag => tag.name === facet.value).length > 0;
+
+      // opt
+      if (result) { return result };
+    }
+
+    return result;
   }
 }
