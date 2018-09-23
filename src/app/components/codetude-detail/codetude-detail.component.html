@@ -21,19 +21,19 @@
 </div>
 <div *ngIf='model && model.isInEditMode'>
     <div>
-        <input class="title-em" [(ngModel)]='model.src.title'>
+        <input class="title-em" [(ngModel)]='model.src.title' (ngModelChange)='onFieldChanged()'>
     </div>
     <div>
-        <input class="subtitle-em" [(ngModel)]='model.src.subtitle'>
+        <input class="subtitle-em" [(ngModel)]='model.src.subtitle' (ngModelChange)='onFieldChanged()'>
     </div>
     <div>
-        <textarea class="description-em" [(ngModel)]='model.src.description'></textarea>
+        <textarea class="description-em" [(ngModel)]='model.src.description' (ngModelChange)='onFieldChanged()'></textarea>
     </div>
     <div>
-        <input class="link-em" [(ngModel)]='model.src.sourceCodeLink'>
+        <input class="link-em" [(ngModel)]='model.src.sourceCodeLink' (ngModelChange)='onFieldChanged()'>
     </div>
     <div>
-        <input class="link-em" [(ngModel)]='model.src.liveDemoLink'>
+        <input class="link-em" [(ngModel)]='model.src.liveDemoLink' (ngModelChange)='onFieldChanged()'>
     </div>
     <div>
         <app-tag-selector [tagsOnCodetude]='model.src.tags' (tagAdded)='onTagAdded($event)' (tagRemoved)='onTagRemoved($event)'></app-tag-selector>

@@ -10,6 +10,7 @@ import { TagService } from '../../services/tag.service';
 import { FilterFacet } from '../../models/filter-facet.model';
 import { FilterFacetType } from '../../enums/filter-facet-type';
 import { FilterFacetMode } from '../../enums/fitter-facet-mode';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-codetudes',
@@ -30,8 +31,9 @@ export class CodetudesComponent implements OnInit {
   filterFacetMode = FilterFacetMode; // so the enum is accessible to the template
   currentFilterFacetMode = FilterFacetMode.And;
 
+  createButtonDisabled: boolean = false;
 
-  constructor(private codetudeService: CodetudeService, private tagService: TagService, private authService: AuthService ) {}
+  constructor(private codetudeService: CodetudeService, private tagService: TagService, private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.codetudeService.findAll().subscribe((codetudes: Codetude[]) => {
@@ -67,6 +69,20 @@ export class CodetudesComponent implements OnInit {
   setFilterFacetMode(mode: FilterFacetMode): void {
     this.currentFilterFacetMode = mode;
     this.updateDisplayedCodetudes();
+  }
+
+  userIsLoggedIn(): boolean {
+    return this.authService.userIsLoggedIn();
+  }
+
+  createNewCodetude(): void {
+    this.createButtonDisabled = false; // so it doesn't get spammed
+
+    // create blank new codetude in db and navigate to the details page
+    let newCodetude = new Codetude({});
+    this.codetudeService.create(newCodetude).subscribe((codetude: Codetude) => {
+      this.router.navigateByUrl(`/codetudes/${codetude.id}?edit=true`);
+    });
   }
 
   private facetAlreadyApplied(facet: FilterFacet): boolean {

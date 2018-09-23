@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EditableCodetude } from '../../models/editable-codetude.model';
 import { CodetudeService } from '../../services/codetude.service';
@@ -22,6 +22,11 @@ export class CodetudeDetailComponent implements OnInit {
     this.fetchCodetude();
   }
 
+  onFieldChanged(){
+    // TODO: This is super non-performant. DB request every key stroke.
+    this.saveChanges(this.model.src);
+  }
+
   toggleEditMode(): void {
     this.model.isInEditMode = !this.model.isInEditMode;
   }
@@ -29,23 +34,26 @@ export class CodetudeDetailComponent implements OnInit {
   onTagAdded(tag: Tag): void {
     let newCodetude = JSON.parse(JSON.stringify(this.model.src)); // copy
     newCodetude.tags.push(tag); // add tag
-    this.codetudeService.update(newCodetude).subscribe((codetude: Codetude) => {
-      this.model.src = codetude;
-    });
+    this.saveChanges(newCodetude);
   }
 
   onTagRemoved(tag: Tag): void {
     let newCodetude = JSON.parse(JSON.stringify(this.model.src)); // copy
     newCodetude.tags = newCodetude.tags.filter(t => {return t.id != tag.id}); // remove tag
-    this.codetudeService.update(newCodetude).subscribe((codetude: Codetude) => {
-      this.model.src = codetude;
-    });
+    this.saveChanges(newCodetude);
   }
 
   private fetchCodetude(): void {
     const id: number = parseInt(this.route.snapshot.paramMap.get('id'));
     this.codetudeService.findOne(id).subscribe((codetude: Codetude) =>{
       this.model =  new EditableCodetude(codetude);
+      this.model.isInEditMode = this.route.snapshot.queryParams['edit'] == 'true';
+    });
+  }
+
+  private saveChanges(codetude: Codetude): void {
+    this.codetudeService.update(codetude).subscribe((codetude: Codetude) => {
+      this.model.src = codetude;
     });
   }
 

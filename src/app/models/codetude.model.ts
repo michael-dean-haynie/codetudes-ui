@@ -26,7 +26,7 @@ export class Codetude {
     this.description = jsonCodetude.description;
     this.sourceCodeLink = jsonCodetude.sourceCodeLink;
     this.liveDemoLink = jsonCodetude.liveDemoLink;
-    this.tags = jsonCodetude.tags.map(jsonTag => new Tag(jsonTag));
+    this.tags = jsonCodetude.tags ? jsonCodetude.tags.map(jsonTag => new Tag(jsonTag)) : [];
   }
 
   //derrived

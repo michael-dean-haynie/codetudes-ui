@@ -31,4 +31,9 @@ export class CodetudeService {
     return ServiceHelpers.pipeJsonToModel<Codetude>(obs, Codetude);
   }
 
+  create(codetude: Codetude): Observable<Codetude> {
+    let obs = this.http.post<Codetude>(`${this.ENDPOINT}`, codetude, {});
+    return ServiceHelpers.pipeJsonToModel<Codetude>(obs, Codetude);
+  }
+
 }
