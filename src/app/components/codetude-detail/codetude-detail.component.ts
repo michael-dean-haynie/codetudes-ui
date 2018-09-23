@@ -1,5 +1,5 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EditableCodetude } from '../../models/editable-codetude.model';
 import { CodetudeService } from '../../services/codetude.service';
 import { Codetude } from '../../models/codetude.model';
@@ -15,7 +15,7 @@ export class CodetudeDetailComponent implements OnInit {
   model: EditableCodetude;
   userCanEdit: boolean = false;
 
-  constructor(private route: ActivatedRoute, private codetudeService: CodetudeService, private authService: AuthService) { }
+  constructor(private route: ActivatedRoute, private codetudeService: CodetudeService, private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.userCanEdit = this.authService.userIsLoggedIn();
@@ -41,6 +41,13 @@ export class CodetudeDetailComponent implements OnInit {
     let newCodetude = JSON.parse(JSON.stringify(this.model.src)); // copy
     newCodetude.tags = newCodetude.tags.filter(t => {return t.id != tag.id}); // remove tag
     this.saveChanges(newCodetude);
+  }
+
+  delete(): void {
+    this.codetudeService.delete(this.model.src.id).subscribe((id: number) => {
+      console.log(id);
+      this.router.navigateByUrl('/codetudes');
+    });
   }
 
   private fetchCodetude(): void {

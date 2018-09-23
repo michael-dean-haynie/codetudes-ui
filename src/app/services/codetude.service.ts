@@ -36,4 +36,8 @@ export class CodetudeService {
     return ServiceHelpers.pipeJsonToModel<Codetude>(obs, Codetude);
   }
 
+  delete(id: number): Observable<number> {
+    return this.http.delete<number>(`${this.ENDPOINT}/${id}`);
+  }
+
 }

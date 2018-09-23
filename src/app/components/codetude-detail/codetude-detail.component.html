@@ -17,7 +17,7 @@
     <div>
         <app-tag *ngFor='let tag of model.src.tags' [model]='tag'></app-tag>
     </div>
-    <button *ngIf='userCanEdit' (click)='toggleEditMode()'>Edit</button>
+    <button *ngIf='userCanEdit' (click)='toggleEditMode()'>EDIT MODE</button>
 </div>
 <div *ngIf='model && model.isInEditMode'>
     <div>
@@ -38,5 +38,7 @@
     <div>
         <app-tag-selector [tagsOnCodetude]='model.src.tags' (tagAdded)='onTagAdded($event)' (tagRemoved)='onTagRemoved($event)'></app-tag-selector>
     </div>
-    <button (click)='toggleEditMode()'>Edit</button>
+    <button (click)='toggleEditMode()'>DISPLAY MODE</button>
+    <br>
+    <button (click)='delete()'>DELETE</button>
 </div>
