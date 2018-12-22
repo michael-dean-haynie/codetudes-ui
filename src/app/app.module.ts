@@ -52,7 +52,8 @@ const appRoutes: Routes = [
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(
-      appRoutes/*,
+      appRoutes,
+      {useHash: true}/*,
       { enableTracing: true } // <-- debugging purposes only*/
     ),
     FormsModule
