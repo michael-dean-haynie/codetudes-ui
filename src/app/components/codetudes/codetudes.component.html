@@ -1,40 +1,17 @@
 <div id="ct-grid">
   <div class="header"><h1>Codetudes</h1></div>
 
-  <div *ngIf="userIsLoggedIn()">
+  <!-- <div *ngIf="userIsLoggedIn()">
     <button [disabled]="createButtonDisabled" (click)="createNewCodetude()">
       Create New Codetude
     </button>
-  </div>
+  </div> -->
 
-  <div>
-    <span>
-      <button *ngFor="let facet of appliedFacets" (click)="removeFacet(facet)">
-        {{ facet.value }}
-      </button>
-    </span>
-    <span>
-      <input [(ngModel)]="filterValue" (ngModelChange)="onFilterChange()" />
-    </span>
-    <span>
-      <button
-        [disabled]="currentFilterFacetMode === filterFacetMode.And"
-        (click)="setFilterFacetMode(filterFacetMode.And)"
-      >
-        AND
-      </button>
-      <button
-        [disabled]="currentFilterFacetMode === filterFacetMode.Or"
-        (click)="setFilterFacetMode(filterFacetMode.Or)"
-      >
-        OR
-      </button>
-    </span>
-    <div>
-      <div *ngFor="let facet of suggestedFacets">
-        <button (click)="applyFacet(facet)">{{ facet.value }}</button>
-      </div>
-    </div>
+  <div id="ct-filter">
+    <app-codetude-filter
+      (appliedFacetsChanged)="onAppliedFacetsChanged($event)"
+      (filterFacetModeChanged)="onFilterFacetModeChanged($event)"
+    ></app-codetude-filter>
   </div>
 
   <div id="ct-list-grid">

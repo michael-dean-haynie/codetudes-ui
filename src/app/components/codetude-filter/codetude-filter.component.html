@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="selected-facets">
+    <app-filter-facet
+      *ngFor="let facet of appliedFacets"
+      [model]="facet"
+      (click)="removeFacet($event)"
+    ></app-filter-facet>
+  </div>
+  <div class="input-bar">
+    <div class="input-padding">
+      <input
+        type="text"
+        class="input"
+        [(ngModel)]="filterValue"
+        (ngModelChange)="onFilterChange()"
+        placeholder="Filter on text or tag..."
+      />
+    </div>
+    <button
+      class="input-bar-button"
+      [disabled]="currentFilterFacetMode === FilterFacetMode.And"
+      (click)="setFilterFacetMode(FilterFacetMode.And)"
+    >
+      And
+    </button>
+    <button
+      class="input-bar-button"
+      [disabled]="currentFilterFacetMode === FilterFacetMode.Or"
+      (click)="setFilterFacetMode(FilterFacetMode.Or)"
+    >
+      Or
+    </button>
+  </div>
+  <div class="suggested-facets">
+    <app-filter-facet
+      *ngFor="let facet of suggestedFacets"
+      [model]="facet"
+      (click)="applyFacet($event)"
+    ></app-filter-facet>
+  </div>
+</div>

@@ -20,6 +20,8 @@ import { JwtInterceptorService } from './services/jwt-interceptor.service';
 import { ErrorInterceptorService } from './services/error-interceptor.service';
 import { TagsComponent } from './components/tags/tags.component';
 import { AuthGuardService } from './services/auth-guard.service';
+import { CodetudeFilterComponent } from './components/codetude-filter/codetude-filter.component';
+import { FilterFacetComponent } from './components/filter-facet/filter-facet.component';
 
 const appRoutes: Routes = [
   { path: 'auth', component: LoginComponent },
@@ -47,6 +49,8 @@ const appRoutes: Routes = [
     TagComponent,
     TagSelectorComponent,
     TagsComponent,
+    CodetudeFilterComponent,
+    FilterFacetComponent,
   ],
   imports: [
     BrowserModule,

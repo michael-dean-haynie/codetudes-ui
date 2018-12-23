@@ -1,0 +1,9 @@
+<span
+  (click)="onClick()"
+  class="filter-facet"
+  [ngClass]="{
+    'tag-filter-facet': model.type === FilterFacetType.Tag,
+    'text-filter-facet': model.type === FilterFacetType.Text
+  }"
+  >{{ model.value }}</span
+>

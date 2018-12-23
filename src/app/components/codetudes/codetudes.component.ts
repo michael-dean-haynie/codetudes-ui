@@ -18,24 +18,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./codetudes.component.css'],
 })
 export class CodetudesComponent implements OnInit {
-  allCodetudes: Codetude[];
-  allTags: Tag[];
-
-  displayedCodetudes: Codetude[];
-
-  filterValue = '';
-
+  allCodetudes: Codetude[] = [];
+  displayedCodetudes: Codetude[] = [];
   appliedFacets: FilterFacet[] = [];
-  suggestedFacets: FilterFacet[] = [];
-
-  filterFacetMode = FilterFacetMode; // so the enum is accessible to the template
-  currentFilterFacetMode = FilterFacetMode.And;
-
-  createButtonDisabled = false;
+  createButtonDisabled = true;
+  currentFilterFacetMode: FilterFacetMode = FilterFacetMode.And;
 
   constructor(
     private codetudeService: CodetudeService,
-    private tagService: TagService,
     private authService: AuthService,
     private router: Router
   ) {}
@@ -45,37 +35,6 @@ export class CodetudesComponent implements OnInit {
       this.allCodetudes = codetudes;
       this.updateDisplayedCodetudes();
     });
-
-    this.tagService.findAll().subscribe((tags: Tag[]) => {
-      this.allTags = tags;
-    });
-  }
-
-  onFilterChange(): void {
-    this.updateSuggestedFilterFacets();
-  }
-
-  applyFacet(facet: FilterFacet): void {
-    this.appliedFacets.push(facet);
-    this.updateDisplayedCodetudes();
-
-    // reset filter value and suggestions
-    this.filterValue = '';
-    this.onFilterChange();
-  }
-
-  removeFacet(facet: FilterFacet): void {
-    this.appliedFacets = this.appliedFacets.filter(
-      appFac => !appFac.sameAs(facet)
-    );
-    this.updateDisplayedCodetudes();
-
-    this.onFilterChange();
-  }
-
-  setFilterFacetMode(mode: FilterFacetMode): void {
-    this.currentFilterFacetMode = mode;
-    this.updateDisplayedCodetudes();
   }
 
   userIsLoggedIn(): boolean {
@@ -92,50 +51,21 @@ export class CodetudesComponent implements OnInit {
     });
   }
 
-  private facetAlreadyApplied(facet: FilterFacet): boolean {
-    return this.appliedFacets.filter(sugFac => sugFac.sameAs(facet)).length > 0;
+  onAppliedFacetsChanged(appliedFacets: FilterFacet[]): void {
+    this.appliedFacets = appliedFacets;
+    this.updateDisplayedCodetudes();
   }
 
-  private updateSuggestedFilterFacets(): void {
-    this.suggestedFacets = [];
-    if (this.filterValue.length > 0) {
-      // suggest raw text facet (if not already applied)
-      const potentialTextFacet: FilterFacet = new FilterFacet(
-        FilterFacetType.Text,
-        this.filterValue
-      );
-      if (!this.facetAlreadyApplied(potentialTextFacet)) {
-        this.suggestedFacets.push(potentialTextFacet);
-      }
-
-      // suggest tags (if not already applied)
-      this.allTags.forEach(tag => {
-        const potentialTagFacet: FilterFacet = new FilterFacet(
-          FilterFacetType.Tag,
-          tag.name
-        );
-        const filterValueInTagName: boolean = tag.name
-          .toLowerCase()
-          .includes(this.filterValue.toLowerCase().trim());
-
-        if (
-          filterValueInTagName &&
-          !this.facetAlreadyApplied(potentialTagFacet)
-        ) {
-          this.suggestedFacets.push(
-            new FilterFacet(FilterFacetType.Tag, tag.name)
-          );
-        }
-      });
-    }
+  onFilterFacetModeChanged(mode: FilterFacetMode) {
+    this.currentFilterFacetMode = mode;
+    this.updateDisplayedCodetudes();
   }
 
-  private updateDisplayedCodetudes() {
+  updateDisplayedCodetudes() {
     this.displayedCodetudes = [];
 
     // First, only admins (logged in users) can see non "live" codetudes
     const isAdmin = this.userIsLoggedIn();
-    console.log(isAdmin);
     const visibleCodetudes = this.allCodetudes.filter(codetude =>
       isAdmin ? true : codetude.live
     );

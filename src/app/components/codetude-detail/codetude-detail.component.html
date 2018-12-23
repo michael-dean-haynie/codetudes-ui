@@ -17,6 +17,7 @@
   </div>
   <button *ngIf="userCanEdit" (click)="toggleEditMode()">EDIT MODE</button>
 </div>
+
 <div *ngIf="model && model.isInEditMode">
   <div>
     <input
