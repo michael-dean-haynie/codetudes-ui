@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-codetudes',
   templateUrl: './codetudes.component.html',
-  styleUrls: ['./codetudes.component.css']
+  styleUrls: ['./codetudes.component.css'],
 })
 export class CodetudesComponent implements OnInit {
   allCodetudes: Codetude[];
@@ -23,7 +23,7 @@ export class CodetudesComponent implements OnInit {
 
   displayedCodetudes: Codetude[];
 
-  filterValue: string = '';
+  filterValue = '';
 
   appliedFacets: FilterFacet[] = [];
   suggestedFacets: FilterFacet[] = [];
@@ -31,9 +31,14 @@ export class CodetudesComponent implements OnInit {
   filterFacetMode = FilterFacetMode; // so the enum is accessible to the template
   currentFilterFacetMode = FilterFacetMode.And;
 
-  createButtonDisabled: boolean = false;
+  createButtonDisabled = false;
 
-  constructor(private codetudeService: CodetudeService, private tagService: TagService, private authService: AuthService, private router: Router) {}
+  constructor(
+    private codetudeService: CodetudeService,
+    private tagService: TagService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.codetudeService.findAll().subscribe((codetudes: Codetude[]) => {
@@ -60,7 +65,9 @@ export class CodetudesComponent implements OnInit {
   }
 
   removeFacet(facet: FilterFacet): void {
-    this.appliedFacets = this.appliedFacets.filter(appFac => !appFac.sameAs(facet));
+    this.appliedFacets = this.appliedFacets.filter(
+      appFac => !appFac.sameAs(facet)
+    );
     this.updateDisplayedCodetudes();
 
     this.onFilterChange();
@@ -79,7 +86,7 @@ export class CodetudesComponent implements OnInit {
     this.createButtonDisabled = false; // so it doesn't get spammed
 
     // create blank new codetude in db and navigate to the details page
-    let newCodetude = new Codetude({});
+    const newCodetude = new Codetude({});
     this.codetudeService.create(newCodetude).subscribe((codetude: Codetude) => {
       this.router.navigateByUrl(`/codetudes/${codetude.id}?edit=true`);
     });
@@ -92,35 +99,49 @@ export class CodetudesComponent implements OnInit {
   private updateSuggestedFilterFacets(): void {
     this.suggestedFacets = [];
     if (this.filterValue.length > 0) {
-
       // suggest raw text facet (if not already applied)
-      let potentialTextFacet: FilterFacet = new FilterFacet(FilterFacetType.Text, this.filterValue);
+      const potentialTextFacet: FilterFacet = new FilterFacet(
+        FilterFacetType.Text,
+        this.filterValue
+      );
       if (!this.facetAlreadyApplied(potentialTextFacet)) {
         this.suggestedFacets.push(potentialTextFacet);
       }
 
       // suggest tags (if not already applied)
       this.allTags.forEach(tag => {
-        let potentialTagFacet: FilterFacet = new FilterFacet(FilterFacetType.Tag, tag.name);
-        let filterValueInTagName: boolean = tag.name.toLowerCase().includes(this.filterValue.toLowerCase().trim());
+        const potentialTagFacet: FilterFacet = new FilterFacet(
+          FilterFacetType.Tag,
+          tag.name
+        );
+        const filterValueInTagName: boolean = tag.name
+          .toLowerCase()
+          .includes(this.filterValue.toLowerCase().trim());
 
-        if (filterValueInTagName && !this.facetAlreadyApplied(potentialTagFacet)) {
-          this.suggestedFacets.push(new FilterFacet(FilterFacetType.Tag, tag.name));
+        if (
+          filterValueInTagName &&
+          !this.facetAlreadyApplied(potentialTagFacet)
+        ) {
+          this.suggestedFacets.push(
+            new FilterFacet(FilterFacetType.Tag, tag.name)
+          );
         }
       });
     }
   }
 
-  private updateDisplayedCodetudes(){
+  private updateDisplayedCodetudes() {
     this.displayedCodetudes = [];
 
     // First, only admins (logged in users) can see non "live" codetudes
-    let isAdmin = this.userIsLoggedIn();
+    const isAdmin = this.userIsLoggedIn();
     console.log(isAdmin);
-    let visibleCodetudes = this.allCodetudes.filter(codetude => isAdmin ? true : codetude.live);
+    const visibleCodetudes = this.allCodetudes.filter(codetude =>
+      isAdmin ? true : codetude.live
+    );
 
     visibleCodetudes.forEach(codetude => {
-      let meetsAllCriteria: boolean = true; // default
+      let meetsAllCriteria = true; // default
 
       // All applied facets must match
       if (this.currentFilterFacetMode === FilterFacetMode.And) {
@@ -136,11 +157,10 @@ export class CodetudesComponent implements OnInit {
         });
       }
 
-      // final decision  
-      if (meetsAllCriteria){
+      // final decision
+      if (meetsAllCriteria) {
         this.displayedCodetudes.push(codetude);
       }
     });
   }
-
 }

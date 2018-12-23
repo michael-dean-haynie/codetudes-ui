@@ -7,20 +7,20 @@ import { Tag } from '../models/tag.model';
 import { ServiceHelpers } from './service-helpers';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TagService {
-  private ENDPOINT: string = `${environment.backendApiBase}/tags`;
+  private ENDPOINT = `${environment.backendApiBase}/tags`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   public findAll(): Observable<Tag[]> {
-    let obs =  this.http.get<Tag[]>(`${this.ENDPOINT}`);
+    const obs = this.http.get<Tag[]>(`${this.ENDPOINT}`);
     return ServiceHelpers.pipeJsonToModel<Tag[]>(obs, Tag);
   }
 
   update(tag: Tag): Observable<Tag> {
-    let obs = this.http.patch<Tag>(`${this.ENDPOINT}`, tag, {});
+    const obs = this.http.patch<Tag>(`${this.ENDPOINT}`, tag, {});
     return ServiceHelpers.pipeJsonToModel<Tag>(obs, Tag);
   }
 
@@ -29,7 +29,7 @@ export class TagService {
   }
 
   create(name: string): Observable<Tag> {
-    let obs = this.http.post<Tag>(`${this.ENDPOINT}`, { name: name });
+    const obs = this.http.post<Tag>(`${this.ENDPOINT}`, { name: name });
     return ServiceHelpers.pipeJsonToModel<Tag>(obs, Tag);
   }
 }

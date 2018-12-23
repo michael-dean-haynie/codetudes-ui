@@ -4,40 +4,39 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
-import { Codetude } from '../models/codetude.model'
+import { Codetude } from '../models/codetude.model';
 
 import { ServiceHelpers } from './service-helpers';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CodetudeService {
-  private ENDPOINT: string = `${environment.backendApiBase}/codetudes`;
+  private ENDPOINT = `${environment.backendApiBase}/codetudes`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   findAll(): Observable<Codetude[]> {
-    let obs =  this.http.get<Codetude[]>(`${this.ENDPOINT}`);
+    const obs = this.http.get<Codetude[]>(`${this.ENDPOINT}`);
     return ServiceHelpers.pipeJsonToModel<Codetude[]>(obs, Codetude);
   }
 
   findOne(id: number): Observable<Codetude> {
-    let obs = this.http.get<Codetude>(`${this.ENDPOINT}/${id}`);
+    const obs = this.http.get<Codetude>(`${this.ENDPOINT}/${id}`);
     return ServiceHelpers.pipeJsonToModel<Codetude>(obs, Codetude);
   }
 
   update(codetude: Codetude): Observable<Codetude> {
-    let obs = this.http.patch<Codetude>(`${this.ENDPOINT}`, codetude, {});
+    const obs = this.http.patch<Codetude>(`${this.ENDPOINT}`, codetude, {});
     return ServiceHelpers.pipeJsonToModel<Codetude>(obs, Codetude);
   }
 
   create(codetude: Codetude): Observable<Codetude> {
-    let obs = this.http.post<Codetude>(`${this.ENDPOINT}`, codetude, {});
+    const obs = this.http.post<Codetude>(`${this.ENDPOINT}`, codetude, {});
     return ServiceHelpers.pipeJsonToModel<Codetude>(obs, Codetude);
   }
 
   delete(id: number): Observable<number> {
     return this.http.delete<number>(`${this.ENDPOINT}/${id}`);
   }
-
 }

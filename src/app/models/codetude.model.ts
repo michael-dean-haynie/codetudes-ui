@@ -28,32 +28,38 @@ export class Codetude {
     this.sourceCodeLink = jsonCodetude.sourceCodeLink;
     this.liveDemoLink = jsonCodetude.liveDemoLink;
     this.live = jsonCodetude.live;
-    this.tags = jsonCodetude.tags ? jsonCodetude.tags.map(jsonTag => new Tag(jsonTag)) : [];
+    this.tags = jsonCodetude.tags
+      ? jsonCodetude.tags.map(jsonTag => new Tag(jsonTag))
+      : [];
   }
 
-  //derrived
+  // derrived
   buildDetailsPath(): string {
     return `/codetudes/${this.id}`;
   }
 
   matchesFacet(facet: FilterFacet): boolean {
-    let result: boolean = false;
+    let result = false;
 
-    if (facet.type === FilterFacetType.Text){
-      result = this.title.toLowerCase().includes(facet.value.toLowerCase())
-        || this.subtitle.toLowerCase().includes(facet.value.toLowerCase())
-        || this.description.toLowerCase().includes(facet.value.toLowerCase())
-        ;
-        
+    if (facet.type === FilterFacetType.Text) {
+      result =
+        this.title.toLowerCase().includes(facet.value.toLowerCase()) ||
+        this.subtitle.toLowerCase().includes(facet.value.toLowerCase()) ||
+        this.description.toLowerCase().includes(facet.value.toLowerCase());
+
       // opt
-      if (result) { return result };
+      if (result) {
+        return result;
+      }
     }
 
-    if (facet.type === FilterFacetType.Tag){
+    if (facet.type === FilterFacetType.Tag) {
       result = this.tags.filter(tag => tag.name === facet.value).length > 0;
 
       // opt
-      if (result) { return result };
+      if (result) {
+        return result;
+      }
     }
 
     return result;

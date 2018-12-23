@@ -1,14 +1,21 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  OnChanges,
+} from '@angular/core';
 import { Tag } from '../../models/tag.model';
 import { TagService } from '../../services/tag.service';
 
 @Component({
   selector: 'app-tag-selector',
   templateUrl: './tag-selector.component.html',
-  styleUrls: ['./tag-selector.component.css']
+  styleUrls: ['./tag-selector.component.css'],
 })
-export class TagSelectorComponent implements OnInit, OnChanges{
-  filterValue: string = "";
+export class TagSelectorComponent implements OnInit, OnChanges {
+  filterValue = '';
 
   @Input() tagsOnCodetude: Tag[] = [];
   allTags: Tag[] = [];
@@ -19,19 +26,18 @@ export class TagSelectorComponent implements OnInit, OnChanges{
   @Output() tagAdded = new EventEmitter<Tag>();
   @Output() tagRemoved = new EventEmitter<Tag>();
 
-  constructor(private tagService: TagService) { }
+  constructor(private tagService: TagService) {}
 
   ngOnInit() {
     this.loadAllTags();
   }
-  
+
   ngOnChanges() {
     this.updateDisplayedTagGroups();
   }
 
   onFilterChange(): void {
     this.updateDisplayedTagGroups();
-
   }
 
   addTag(tag: Tag): void {
@@ -41,8 +47,6 @@ export class TagSelectorComponent implements OnInit, OnChanges{
   removeTag(tag: Tag): void {
     this.tagRemoved.emit(tag);
   }
-
-
 
   private loadAllTags(): void {
     this.tagService.findAll().subscribe((tags: Tag[]) => {
@@ -56,18 +60,21 @@ export class TagSelectorComponent implements OnInit, OnChanges{
     this.displayedTagsNotOnCodetude = [];
 
     this.allTags.forEach(tag => {
-      const tagIsWithinFilter: boolean = tag.name.toLowerCase().trim().includes(this.filterValue.toLowerCase().trim());
-      if(tagIsWithinFilter || !this.filterValue.length) {
-
-        const tagIsAlreadyOnCodetude: boolean = this.tagsOnCodetude.filter(t => {return t.id === tag.id;}).length > 0;
-        if(tagIsAlreadyOnCodetude){
+      const tagIsWithinFilter: boolean = tag.name
+        .toLowerCase()
+        .trim()
+        .includes(this.filterValue.toLowerCase().trim());
+      if (tagIsWithinFilter || !this.filterValue.length) {
+        const tagIsAlreadyOnCodetude: boolean =
+          this.tagsOnCodetude.filter(t => {
+            return t.id === tag.id;
+          }).length > 0;
+        if (tagIsAlreadyOnCodetude) {
           this.displayedTagsOnCodetude.push(tag);
-        }
-        else {
+        } else {
           this.displayedTagsNotOnCodetude.push(tag);
         }
       }
     });
   }
-
 }

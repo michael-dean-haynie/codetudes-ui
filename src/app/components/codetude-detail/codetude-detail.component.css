@@ -1,33 +1,30 @@
 /* not edit mode */
 .title {
-    font-size: 2em;
-    font-weight: bold;
+  font-size: 2em;
+  font-weight: bold;
 }
 
 .subtitle {
-    font-size: 1.5em;
-    font-weight: bold;
+  font-size: 1.5em;
+  font-weight: bold;
 }
 
 .description {
-
 }
-
-
 
 /* edit mode */
 .title-em {
-    font-size: 2em;
-    font-weight: bold;
-    width: auto;
+  font-size: 2em;
+  font-weight: bold;
+  width: auto;
 }
 
 .subtitle-em {
-    font-size: 1.5em;
-    font-weight: bold;
+  font-size: 1.5em;
+  font-weight: bold;
 }
 .description-em {
-    width: 100%;
-    font: inherit;
-    resize: vertical;
+  width: 100%;
+  font: inherit;
+  resize: vertical;
 }

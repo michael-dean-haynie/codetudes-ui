@@ -1,49 +1,62 @@
-<div id='ct-grid'>
-    <div class='header'>
-        <h1>Codetudes</h1>
-    </div>
+<div id="ct-grid">
+  <div class="header"><h1>Codetudes</h1></div>
 
-    <div *ngIf='userIsLoggedIn()'>
-        <button [disabled]='createButtonDisabled' (click)='createNewCodetude()'>Create New Codetude</button>
-    </div>
+  <div *ngIf="userIsLoggedIn()">
+    <button [disabled]="createButtonDisabled" (click)="createNewCodetude()">
+      Create New Codetude
+    </button>
+  </div>
 
+  <div>
+    <span>
+      <button *ngFor="let facet of appliedFacets" (click)="removeFacet(facet)">
+        {{ facet.value }}
+      </button>
+    </span>
+    <span>
+      <input [(ngModel)]="filterValue" (ngModelChange)="onFilterChange()" />
+    </span>
+    <span>
+      <button
+        [disabled]="currentFilterFacetMode === filterFacetMode.And"
+        (click)="setFilterFacetMode(filterFacetMode.And)"
+      >
+        AND
+      </button>
+      <button
+        [disabled]="currentFilterFacetMode === filterFacetMode.Or"
+        (click)="setFilterFacetMode(filterFacetMode.Or)"
+      >
+        OR
+      </button>
+    </span>
     <div>
-        <span>
-            <button *ngFor='let facet of appliedFacets' (click)='removeFacet(facet)'>{{facet.value}}</button>
-        </span>
-        <span>
-            <input [(ngModel)]='filterValue' (ngModelChange)='onFilterChange()'>
-        </span>
-        <span>
-            <button [disabled]='currentFilterFacetMode === filterFacetMode.And' (click)='setFilterFacetMode(filterFacetMode.And)'>AND</button>
-            <button [disabled]='currentFilterFacetMode === filterFacetMode.Or' (click)='setFilterFacetMode(filterFacetMode.Or)'>OR</button>
-        </span>
-        <div>
-            <div *ngFor='let facet of suggestedFacets'>
-                <button (click)='applyFacet(facet)'>{{facet.value}}</button>
-            </div>
-        </div>
-
+      <div *ngFor="let facet of suggestedFacets">
+        <button (click)="applyFacet(facet)">{{ facet.value }}</button>
+      </div>
     </div>
+  </div>
 
-    <div id='ct-list-grid'>
-        <div class="ct-cell" *ngFor='let codetude of displayedCodetudes'>
-            <div class='ct-card'>
-                <div class='ct-card-preview'></div>
-                <div class='ct-card-content'>
-                    <p class='ct-card-content-title'>{{codetude.title}}</p>
-                    <p class='ct-card-content-description'>{{codetude.description | snippet:200}}</p>
-                    <p *ngIf='codetude.started'>{{codetude.started | date:'MMMM y'}}</p>
-                    <div>
-                        <app-tag *ngFor='let tag of codetude.tags' [model]="tag"></app-tag>
-                    </div>
-                    <div>
-                        <a routerLink={{codetude.buildDetailsPath()}}>Details</a>
-                    </div>
-                </div>
-            </div>
+  <div id="ct-list-grid">
+    <div class="ct-cell" *ngFor="let codetude of displayedCodetudes">
+      <div class="ct-card">
+        <div class="ct-card-preview"></div>
+        <div class="ct-card-content">
+          <p class="ct-card-content-title">{{ codetude.title }}</p>
+          <p class="ct-card-content-description">
+            {{ codetude.description | snippet: 200 }}
+          </p>
+          <p *ngIf="codetude.started">
+            {{ codetude.started | date: 'MMMM y' }}
+          </p>
+          <div>
+            <app-tag *ngFor="let tag of codetude.tags" [model]="tag"></app-tag>
+          </div>
+          <div>
+            <a routerLink="{{ codetude.buildDetailsPath() }}">Details</a>
+          </div>
         </div>
+      </div>
     </div>
-
+  </div>
 </div>
-

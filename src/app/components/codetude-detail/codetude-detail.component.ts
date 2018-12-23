@@ -9,20 +9,25 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-codetude-detail',
   templateUrl: './codetude-detail.component.html',
-  styleUrls: ['./codetude-detail.component.css']
+  styleUrls: ['./codetude-detail.component.css'],
 })
 export class CodetudeDetailComponent implements OnInit {
   model: EditableCodetude;
-  userCanEdit: boolean = false;
+  userCanEdit = false;
 
-  constructor(private route: ActivatedRoute, private codetudeService: CodetudeService, private authService: AuthService, private router: Router) { }
+  constructor(
+    private route: ActivatedRoute,
+    private codetudeService: CodetudeService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.userCanEdit = this.authService.userIsLoggedIn();
     this.fetchCodetude();
   }
 
-  onFieldChanged(){
+  onFieldChanged() {
     // TODO: This is super non-performant. DB request every key stroke.
     this.saveChanges(this.model.src);
   }
@@ -32,14 +37,16 @@ export class CodetudeDetailComponent implements OnInit {
   }
 
   onTagAdded(tag: Tag): void {
-    let newCodetude = JSON.parse(JSON.stringify(this.model.src)); // copy
+    const newCodetude = JSON.parse(JSON.stringify(this.model.src)); // copy
     newCodetude.tags.push(tag); // add tag
     this.saveChanges(newCodetude);
   }
 
   onTagRemoved(tag: Tag): void {
-    let newCodetude = JSON.parse(JSON.stringify(this.model.src)); // copy
-    newCodetude.tags = newCodetude.tags.filter(t => {return t.id != tag.id}); // remove tag
+    const newCodetude = JSON.parse(JSON.stringify(this.model.src)); // copy
+    newCodetude.tags = newCodetude.tags.filter(t => {
+      return t.id !== tag.id;
+    }); // remove tag
     this.saveChanges(newCodetude);
   }
 
@@ -51,17 +58,17 @@ export class CodetudeDetailComponent implements OnInit {
   }
 
   private fetchCodetude(): void {
-    const id: number = parseInt(this.route.snapshot.paramMap.get('id'));
-    this.codetudeService.findOne(id).subscribe((codetude: Codetude) =>{
-      this.model =  new EditableCodetude(codetude);
-      this.model.isInEditMode = this.route.snapshot.queryParams['edit'] == 'true';
+    const id: number = parseInt(this.route.snapshot.paramMap.get('id'), 10);
+    this.codetudeService.findOne(id).subscribe((codetude: Codetude) => {
+      this.model = new EditableCodetude(codetude);
+      this.model.isInEditMode =
+        this.route.snapshot.queryParams['edit'] === 'true';
     });
   }
 
   private saveChanges(codetude: Codetude): void {
-    this.codetudeService.update(codetude).subscribe((codetude: Codetude) => {
-      this.model.src = codetude;
+    this.codetudeService.update(codetude).subscribe((ct: Codetude) => {
+      this.model.src = ct;
     });
   }
-
 }

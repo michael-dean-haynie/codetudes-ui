@@ -1,4 +1,4 @@
 export enum FilterFacetType {
-    Tag,
-    Text
+  Tag,
+  Text,
 }

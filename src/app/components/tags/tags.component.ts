@@ -6,53 +6,55 @@ import { Tag } from '../../models/tag.model';
 @Component({
   selector: 'app-tags',
   templateUrl: './tags.component.html',
-  styleUrls: ['./tags.component.css']
+  styleUrls: ['./tags.component.css'],
 })
 export class TagsComponent implements OnInit {
   tags: EditableTag[];
-  newTagName: string = '';
+  newTagName = '';
 
-  constructor(private tagService: TagService) { }
+  constructor(private tagService: TagService) {}
 
   ngOnInit() {
-    this.loadAllTags()
+    this.loadAllTags();
   }
 
-  toggleEditMode(id: number): void{
-    let tag: EditableTag = this.getTagById(id);
+  toggleEditMode(id: number): void {
+    const tag: EditableTag = this.getTagById(id);
     tag.isInEditMode = !tag.isInEditMode;
   }
 
-  discardChanges(id: number){
-    let tag: EditableTag = this.getTagById(id);
+  discardChanges(id: number) {
+    const tag: EditableTag = this.getTagById(id);
     tag.src.name = tag.originalName;
     tag.isInEditMode = false;
   }
 
   acceptChanges(id: number): void {
-    let tag: EditableTag = this.getTagById(id);
+    const tag: EditableTag = this.getTagById(id);
     tag.isInEditMode = false;
 
-    let newTag: Tag = tag.src;
+    const newTag: Tag = tag.src;
     this.tagService.update(newTag).subscribe((respTag: Tag) => {
       // replace old tag with new one from response
-      let newTags: EditableTag[] = [];
-      this.tags.forEach(t => newTags.push(t.src.id == respTag.id ? new EditableTag(respTag): t));
+      const newTags: EditableTag[] = [];
+      this.tags.forEach(t =>
+        newTags.push(t.src.id === respTag.id ? new EditableTag(respTag) : t)
+      );
       this.tags = newTags;
     });
   }
 
   delete(id: number): void {
     this.tagService.delete(id).subscribe((respId: number) => {
-      this.tags = this.tags.filter(t => t.src.id != respId);
-    })
+      this.tags = this.tags.filter(t => t.src.id !== respId);
+    });
   }
 
   create(): void {
     this.tagService.create(this.newTagName).subscribe((respTag: Tag) => {
       this.tags.push(new EditableTag(respTag));
       this.newTagName = '';
-    })
+    });
   }
 
   private loadAllTags(): void {
@@ -64,5 +66,4 @@ export class TagsComponent implements OnInit {
   private getTagById(id: number): EditableTag {
     return this.tags.filter(t => t.src.id === id)[0];
   }
-
 }

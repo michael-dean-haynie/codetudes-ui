@@ -22,18 +22,18 @@ import { TagsComponent } from './components/tags/tags.component';
 import { AuthGuardService } from './services/auth-guard.service';
 
 const appRoutes: Routes = [
-  { path: 'auth', component: LoginComponent},
+  { path: 'auth', component: LoginComponent },
   { path: 'about', component: AboutComponent },
   { path: 'codetudes', component: CodetudesComponent },
   { path: 'codetudes/:id', component: CodetudeDetailComponent },
-  { path: 'tags', component: TagsComponent, canActivate: [AuthGuardService]},
+  { path: 'tags', component: TagsComponent, canActivate: [AuthGuardService] },
 
   {
     path: '',
     redirectTo: 'codetudes',
-    pathMatch: 'full'
-  }/*,
-  { path: '**', component: PageNotFoundComponent }*/
+    pathMatch: 'full',
+  } /*,
+  { path: '**', component: PageNotFoundComponent }*/,
 ];
 
 @NgModule({
@@ -46,17 +46,19 @@ const appRoutes: Routes = [
     CodetudeDetailComponent,
     TagComponent,
     TagSelectorComponent,
-    TagsComponent
+    TagsComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(
       appRoutes,
-      {useHash: true}/*,
+      {
+        useHash: true,
+      } /*,
       { enableTracing: true } // <-- debugging purposes only*/
     ),
-    FormsModule
+    FormsModule,
   ],
   providers: [
     CodetudeService,
@@ -65,15 +67,14 @@ const appRoutes: Routes = [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptorService,
-      multi: true
+      multi: true,
     },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptorService,
-      multi: true
-    }
-
+      multi: true,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

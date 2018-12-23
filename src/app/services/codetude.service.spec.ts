@@ -5,11 +5,14 @@ import { CodetudeService } from './codetude.service';
 describe('CodetudeService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [CodetudeService]
+      providers: [CodetudeService],
     });
   });
 
-  it('should be created', inject([CodetudeService], (service: CodetudeService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('should be created', inject(
+    [CodetudeService],
+    (service: CodetudeService) => {
+      expect(service).toBeTruthy();
+    }
+  ));
 });
