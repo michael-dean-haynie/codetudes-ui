@@ -21,7 +21,6 @@ export class CodetudesComponent implements OnInit {
   allCodetudes: Codetude[] = [];
   displayedCodetudes: Codetude[] = [];
   appliedFacets: FilterFacet[] = [];
-  createButtonDisabled = true;
   currentFilterFacetMode: FilterFacetMode = FilterFacetMode.And;
 
   constructor(
@@ -42,8 +41,6 @@ export class CodetudesComponent implements OnInit {
   }
 
   createNewCodetude(): void {
-    this.createButtonDisabled = false; // so it doesn't get spammed
-
     // create blank new codetude in db and navigate to the details page
     const newCodetude = new Codetude({});
     this.codetudeService.create(newCodetude).subscribe((codetude: Codetude) => {

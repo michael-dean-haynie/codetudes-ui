@@ -1,11 +1,10 @@
 <div id="ct-grid">
   <div class="header"><h1>Codetudes</h1></div>
 
-  <!-- <div *ngIf="userIsLoggedIn()">
-    <button [disabled]="createButtonDisabled" (click)="createNewCodetude()">
-      Create New Codetude
-    </button>
-  </div> -->
+  <div *ngIf="userIsLoggedIn()">
+    <button (click)="createNewCodetude()">Create New Codetude</button>
+    <button><a routerLink="/tags">Manage Tags</a></button>
+  </div>
 
   <div id="ct-filter">
     <app-codetude-filter
