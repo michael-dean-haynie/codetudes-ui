@@ -57,6 +57,10 @@ export class CodetudeDetailComponent implements OnInit {
     });
   }
 
+  inEditMode(): boolean {
+    return this.model.isInEditMode;
+  }
+
   private fetchCodetude(): void {
     const id: number = parseInt(this.route.snapshot.paramMap.get('id'), 10);
     this.codetudeService.findOne(id).subscribe((codetude: Codetude) => {

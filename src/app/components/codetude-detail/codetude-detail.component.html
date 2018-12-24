@@ -1,66 +1,94 @@
-<div *ngIf="model && !model.isInEditMode">
-  <div>
-    <span class="title">{{ model.src.title }}</span>
+<div class="codetude-detail">
+  <app-back-button></app-back-button>
+  <button (click)="toggleEditMode()">
+    {{ inEditMode() ? 'DISPLAY MODE' : 'EDIT MODE' }}
+  </button>
+
+  <!-- Title -->
+  <div class="title-container">
+    <div *ngIf="!inEditMode()">
+      <div class="title">{{ model.src.title }}</div>
+    </div>
+
+    <div *ngIf="inEditMode()">
+      <input
+        class="title-input"
+        placeholder="Title"
+        [(ngModel)]="model.src.title"
+        (ngModelChange)="onFieldChanged()"
+      />
+    </div>
   </div>
-  <div>
+
+  <!-- Preview -->
+  <div class="preview">
+    <!-- Source Code -->
+    <div *ngIf="!inEditMode()">
+      <a class="link" href="{{ model.src.sourceCodeLink }}">Source Code</a>
+    </div>
+
+    <div *ngIf="inEditMode()">
+      <input
+        class="link-em"
+        [(ngModel)]="model.src.sourceCodeLink"
+        (ngModelChange)="onFieldChanged()"
+      />
+    </div>
+
+    <!-- Live Demo -->
+    <div *ngIf="!inEditMode()">
+      <a class="link" href="{{ model.src.liveDemoLink }}">Live Demo</a>
+    </div>
+
+    <div *ngIf="inEditMode()">
+      <input
+        class="link-em"
+        [(ngModel)]="model.src.liveDemoLink"
+        (ngModelChange)="onFieldChanged()"
+      />
+    </div>
+  </div>
+
+  <!-- Subtitle -->
+  <div *ngIf="!inEditMode()">
     <span class="subtitle">{{ model.src.subtitle }}</span>
   </div>
-  <div>
-    <span class="description">{{ model.src.description }}</span>
-  </div>
-  <div>
-    <a class="link" href="{{ model.src.sourceCodeLink }}">Source Code</a>
-  </div>
-  <div><a class="link" href="{{ model.src.liveDemoLink }}">Live Demo</a></div>
-  <div>
-    <app-tag *ngFor="let tag of model.src.tags" [model]="tag"></app-tag>
-  </div>
-  <button *ngIf="userCanEdit" (click)="toggleEditMode()">EDIT MODE</button>
-</div>
 
-<div *ngIf="model && model.isInEditMode">
-  <div>
-    <input
-      class="title-em"
-      [(ngModel)]="model.src.title"
-      (ngModelChange)="onFieldChanged()"
-    />
-  </div>
-  <div>
+  <div *ngIf="inEditMode()">
     <input
       class="subtitle-em"
       [(ngModel)]="model.src.subtitle"
       (ngModelChange)="onFieldChanged()"
     />
   </div>
-  <div>
+
+  <!-- Description -->
+  <div *ngIf="!inEditMode()">
+    <span class="description">{{ model.src.description }}</span>
+  </div>
+
+  <div *ngIf="inEditMode()">
     <textarea
       class="description-em"
       [(ngModel)]="model.src.description"
       (ngModelChange)="onFieldChanged()"
     ></textarea>
   </div>
-  <div>
-    <input
-      class="link-em"
-      [(ngModel)]="model.src.sourceCodeLink"
-      (ngModelChange)="onFieldChanged()"
-    />
+
+  <!-- Tags -->
+  <div *ngIf="!inEditMode()">
+    <app-tag *ngFor="let tag of model.src.tags" [model]="tag"></app-tag>
   </div>
-  <div>
-    <input
-      class="link-em"
-      [(ngModel)]="model.src.liveDemoLink"
-      (ngModelChange)="onFieldChanged()"
-    />
-  </div>
-  <div>
+
+  <div *ngIf="inEditMode()">
     <app-tag-selector
       [tagsOnCodetude]="model.src.tags"
       (tagAdded)="onTagAdded($event)"
       (tagRemoved)="onTagRemoved($event)"
     ></app-tag-selector>
   </div>
-  <button (click)="toggleEditMode()">DISPLAY MODE</button> <br />
+</div>
+
+<div *ngIf="model && model.isInEditMode">
   <button (click)="delete()">DELETE</button>
 </div>

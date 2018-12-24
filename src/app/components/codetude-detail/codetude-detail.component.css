@@ -1,7 +1,16 @@
-/* not edit mode */
-.title {
+.title-container {
+  margin-top: 0.5em;
   font-size: 2em;
   font-weight: bold;
+}
+
+.preview {
+  background-color: rgb(230, 230, 230); /* fallback */
+  background-image: url('../../../assets/images/preview.jpg');
+  background-size: cover;
+  height: 10em;
+
+  display: grid;
 }
 
 .subtitle {
@@ -12,11 +21,14 @@
 .description {
 }
 
-/* edit mode */
-.title-em {
-  font-size: 2em;
-  font-weight: bold;
-  width: auto;
+input {
+  font-size: inherit;
+  font-weight: inherit;
+  background-color: inherit;
+  border-style: none;
+  outline: none;
+  padding: 0;
+  width: 100%;
 }
 
 .subtitle-em {
