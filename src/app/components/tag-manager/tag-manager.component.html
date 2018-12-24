@@ -1,0 +1,17 @@
+<div
+  *ngIf="editMode; then tagManagerEditMode; else tagManagerDisplayMode"
+></div>
+<ng-template #tagManagerDisplayMode>
+  <span> {{ model.name }} </span>
+  <span>
+    <button (click)="toggleEditMode()">EDIT</button>
+    <button (click)="delete()">DELETE</button>
+  </span>
+</ng-template>
+<ng-template #tagManagerEditMode>
+  <span> <input [(ngModel)]="model.name" /> </span>
+  <span>
+    <button (click)="acceptChanges()">ACCEPT CHANGES</button>
+    <button (click)="discardChanges()">CANCEL</button>
+  </span>
+</ng-template>

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { TagService } from '../../services/tag.service';
-import { EditableTag } from '../../models/editable-tag.model';
 import { Tag } from '../../models/tag.model';
 
 @Component({
@@ -9,7 +8,7 @@ import { Tag } from '../../models/tag.model';
   styleUrls: ['./tags.component.css'],
 })
 export class TagsComponent implements OnInit {
-  tags: EditableTag[];
+  tags: Tag[];
   newTagName = '';
 
   constructor(private tagService: TagService) {}
@@ -18,52 +17,20 @@ export class TagsComponent implements OnInit {
     this.loadAllTags();
   }
 
-  toggleEditMode(id: number): void {
-    const tag: EditableTag = this.getTagById(id);
-    tag.isInEditMode = !tag.isInEditMode;
-  }
-
-  discardChanges(id: number) {
-    const tag: EditableTag = this.getTagById(id);
-    tag.src.name = tag.originalName;
-    tag.isInEditMode = false;
-  }
-
-  acceptChanges(id: number): void {
-    const tag: EditableTag = this.getTagById(id);
-    tag.isInEditMode = false;
-
-    const newTag: Tag = tag.src;
-    this.tagService.update(newTag).subscribe((respTag: Tag) => {
-      // replace old tag with new one from response
-      const newTags: EditableTag[] = [];
-      this.tags.forEach(t =>
-        newTags.push(t.src.id === respTag.id ? new EditableTag(respTag) : t)
-      );
-      this.tags = newTags;
-    });
-  }
-
-  delete(id: number): void {
-    this.tagService.delete(id).subscribe((respId: number) => {
-      this.tags = this.tags.filter(t => t.src.id !== respId);
-    });
-  }
-
   create(): void {
     this.tagService.create(this.newTagName).subscribe((respTag: Tag) => {
-      this.tags.push(new EditableTag(respTag));
+      this.tags.push(respTag);
       this.newTagName = '';
     });
   }
 
   private loadAllTags(): void {
     this.tagService.findAll().subscribe((tags: Tag[]) => {
-      this.tags = tags.map(tag => new EditableTag(tag));
+      this.tags = tags;
     });
   }
 
-  private getTagById(id: number): EditableTag {
-    return this.tags.filter(t => t.src.id === id)[0];
+  onTagDeleted(id: number): void {
+    this.tags = this.tags.filter(tag => tag.id !== id);
   }
 }
