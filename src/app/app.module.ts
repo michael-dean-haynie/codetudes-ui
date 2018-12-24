@@ -24,6 +24,7 @@ import { CodetudeFilterComponent } from './components/codetude-filter/codetude-f
 import { FilterFacetComponent } from './components/filter-facet/filter-facet.component';
 import { FilterStateService } from './services/filter-state.service';
 import { TagManagerComponent } from './components/tag-manager/tag-manager.component';
+import { BackButtonComponent } from './components/back-button/back-button.component';
 
 const appRoutes: Routes = [
   { path: 'auth', component: LoginComponent },
@@ -54,6 +55,7 @@ const appRoutes: Routes = [
     CodetudeFilterComponent,
     FilterFacetComponent,
     TagManagerComponent,
+    BackButtonComponent,
   ],
   imports: [
     BrowserModule,

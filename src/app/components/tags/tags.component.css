@@ -1,5 +1,8 @@
 .tags-container {
+  margin: 0 1em 1em 1em;
+}
+
+.tags-list-container {
   display: grid;
   grid-row-gap: 1rem;
-  margin: 0 1em 1em 1em;
 }
