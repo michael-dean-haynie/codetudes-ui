@@ -1,0 +1,34 @@
+.tag-manager {
+  font-size: 1.5rem;
+  border: 1px solid #dddddd;
+  border-radius: 20px;
+  background-color: white;
+  padding: 0;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 65% 15% 20%;
+}
+
+.tag-manager-button {
+  box-sizing: border-box;
+  border-left: solid 1px #b1b1b1;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  outline: none;
+  background-color: #e7e7e7;
+  color: black;
+}
+
+.tag-manager-display {
+  padding: 0.5em 1em 0.5em 1em;
+}
+
+.tag-manager-input {
+  font-size: inherit;
+  padding: 0.5em 1em 0.5em 1em;
+  background-color: inherit;
+  border-style: none;
+  width: 100%;
+  outline: none;
+}

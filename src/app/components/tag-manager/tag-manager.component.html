@@ -1,17 +1,24 @@
-<div
-  *ngIf="editMode; then tagManagerEditMode; else tagManagerDisplayMode"
-></div>
+<div class="tag-manager">
+  <div
+    *ngIf="editMode; then tagManagerEditMode; else tagManagerDisplayMode"
+  ></div>
+</div>
 <ng-template #tagManagerDisplayMode>
-  <span> {{ model.name }} </span>
-  <span>
-    <button (click)="toggleEditMode()">EDIT</button>
-    <button (click)="delete()">DELETE</button>
-  </span>
+  <div class="tag-manager-display" (click)="toggleEditMode()">
+    {{ model.name }}
+  </div>
+  <button class="tag-manager-button" (click)="toggleEditMode()">EDIT</button>
+  <button class="tag-manager-button" (click)="delete()">DELETE</button>
 </ng-template>
 <ng-template #tagManagerEditMode>
-  <span> <input [(ngModel)]="model.name" /> </span>
-  <span>
-    <button (click)="acceptChanges()">ACCEPT CHANGES</button>
-    <button (click)="discardChanges()">CANCEL</button>
-  </span>
+  <input
+    class="tag-manager-input"
+    [(ngModel)]="model.name"
+    (keydown)="onInputKeydown($event)"
+    #tagManagerInput
+  />
+  <button class="tag-manager-button" (click)="acceptChanges()">
+    ACCEPT CHANGES
+  </button>
+  <button class="tag-manager-button" (click)="discardChanges()">CANCEL</button>
 </ng-template>

@@ -1,10 +1,12 @@
-<div *ngIf="tags">
-  <div *ngFor="let tag of tags">
-    <app-tag-manager
-      [model]="tag"
-      (tagDeleted)="onTagDeleted($event)"
-    ></app-tag-manager>
-  </div>
+<div class="tags-container">
+  <ng-container *ngIf="tags && tags.length">
+    <div *ngFor="let tag of tags">
+      <app-tag-manager
+        [model]="tag"
+        (tagDeleted)="onTagDeleted($event)"
+      ></app-tag-manager>
+    </div>
+  </ng-container>
   <div>
     <span> <input [(ngModel)]="newTagName" placeholder="New Tag" /> </span>
     <span> <button (click)="create()">CREATE</button> </span>

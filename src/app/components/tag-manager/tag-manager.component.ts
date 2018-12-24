@@ -1,4 +1,13 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ViewChild,
+  ElementRef,
+  AfterViewChecked,
+} from '@angular/core';
 import { TagService } from 'src/app/services/tag.service';
 import { Tag } from 'src/app/models/tag.model';
 
@@ -7,13 +16,16 @@ import { Tag } from 'src/app/models/tag.model';
   templateUrl: './tag-manager.component.html',
   styleUrls: ['./tag-manager.component.css'],
 })
-export class TagManagerComponent implements OnInit {
+export class TagManagerComponent implements OnInit, AfterViewChecked {
   @Input() model: Tag;
 
   @Output() tagDeleted = new EventEmitter<number>();
 
+  @ViewChild('tagManagerInput') tagManagerInput: ElementRef;
+
   private originalModel: Tag;
   editMode = false;
+  focusOnInputFlag = false; //
 
   constructor(private tagService: TagService) {}
 
@@ -22,8 +34,18 @@ export class TagManagerComponent implements OnInit {
     this.originalModel = { ...this.model };
   }
 
+  ngAfterViewChecked() {
+    if (this.focusOnInputFlag) {
+      this.tagManagerInput.nativeElement.focus();
+      this.focusOnInputFlag = false;
+    }
+  }
+
   toggleEditMode(): void {
     this.editMode = !this.editMode;
+    if (this.editMode) {
+      this.focusOnInputFlag = true;
+    }
   }
 
   delete(): void {
@@ -46,5 +68,11 @@ export class TagManagerComponent implements OnInit {
     // apply stashed original back to working model
     this.model = { ...this.originalModel };
     this.editMode = false;
+  }
+
+  onInputKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Enter') {
+      this.acceptChanges();
+    }
   }
 }
