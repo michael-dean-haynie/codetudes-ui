@@ -1,7 +1,15 @@
 <div class="tags-container">
   <div><app-back-button></app-back-button></div>
-  <div><!-- heading --></div>
+  <div class="header"><h1>Tag Management</h1></div>
   <div class="tags-list-container">
+    <div class="new-tag">
+      <input
+        class="new-tag-input"
+        [(ngModel)]="newTagName"
+        placeholder="New Tag"
+      />
+      <button class="new-tag-button" (click)="create()">CREATE</button>
+    </div>
     <ng-container *ngIf="tags && tags.length">
       <div *ngFor="let tag of tags">
         <app-tag-manager
@@ -10,9 +18,5 @@
         ></app-tag-manager>
       </div>
     </ng-container>
-    <div>
-      <span> <input [(ngModel)]="newTagName" placeholder="New Tag" /> </span>
-      <span> <button (click)="create()">CREATE</button> </span>
-    </div>
   </div>
 </div>

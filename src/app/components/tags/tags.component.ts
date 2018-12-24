@@ -19,7 +19,7 @@ export class TagsComponent implements OnInit {
 
   create(): void {
     this.tagService.create(this.newTagName).subscribe((respTag: Tag) => {
-      this.tags.push(respTag);
+      this.tags.unshift(respTag);
       this.newTagName = '';
     });
   }
