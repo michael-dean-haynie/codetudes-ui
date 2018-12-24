@@ -22,6 +22,7 @@ import { TagsComponent } from './components/tags/tags.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { CodetudeFilterComponent } from './components/codetude-filter/codetude-filter.component';
 import { FilterFacetComponent } from './components/filter-facet/filter-facet.component';
+import { FilterStateService } from './services/filter-state.service';
 
 const appRoutes: Routes = [
   { path: 'auth', component: LoginComponent },
@@ -66,6 +67,7 @@ const appRoutes: Routes = [
   ],
   providers: [
     CodetudeService,
+    FilterStateService,
     AuthService,
     AuthGuardService,
     {

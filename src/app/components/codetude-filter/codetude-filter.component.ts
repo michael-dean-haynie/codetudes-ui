@@ -1,3 +1,4 @@
+import { FilterStateService } from './../../services/filter-state.service';
 import {
   Component,
   OnInit,
@@ -6,6 +7,7 @@ import {
   EventEmitter,
   ViewChild,
   ElementRef,
+  OnDestroy,
 } from '@angular/core';
 import { FilterFacet } from 'src/app/models/filter-facet.model';
 import { FilterFacetType } from 'src/app/enums/filter-facet-type';
@@ -18,7 +20,7 @@ import { FilterFacetMode } from 'src/app/enums/fitter-facet-mode';
   templateUrl: './codetude-filter.component.html',
   styleUrls: ['./codetude-filter.component.css'],
 })
-export class CodetudeFilterComponent implements OnInit {
+export class CodetudeFilterComponent implements OnInit, OnDestroy {
   @Input() allTags: Tag[] = [];
 
   @Output() appliedFacetsChanged = new EventEmitter<FilterFacet[]>();
@@ -26,24 +28,56 @@ export class CodetudeFilterComponent implements OnInit {
 
   @ViewChild('filterInput') filterInput: ElementRef;
 
-  filterValue = '';
+  filterValue = null;
   inputHasFocus = false;
-  appliedFacets: FilterFacet[] = [];
+  appliedFacets: FilterFacet[] = null;
   suggestedFacets: FilterFacet[] = [];
   suggestedFacetsFocusIndex = 0;
   keepFocusOnInputFlag = false;
-  currentFilterFacetMode = FilterFacetMode.And;
+  currentFilterFacetMode = null;
   FilterFacetMode = FilterFacetMode; // so the enum is accessible to the template
 
-  constructor(private tagService: TagService) {}
+  constructor(
+    private tagService: TagService,
+    private filterStateService: FilterStateService
+  ) {}
 
   ngOnInit() {
     // load all tags
     this.tagService.findAll().subscribe((tags: Tag[]) => {
       this.allTags = tags;
+
+      // load previous applied facets (only text type or (tag type that match one in allTags))
+      this.appliedFacets = this.filterStateService.appliedFacets.filter(
+        oldFacet => {
+          return (
+            oldFacet.type === FilterFacetType.Text ||
+            (oldFacet.type === FilterFacetType.Tag &&
+              this.allTags.some(
+                currentTag => currentTag.name === oldFacet.value
+              ))
+          );
+        }
+      );
+
+      this.appliedFacetsChanged.emit(this.appliedFacets);
     });
 
+    // load previous filter value
+    this.filterValue = this.filterStateService.filterValue;
+
+    // load previous filter facet mode
+    this.currentFilterFacetMode = this.filterStateService.currentFilterFacetMode;
+    this.filterFacetModeChanged.emit(this.currentFilterFacetMode);
+
+    // auto focus
     this.focusOnFilterInput();
+  }
+
+  ngOnDestroy() {
+    this.filterStateService.appliedFacets = this.appliedFacets;
+    this.filterStateService.filterValue = this.filterValue;
+    this.filterStateService.currentFilterFacetMode = this.currentFilterFacetMode;
   }
 
   onFilterChange(): void {
@@ -172,9 +206,5 @@ export class CodetudeFilterComponent implements OnInit {
         }
       }
     }
-  }
-
-  log(m: any): void {
-    console.log(m);
   }
 }
