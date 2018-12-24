@@ -73,18 +73,22 @@ export class CodetudesComponent implements OnInit {
     visibleCodetudes.forEach(codetude => {
       let meetsAllCriteria = true; // default
 
-      // All applied facets must match
+      // All applied facets must match (unless there aren't any facets)
       if (this.currentFilterFacetMode === FilterFacetMode.And) {
-        meetsAllCriteria = this.appliedFacets.every(facet => {
-          return codetude.matchesFacet(facet);
-        });
+        meetsAllCriteria =
+          !this.appliedFacets.length ||
+          this.appliedFacets.every(facet => {
+            return codetude.matchesFacet(facet);
+          });
       }
 
-      // At least one applied facet must match
+      // At least one applied facet must match (unless there aren't any facets)
       if (this.currentFilterFacetMode === FilterFacetMode.Or) {
-        meetsAllCriteria = this.appliedFacets.some(facet => {
-          return codetude.matchesFacet(facet);
-        });
+        meetsAllCriteria =
+          !this.appliedFacets.length ||
+          this.appliedFacets.some(facet => {
+            return codetude.matchesFacet(facet);
+          });
       }
 
       // final decision
