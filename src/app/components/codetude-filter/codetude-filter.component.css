@@ -60,6 +60,10 @@
   font-size: 0.75em;
 }
 
+.suggested-facet:hover {
+  background-color: #e7e7e7;
+}
+
 .suggested-facet.focused {
   background-color: rgba(56, 185, 224, 0.26);
 }

@@ -125,10 +125,6 @@ export class CodetudeFilterComponent implements OnInit {
     );
   }
 
-  setSuggestedFacetsFocusIndex(index: number): void {
-    this.suggestedFacetsFocusIndex = index;
-  }
-
   onInputBlur(): void {
     this.keepFocusOnInputFlag = false;
     setTimeout(() => {
@@ -152,5 +148,33 @@ export class CodetudeFilterComponent implements OnInit {
   focusOnFilterInput(): void {
     this.filterInput.nativeElement.focus();
     this.inputHasFocus = true;
+  }
+
+  onKeydownFromInput(event: KeyboardEvent): void {
+    if (this.suggestedFacets && this.suggestedFacets.length) {
+      if (event.key === 'Enter') {
+        this.applyFacet(this.suggestedFacets[this.suggestedFacetsFocusIndex]);
+        this.suggestedFacetsFocusIndex = 0;
+        event.preventDefault();
+      }
+
+      if (event.key === 'ArrowUp') {
+        if (this.suggestedFacetsFocusIndex > 0) {
+          this.suggestedFacetsFocusIndex--;
+          event.preventDefault(); // stops cursor from moving in input
+        }
+      }
+
+      if (event.key === 'ArrowDown') {
+        if (this.suggestedFacetsFocusIndex < this.suggestedFacets.length - 1) {
+          this.suggestedFacetsFocusIndex++;
+          event.preventDefault(); // stops cursor from moving in input
+        }
+      }
+    }
+  }
+
+  log(m: any): void {
+    console.log(m);
   }
 }

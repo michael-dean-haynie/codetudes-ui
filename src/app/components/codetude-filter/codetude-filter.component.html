@@ -20,6 +20,7 @@
         (ngModelChange)="onFilterChange()"
         (focus)="inputHasFocus = true"
         (blur)="onInputBlur()"
+        (keydown)="onKeydownFromInput($event)"
       />
     </div>
     <button
