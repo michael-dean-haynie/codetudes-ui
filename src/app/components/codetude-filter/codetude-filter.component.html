@@ -3,39 +3,48 @@
     <app-filter-facet
       *ngFor="let facet of appliedFacets"
       [model]="facet"
-      (click)="removeFacet($event)"
+      (click)="onAppliedFacetClicked($event)"
     ></app-filter-facet>
   </div>
-  <div class="input-bar">
+  <div
+    class="input-bar"
+    [ngClass]="{ open: inputBarIsOpen(), focused: inputHasFocus }"
+  >
     <div class="input-padding">
       <input
+        #filterInput
         type="text"
+        placeholder="Filter on text or tag..."
         class="input"
         [(ngModel)]="filterValue"
         (ngModelChange)="onFilterChange()"
-        placeholder="Filter on text or tag..."
+        (focus)="inputHasFocus = true"
+        (blur)="onInputBlur()"
       />
     </div>
     <button
       class="input-bar-button"
       [disabled]="currentFilterFacetMode === FilterFacetMode.And"
-      (click)="setFilterFacetMode(FilterFacetMode.And)"
+      (click)="onFilterFacetModeButtonClick(FilterFacetMode.And)"
     >
       And
     </button>
     <button
       class="input-bar-button"
       [disabled]="currentFilterFacetMode === FilterFacetMode.Or"
-      (click)="setFilterFacetMode(FilterFacetMode.Or)"
+      (click)="onFilterFacetModeButtonClick(FilterFacetMode.Or)"
     >
       Or
     </button>
-  </div>
-  <div class="suggested-facets">
-    <app-filter-facet
-      *ngFor="let facet of suggestedFacets"
-      [model]="facet"
-      (click)="applyFacet($event)"
-    ></app-filter-facet>
+    <div class="suggested-facets" [hidden]="!inputBarIsOpen()">
+      <div
+        *ngFor="let facet of suggestedFacets; let i = index"
+        class="suggested-facet"
+        [ngClass]="{ focused: i === suggestedFacetsFocusIndex }"
+        (click)="onSuggestedFacetClicked(facet)"
+      >
+        <app-filter-facet [model]="facet"></app-filter-facet>
+      </div>
+    </div>
   </div>
 </div>

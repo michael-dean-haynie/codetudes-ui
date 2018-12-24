@@ -10,6 +10,9 @@ export class FilterFacet {
   }
 
   sameAs(other: FilterFacet): boolean {
+    if (other === null) {
+      return false;
+    }
     return this.type === other.type && this.value === other.value;
   }
 }
