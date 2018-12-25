@@ -4,12 +4,16 @@ import { FilterFacet } from '../models/filter-facet.model';
 import { FilterFacetType } from '../enums/filter-facet-type';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
+import { CodetudeService } from './codetude.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FilterFacetService {
-  constructor(private tagService: TagService) {}
+  constructor(
+    private tagService: TagService,
+    private codetudeService: CodetudeService
+  ) {}
 
   /**
    * Create observable of all tags and map it to an observable of facets.
@@ -64,5 +68,14 @@ export class FilterFacetService {
     appliedFacets: FilterFacet[]
   ): boolean {
     return appliedFacets.some(sugFac => sugFac.sameAs(facet));
+  }
+
+  getMatchCountForFilterFacet(facet: FilterFacet): Observable<number> {
+    return this.codetudeService.findAll().pipe(
+      map(codetudes => {
+        return codetudes.filter(codetude => codetude.matchesFacet(facet))
+          .length;
+      })
+    );
   }
 }

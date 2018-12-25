@@ -43,9 +43,12 @@ export class Codetude {
 
     if (facet.type === FilterFacetType.Text) {
       result =
-        this.title.toLowerCase().includes(facet.value.toLowerCase()) ||
-        this.subtitle.toLowerCase().includes(facet.value.toLowerCase()) ||
-        this.description.toLowerCase().includes(facet.value.toLowerCase());
+        (this.title &&
+          this.title.toLowerCase().includes(facet.value.toLowerCase())) ||
+        (this.subtitle &&
+          this.subtitle.toLowerCase().includes(facet.value.toLowerCase())) ||
+        (this.description &&
+          this.description.toLowerCase().includes(facet.value.toLowerCase()));
 
       // opt
       if (result) {
@@ -54,7 +57,7 @@ export class Codetude {
     }
 
     if (facet.type === FilterFacetType.Tag) {
-      result = this.tags.filter(tag => tag.name === facet.value).length > 0;
+      result = this.tags && this.tags.some(tag => tag.name === facet.value);
 
       // opt
       if (result) {
