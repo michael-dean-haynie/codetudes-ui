@@ -75,4 +75,8 @@ export class TagManagerComponent implements OnInit, AfterViewChecked {
       this.acceptChanges();
     }
   }
+
+  getPlaceholder(): string {
+    return `${this.originalModel.name} (previous value)`;
+  }
 }

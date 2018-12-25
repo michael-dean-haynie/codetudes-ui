@@ -13,6 +13,7 @@
 <ng-template #tagManagerEditMode>
   <input
     class="tag-manager-input"
+    [placeholder]="getPlaceholder()"
     [(ngModel)]="model.name"
     (keydown)="onInputKeydown($event)"
     #tagManagerInput
