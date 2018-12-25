@@ -44,6 +44,10 @@ export class CodetudesComponent implements OnInit {
     this.router.navigateByUrl('/tags');
   }
 
+  navigateToCodetudeDetails(codetude: Codetude): void {
+    this.router.navigateByUrl(codetude.buildDetailsPath());
+  }
+
   createNewCodetude(): void {
     // create blank new codetude in db and navigate to the details page
     const newCodetude = new Codetude({});

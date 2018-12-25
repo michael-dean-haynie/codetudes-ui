@@ -24,7 +24,7 @@
 
   <div id="ct-list-grid">
     <div class="ct-cell" *ngFor="let codetude of displayedCodetudes">
-      <div class="ct-card">
+      <div class="ct-card" (click)="navigateToCodetudeDetails(codetude)">
         <div class="ct-card-preview"></div>
         <div class="ct-card-content">
           <p class="ct-card-content-title">{{ codetude.title }}</p>
@@ -36,9 +36,6 @@
           </p>
           <div>
             <app-tag *ngFor="let tag of codetude.tags" [model]="tag"></app-tag>
-          </div>
-          <div>
-            <a routerLink="{{ codetude.buildDetailsPath() }}">Details</a>
           </div>
         </div>
       </div>
