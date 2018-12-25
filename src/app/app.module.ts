@@ -27,6 +27,7 @@ import { TagManagerComponent } from './components/tag-manager/tag-manager.compon
 import { BackButtonComponent } from './components/back-button/back-button.component';
 import { CircleButtonComponent } from './components/circle-button/circle-button.component';
 import { ModalComponent } from './components/modal/modal.component';
+import { FilterFacetService } from './services/filter-facet.service';
 
 const appRoutes: Routes = [
   { path: 'auth', component: LoginComponent },
@@ -76,6 +77,7 @@ const appRoutes: Routes = [
   providers: [
     CodetudeService,
     FilterStateService,
+    FilterFacetService,
     AuthService,
     AuthGuardService,
     {

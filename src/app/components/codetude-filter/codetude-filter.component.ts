@@ -14,6 +14,7 @@ import { FilterFacetType } from 'src/app/enums/filter-facet-type';
 import { TagService } from 'src/app/services/tag.service';
 import { Tag } from 'src/app/models/tag.model';
 import { FilterFacetMode } from 'src/app/enums/fitter-facet-mode';
+import { FilterFacetService } from 'src/app/services/filter-facet.service';
 
 @Component({
   selector: 'app-codetude-filter',
@@ -39,10 +40,12 @@ export class CodetudeFilterComponent implements OnInit, OnDestroy {
 
   constructor(
     private tagService: TagService,
+    private filterFacetService: FilterFacetService,
     private filterStateService: FilterStateService
   ) {}
 
   ngOnInit() {
+    // TODO move this logic into the service
     // load all tags
     this.tagService.findAll().subscribe((tags: Tag[]) => {
       this.allTags = tags;
@@ -96,41 +99,11 @@ export class CodetudeFilterComponent implements OnInit, OnDestroy {
   }
 
   updateSuggestedFilterFacets(): void {
-    this.suggestedFacets = [];
-    if (this.filterValue.length > 0) {
-      // suggest raw text facet (if not already applied)
-      const potentialTextFacet: FilterFacet = new FilterFacet(
-        FilterFacetType.Text,
-        this.filterValue
-      );
-      if (!this.facetAlreadyApplied(potentialTextFacet)) {
-        this.suggestedFacets.push(potentialTextFacet);
-      }
-
-      // suggest tags (if not already applied)
-      this.allTags.forEach(tag => {
-        const potentialTagFacet: FilterFacet = new FilterFacet(
-          FilterFacetType.Tag,
-          tag.name
-        );
-        const filterValueInTagName: boolean = tag.name
-          .toLowerCase()
-          .includes(this.filterValue.toLowerCase().trim());
-
-        if (
-          filterValueInTagName &&
-          !this.facetAlreadyApplied(potentialTagFacet)
-        ) {
-          this.suggestedFacets.push(
-            new FilterFacet(FilterFacetType.Tag, tag.name)
-          );
-        }
+    this.filterFacetService
+      .getSuggestedFilterFacets(this.filterValue, this.appliedFacets)
+      .subscribe(suggestedFacets => {
+        this.suggestedFacets = suggestedFacets;
       });
-    }
-  }
-
-  facetAlreadyApplied(facet: FilterFacet): boolean {
-    return this.appliedFacets.some(sugFac => sugFac.sameAs(facet));
   }
 
   applyFacet(facet: FilterFacet): void {
