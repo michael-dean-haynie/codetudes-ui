@@ -4,7 +4,7 @@
 
 .input-bar {
   border: 1px solid #dddddd;
-  border-radius: 20px;
+  border-radius: 5px;
   background-color: white;
   padding: 0;
   font-size: 1.25rem;
@@ -15,7 +15,7 @@
 }
 
 .input-padding {
-  padding: 0.5rem 1rem 0.5rem 1rem;
+  padding: 0.5rem;
 }
 
 .input-bar.focused {

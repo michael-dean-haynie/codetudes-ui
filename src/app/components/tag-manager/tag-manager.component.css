@@ -1,7 +1,7 @@
 .tag-manager {
   font-size: 1.5rem;
   border: 1px solid #dddddd;
-  border-radius: 20px;
+  border-radius: 5px;
   background-color: white;
   padding: 0;
   overflow: hidden;
@@ -21,12 +21,12 @@
 }
 
 .tag-manager-display {
-  padding: 0.5em 1em 0.5em 1em;
+  padding: 0.5em;
 }
 
 .tag-manager-input {
   font-size: inherit;
-  padding: 0.5em 1em 0.5em 1em;
+  padding: 0.5em;
   background-color: inherit;
   border-style: none;
   width: 100%;

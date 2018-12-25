@@ -1,6 +1,6 @@
 .input-bar {
   border: 1px solid #dddddd;
-  border-radius: 20px;
+  border-radius: 5px;
   background-color: white;
   overflow: hidden;
   margin-top: 0.5rem;
@@ -8,7 +8,7 @@
 
 input {
   font-size: inherit;
-  padding: 0.5em 0.5em 0.5em 1em;
+  padding: 0.5em;
   background-color: inherit;
   border-style: none;
   width: 100%;
