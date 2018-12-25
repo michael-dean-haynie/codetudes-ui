@@ -1,42 +1,67 @@
+input,
+textarea {
+  font: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+  border-style: none;
+  outline: none;
+  background: rgba(0, 0, 0, 0);
+  padding: 0;
+  width: 100%;
+}
+
 .title-container {
-  margin-top: 0.5em;
-  font-size: 2em;
+  font-size: 3rem;
   font-weight: bold;
+  margin-top: 0.4em;
 }
 
 .preview {
   background-color: rgb(230, 230, 230); /* fallback */
   background-image: url('../../../assets/images/preview.jpg');
   background-size: cover;
-  height: 10em;
+  height: 12rem;
+  margin-top: 1rem;
+  cursor: pointer;
 
   display: grid;
+  align-content: end;
 }
 
-.subtitle {
+.preview:hover {
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.35);
+}
+
+.preview-caption {
+  color: white;
+  background: rgba(51, 51, 51, 0.8);
+  padding: 0.3em;
+}
+
+.subtitle-container {
   font-size: 1.5em;
   font-weight: bold;
+  margin-top: 1rem;
 }
 
-.description {
+.description-container {
+  margin-top: 1rem;
 }
 
-input {
-  font-size: inherit;
-  font-weight: inherit;
-  background-color: inherit;
-  border-style: none;
-  outline: none;
-  padding: 0;
-  width: 100%;
-}
-
-.subtitle-em {
-  font-size: 1.5em;
-  font-weight: bold;
-}
-.description-em {
-  width: 100%;
-  font: inherit;
+.description-container textarea {
+  height: auto;
   resize: vertical;
+}
+
+.source-code-container {
+  color: white;
+  background: rgba(51, 51, 51, 0.8);
+  padding: 0.3em;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+
+.tags-container {
+  margin-top: 1rem;
 }

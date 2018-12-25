@@ -12,7 +12,8 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./codetude-detail.component.css'],
 })
 export class CodetudeDetailComponent implements OnInit {
-  model: EditableCodetude;
+  // to stop weird errors in template
+  model: EditableCodetude = new EditableCodetude(new Codetude({}));
   userCanEdit = false;
 
   constructor(
@@ -58,7 +59,7 @@ export class CodetudeDetailComponent implements OnInit {
   }
 
   inEditMode(): boolean {
-    return this.model.isInEditMode;
+    return this.model && this.model.isInEditMode;
   }
 
   private fetchCodetude(): void {
