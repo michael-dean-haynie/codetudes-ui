@@ -7,6 +7,7 @@ import {
   ViewChild,
   ElementRef,
   AfterViewChecked,
+  OnChanges,
 } from '@angular/core';
 import { TagService } from 'src/app/services/tag.service';
 import { Tag } from 'src/app/models/tag.model';
@@ -16,9 +17,12 @@ import { Tag } from 'src/app/models/tag.model';
   templateUrl: './tag-manager.component.html',
   styleUrls: ['./tag-manager.component.css'],
 })
-export class TagManagerComponent implements OnInit, AfterViewChecked {
+export class TagManagerComponent
+  implements OnInit, OnChanges, AfterViewChecked {
   @Input() model: Tag;
+  @Input() tagToDelete: Tag;
 
+  @Output() tagDeleteClicked = new EventEmitter<Tag>();
   @Output() tagDeleted = new EventEmitter<number>();
 
   @ViewChild('tagManagerInput') tagManagerInput: ElementRef;
@@ -32,6 +36,13 @@ export class TagManagerComponent implements OnInit, AfterViewChecked {
   ngOnInit() {
     // stash a copy for discarding changes
     this.originalModel = { ...this.model };
+  }
+
+  ngOnChanges() {
+    // delete tag if id matches model's
+    if (this.tagToDelete && this.tagToDelete.id === this.model.id) {
+      this.delete();
+    }
   }
 
   ngAfterViewChecked() {
@@ -83,5 +94,9 @@ export class TagManagerComponent implements OnInit, AfterViewChecked {
   nameHasChanged(): boolean {
     console.log(this.model.name !== this.originalModel.name);
     return this.model.name !== this.originalModel.name;
+  }
+
+  onDeleteClicked(): void {
+    this.tagDeleteClicked.emit(this.model);
   }
 }

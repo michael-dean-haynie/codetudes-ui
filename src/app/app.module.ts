@@ -26,6 +26,7 @@ import { FilterStateService } from './services/filter-state.service';
 import { TagManagerComponent } from './components/tag-manager/tag-manager.component';
 import { BackButtonComponent } from './components/back-button/back-button.component';
 import { CircleButtonComponent } from './components/circle-button/circle-button.component';
+import { ModalComponent } from './components/modal/modal.component';
 
 const appRoutes: Routes = [
   { path: 'auth', component: LoginComponent },
@@ -58,6 +59,7 @@ const appRoutes: Routes = [
     TagManagerComponent,
     BackButtonComponent,
     CircleButtonComponent,
+    ModalComponent,
   ],
   imports: [
     BrowserModule,

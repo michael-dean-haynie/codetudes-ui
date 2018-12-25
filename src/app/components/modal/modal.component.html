@@ -1,0 +1,24 @@
+<div class="modal-background" [hidden]="hidden">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-header-padding">
+        <div class="modal-header-text">{{ headerText }}</div>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-body-padding">
+        <div class="modal-body-text">{{ bodyText }}</div>
+        <div class="modal-footer">
+          <div class="modal-buttons">
+            <button class="modal-confirm-btn" (click)="onConfirm(true)">
+              {{ confirmText }}
+            </button>
+            <button class="modal-cancel-btn" (click)="onConfirm(false)">
+              {{ cancelText }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

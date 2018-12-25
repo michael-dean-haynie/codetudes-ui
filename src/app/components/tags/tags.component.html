@@ -20,9 +20,20 @@
       <div *ngFor="let tag of tags">
         <app-tag-manager
           [model]="tag"
+          [tagToDelete]="confirmedTagToDelete"
+          (tagDeleteClicked)="onTagDeleteClicked($event)"
           (tagDeleted)="onTagDeleted($event)"
         ></app-tag-manager>
       </div>
     </ng-container>
   </div>
 </div>
+
+<app-modal
+  #deleteTagModal
+  [headerText]="deleteTagModalHeaderText"
+  [bodyText]="deleteTagModalBodyText"
+  [confirmText]="deleteTagModalConfirmText"
+  [cancelText]="deleteTagModalCancelText"
+  (didConfirm)="onDeleteTagModalDidConfirm($event)"
+></app-modal>
