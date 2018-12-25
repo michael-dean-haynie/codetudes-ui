@@ -1,9 +1,18 @@
 <div id="ct-grid">
-  <div class="header"><h1>Codetudes</h1></div>
-
-  <div *ngIf="userIsLoggedIn()">
-    <button (click)="createNewCodetude()">Create New Codetude</button>
-    <button><a routerLink="/tags">Manage Tags</a></button>
+  <div class="header">
+    <div class="title">Codetudes</div>
+    <ng-container *ngIf="userIsLoggedIn()">
+      <app-circle-button
+        class="header-button"
+        [iconClass]="'plus'"
+        (click)="createNewCodetude()"
+      ></app-circle-button>
+      <app-circle-button
+        class="header-button"
+        [iconClass]="'tags'"
+        (click)="navigateToTags()"
+      ></app-circle-button>
+    </ng-container>
   </div>
 
   <div id="ct-filter">

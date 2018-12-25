@@ -8,7 +8,7 @@
 
 input {
   font-size: inherit;
-  padding: 0.5em;
+  padding: 0.5em 0.5em 0.5em 1em;
   background-color: inherit;
   border-style: none;
   width: 100%;

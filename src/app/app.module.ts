@@ -25,6 +25,7 @@ import { FilterFacetComponent } from './components/filter-facet/filter-facet.com
 import { FilterStateService } from './services/filter-state.service';
 import { TagManagerComponent } from './components/tag-manager/tag-manager.component';
 import { BackButtonComponent } from './components/back-button/back-button.component';
+import { CircleButtonComponent } from './components/circle-button/circle-button.component';
 
 const appRoutes: Routes = [
   { path: 'auth', component: LoginComponent },
@@ -56,6 +57,7 @@ const appRoutes: Routes = [
     FilterFacetComponent,
     TagManagerComponent,
     BackButtonComponent,
+    CircleButtonComponent,
   ],
   imports: [
     BrowserModule,

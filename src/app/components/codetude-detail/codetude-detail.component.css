@@ -11,6 +11,17 @@ textarea {
   width: 100%;
 }
 
+.header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
+
+.mode-button {
+  font-size: 1.25rem;
+  justify-self: end;
+}
+
 .title-container {
   font-size: 3rem;
   font-weight: bold;
@@ -21,6 +32,8 @@ textarea {
   background-color: rgb(230, 230, 230); /* fallback */
   background-image: url('../../../assets/images/preview.jpg');
   background-size: cover;
+  border-radius: 5px;
+  overflow: hidden;
   height: 12rem;
   margin-top: 1rem;
   cursor: pointer;
@@ -60,10 +73,13 @@ textarea {
   padding: 0.5em;
   margin-top: 1rem;
   cursor: pointer;
+  border-radius: 5px;
 }
 
 .tags-container {
   margin-top: 1rem;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
 .tags-header {
@@ -74,5 +90,5 @@ textarea {
 
 .tags-body {
   background: rgba(51, 51, 51, 0.1);
-  padding: 0.25em 0.25em 0 0.25em;
+  padding: 0.5em 0.5em 0.25em 0.5em;
 }

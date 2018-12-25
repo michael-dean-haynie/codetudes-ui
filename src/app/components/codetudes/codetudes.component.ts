@@ -40,6 +40,10 @@ export class CodetudesComponent implements OnInit {
     return this.authService.userIsLoggedIn();
   }
 
+  navigateToTags(): void {
+    this.router.navigateByUrl('/tags');
+  }
+
   createNewCodetude(): void {
     // create blank new codetude in db and navigate to the details page
     const newCodetude = new Codetude({});

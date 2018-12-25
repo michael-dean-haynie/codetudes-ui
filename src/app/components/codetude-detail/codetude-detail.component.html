@@ -1,8 +1,19 @@
 <div class="codetude-detail">
-  <app-back-button></app-back-button>
-  <button (click)="toggleEditMode()">
-    {{ inEditMode() ? 'DISPLAY MODE' : 'EDIT MODE' }}
-  </button>
+  <div class="header">
+    <app-back-button></app-back-button>
+    <div class="mode-button">
+      <app-circle-button
+        *ngIf="!inEditMode()"
+        (click)="toggleEditMode()"
+        [iconClass]="'pencil'"
+      ></app-circle-button>
+      <app-circle-button
+        *ngIf="inEditMode()"
+        (click)="toggleEditMode()"
+        [iconClass]="'ok'"
+      ></app-circle-button>
+    </div>
+  </div>
 
   <!-- Title -->
   <div class="title-container">
