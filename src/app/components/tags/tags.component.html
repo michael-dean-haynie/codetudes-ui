@@ -5,10 +5,16 @@
     <div class="new-tag">
       <input
         class="new-tag-input"
-        [(ngModel)]="newTagName"
         placeholder="New Tag"
+        [(ngModel)]="newTagName"
       />
-      <button class="new-tag-button" (click)="create()">CREATE</button>
+      <button
+        class="new-tag-button"
+        [disabled]="!newTagName"
+        (click)="create()"
+      >
+        <span class="glyphicon glyphicon-plus"></span>
+      </button>
     </div>
     <ng-container *ngIf="tags && tags.length">
       <div *ngFor="let tag of tags">

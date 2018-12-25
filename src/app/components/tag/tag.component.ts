@@ -8,6 +8,7 @@ import { Tag } from '../../models/tag.model';
 })
 export class TagComponent implements OnInit {
   @Input() model: Tag;
+  @Input() cursor?: 'auto';
 
   constructor() {}
 

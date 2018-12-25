@@ -10,6 +10,7 @@
     <div>Included</div>
     <app-tag
       *ngFor="let tag of displayedTagsOnCodetude"
+      [cursor]="'pointer'"
       [model]="tag"
       (click)="removeTag(tag)"
     ></app-tag>
@@ -18,6 +19,7 @@
     <div>Not Included</div>
     <app-tag
       *ngFor="let tag of displayedTagsNotOnCodetude"
+      [cursor]="'pointer'"
       [model]="tag"
       (click)="addTag(tag)"
     ></app-tag>

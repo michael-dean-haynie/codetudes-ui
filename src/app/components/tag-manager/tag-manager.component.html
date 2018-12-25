@@ -7,8 +7,12 @@
   <div class="tag-manager-display" (click)="toggleEditMode()">
     {{ model.name }}
   </div>
-  <button class="tag-manager-button" (click)="toggleEditMode()">EDIT</button>
-  <button class="tag-manager-button" (click)="delete()">DELETE</button>
+  <button class="tag-manager-button" (click)="toggleEditMode()">
+    <span class="glyphicon glyphicon-pencil"></span>
+  </button>
+  <button class="tag-manager-button" (click)="delete()">
+    <span class="glyphicon glyphicon-trash"></span>
+  </button>
 </ng-template>
 <ng-template #tagManagerEditMode>
   <input
@@ -18,8 +22,14 @@
     (keydown)="onInputKeydown($event)"
     #tagManagerInput
   />
-  <button class="tag-manager-button" (click)="acceptChanges()">
-    ACCEPT CHANGES
+  <button
+    class="tag-manager-button"
+    [disabled]="!nameHasChanged()"
+    (click)="acceptChanges()"
+  >
+    <span class="glyphicon glyphicon-ok"></span>
   </button>
-  <button class="tag-manager-button" (click)="discardChanges()">CANCEL</button>
+  <button class="tag-manager-button" (click)="discardChanges()">
+    <span class="glyphicon glyphicon-ban-circle"></span>
+  </button>
 </ng-template>
