@@ -68,7 +68,7 @@
   background-color: rgba(56, 185, 224, 0.26);
 }
 
-@media (min-width: 700px) {
+@media (min-width: 675px) {
   .input-bar {
     font-size: 1.75rem;
 

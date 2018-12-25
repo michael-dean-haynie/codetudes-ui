@@ -1,18 +1,20 @@
 <div class="codetude-detail">
   <div class="header">
     <app-back-button></app-back-button>
-    <div class="mode-button">
-      <app-circle-button
-        *ngIf="!inEditMode()"
-        (click)="toggleEditMode()"
-        [iconClass]="'pencil'"
-      ></app-circle-button>
-      <app-circle-button
-        *ngIf="inEditMode()"
-        (click)="toggleEditMode()"
-        [iconClass]="'ok'"
-      ></app-circle-button>
-    </div>
+    <ng-container *ngIf="userCanEdit">
+      <div class="mode-button">
+        <app-circle-button
+          *ngIf="!inEditMode()"
+          (click)="toggleEditMode()"
+          [iconClass]="'pencil'"
+        ></app-circle-button>
+        <app-circle-button
+          *ngIf="inEditMode()"
+          (click)="toggleEditMode()"
+          [iconClass]="'ok'"
+        ></app-circle-button>
+      </div>
+    </ng-container>
   </div>
 
   <!-- Title -->
