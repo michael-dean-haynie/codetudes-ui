@@ -57,7 +57,7 @@
 
 .suggested-facet {
   border-top: 1px solid #dddddd;
-  padding: 0.25rem 0 0 1rem;
+  padding: 0.25rem 0 0 0.5rem;
   font-size: 0.75em;
   cursor: pointer;
 }

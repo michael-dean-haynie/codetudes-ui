@@ -1,16 +1,40 @@
 .filter-facet {
   color: white;
   display: inline-block;
-  border-radius: 2px;
-  padding: 0.3em 0.5em 0.25em 0.5em;
   margin: 0 0.25em 0.25em 0;
+}
+
+.background-primer {
+  background-color: white;
+  border-radius: 2px;
+  overflow: hidden;
   cursor: pointer;
+  display: grid;
+  grid-template-columns: auto auto;
 }
 
-.tag-filter-facet {
-  background-color: #546e7a;
+.glyphicon {
+  top: 0.2em;
 }
 
-.text-filter-facet {
-  background-color: #7a5479;
+.icon {
+  display: inline-block;
+  background-color: rgba(0, 0, 0, 0.75);
+  padding: 0.5em;
+}
+
+.body {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 0.5em 0.5em 0.5em 0.5em;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-column-gap: 0.5em;
+  align-items: center;
+}
+
+.body-result-count {
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+  font-size: 0.75em;
 }

@@ -1,9 +1,18 @@
-<span
-  (click)="onClick()"
-  class="filter-facet"
-  [ngClass]="{
-    'tag-filter-facet': model.type === FilterFacetType.Tag,
-    'text-filter-facet': model.type === FilterFacetType.Text
-  }"
-  >{{ model.value }}</span
->
+<div class="filter-facet" (click)="onClick()">
+  <div class="background-primer" (click)="(null)">
+    <div class="icon">
+      <span
+        *ngIf="model.type === FilterFacetType.Tag"
+        class="glyphicon glyphicon-tag"
+      ></span>
+      <span
+        *ngIf="model.type === FilterFacetType.Text"
+        class="glyphicon glyphicon-font"
+      ></span>
+    </div>
+    <div class="body">
+      <div class="body-text">{{ model.value }}</div>
+      <div class="body-result-count">&nbsp;100&nbsp;</div>
+    </div>
+  </div>
+</div>
