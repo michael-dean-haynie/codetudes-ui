@@ -1,14 +1,11 @@
+import { FilterStateService } from './../../services/filter-state.service';
 import { Component, OnInit } from '@angular/core';
 
 import { Codetude } from '../../models/codetude.model';
 
 import { CodetudeService } from '../../services/codetude.service';
 import { AuthService } from '../../services/auth.service';
-import { EditableCodetude } from '../../models/editable-codetude.model';
-import { Tag } from '../../models/tag.model';
-import { TagService } from '../../services/tag.service';
 import { FilterFacet } from '../../models/filter-facet.model';
-import { FilterFacetType } from '../../enums/filter-facet-type';
 import { FilterFacetMode } from '../../enums/fitter-facet-mode';
 import { Router } from '@angular/router';
 
@@ -18,20 +15,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./codetudes.component.css'],
 })
 export class CodetudesComponent implements OnInit {
-  allCodetudes: Codetude[] = [];
   displayedCodetudes: Codetude[] = [];
   appliedFacets: FilterFacet[] = [];
   currentFilterFacetMode: FilterFacetMode = FilterFacetMode.And;
 
   constructor(
     private codetudeService: CodetudeService,
+    private filterStateService: FilterStateService,
     private authService: AuthService,
     private router: Router
   ) {}
 
   ngOnInit() {
     this.codetudeService.findAll().subscribe((codetudes: Codetude[]) => {
-      this.allCodetudes = codetudes;
+      this.filterStateService.allCodetudes = codetudes;
       this.updateDisplayedCodetudes();
     });
   }
@@ -71,8 +68,8 @@ export class CodetudesComponent implements OnInit {
 
     // First, only admins (logged in users) can see non "live" codetudes
     const isAdmin = this.userIsLoggedIn();
-    const visibleCodetudes = this.allCodetudes.filter(codetude =>
-      isAdmin ? true : codetude.live
+    const visibleCodetudes = this.filterStateService.allCodetudes.filter(
+      codetude => (isAdmin ? true : codetude.live)
     );
 
     visibleCodetudes.forEach(codetude => {

@@ -2,7 +2,6 @@ import { FilterStateService } from './../../services/filter-state.service';
 import {
   Component,
   OnInit,
-  Input,
   Output,
   EventEmitter,
   ViewChild,
@@ -22,8 +21,6 @@ import { FilterFacetService } from 'src/app/services/filter-facet.service';
   styleUrls: ['./codetude-filter.component.css'],
 })
 export class CodetudeFilterComponent implements OnInit, OnDestroy {
-  @Input() allTags: Tag[] = [];
-
   @Output() appliedFacetsChanged = new EventEmitter<FilterFacet[]>();
   @Output() filterFacetModeChanged = new EventEmitter<FilterFacetMode>();
 
@@ -48,7 +45,7 @@ export class CodetudeFilterComponent implements OnInit, OnDestroy {
     // TODO move this logic into the service
     // load all tags
     this.tagService.findAll().subscribe((tags: Tag[]) => {
-      this.allTags = tags;
+      this.filterStateService.allTags = tags;
 
       // load previous applied facets (only text type or (tag type that match one in allTags))
       this.appliedFacets = this.filterStateService.appliedFacets.filter(
@@ -56,7 +53,7 @@ export class CodetudeFilterComponent implements OnInit, OnDestroy {
           return (
             oldFacet.type === FilterFacetType.Text ||
             (oldFacet.type === FilterFacetType.Tag &&
-              this.allTags.some(
+              this.filterStateService.allTags.some(
                 currentTag => currentTag.name === oldFacet.value
               ))
           );
@@ -99,11 +96,10 @@ export class CodetudeFilterComponent implements OnInit, OnDestroy {
   }
 
   updateSuggestedFilterFacets(): void {
-    this.filterFacetService
-      .getSuggestedFilterFacets(this.filterValue, this.appliedFacets)
-      .subscribe(suggestedFacets => {
-        this.suggestedFacets = suggestedFacets;
-      });
+    this.suggestedFacets = this.filterFacetService.getSuggestedFilterFacets(
+      this.filterValue,
+      this.appliedFacets
+    );
   }
 
   applyFacet(facet: FilterFacet): void {
