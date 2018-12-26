@@ -13,8 +13,6 @@ import { FilterStateService } from './filter-state.service';
 })
 export class FilterFacetService {
   constructor(
-    private tagService: TagService,
-    private codetudeService: CodetudeService,
     private filterStateService: FilterStateService,
     private authSerivce: AuthService
   ) {}

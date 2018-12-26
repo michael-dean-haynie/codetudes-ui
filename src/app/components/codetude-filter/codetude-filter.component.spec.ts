@@ -8,9 +8,8 @@ describe('CodetudeFilterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CodetudeFilterComponent ]
-    })
-    .compileComponents();
+      declarations: [CodetudeFilterComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

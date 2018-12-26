@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EditableCodetude } from '../../models/editable-codetude.model';
 import { CodetudeService } from '../../services/codetude.service';
