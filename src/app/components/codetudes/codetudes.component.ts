@@ -1,3 +1,4 @@
+import { CodetudesDisplayMode } from './../../enums/codetudes-display-mode';
 import { FilterStateService } from './../../services/filter-state.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -17,6 +18,8 @@ import { Router } from '@angular/router';
 export class CodetudesComponent implements OnInit {
   displayedCodetudes: Codetude[] = [];
   appliedFacets: FilterFacet[] = [];
+  CodetudesDisplayMode = CodetudesDisplayMode;
+  codetudesDisplayMode: CodetudesDisplayMode = CodetudesDisplayMode.Grid;
   currentFilterFacetMode: FilterFacetMode = FilterFacetMode.And;
 
   constructor(
@@ -61,6 +64,10 @@ export class CodetudesComponent implements OnInit {
   onFilterFacetModeChanged(mode: FilterFacetMode) {
     this.currentFilterFacetMode = mode;
     this.updateDisplayedCodetudes();
+  }
+
+  setCodetudesDisplayMode(mode: CodetudesDisplayMode): void {
+    this.codetudesDisplayMode = mode;
   }
 
   updateDisplayedCodetudes() {

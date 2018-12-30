@@ -1,4 +1,4 @@
-<div id="codetudes">
+<div class="codetudes">
   <div class="header">
     <div class="title">Codetudes</div>
     <ng-container *ngIf="userIsLoggedIn()">
@@ -12,10 +12,22 @@
         [iconClass]="'tags'"
         (click)="navigateToTags()"
       ></app-circle-button>
+      <app-circle-button
+        *ngIf="codetudesDisplayMode === CodetudesDisplayMode.Table"
+        class="header-button"
+        [iconClass]="'th'"
+        (click)="setCodetudesDisplayMode(CodetudesDisplayMode.Grid)"
+      ></app-circle-button>
+      <app-circle-button
+        *ngIf="codetudesDisplayMode === CodetudesDisplayMode.Grid"
+        class="header-button"
+        [iconClass]="'align-justify'"
+        (click)="setCodetudesDisplayMode(CodetudesDisplayMode.Table)"
+      ></app-circle-button>
     </ng-container>
   </div>
 
-  <div id="ct-filter">
+  <div class="filter-bar">
     <app-codetude-filter
       (appliedFacetsChanged)="onAppliedFacetsChanged($event)"
       (filterFacetModeChanged)="onFilterFacetModeChanged($event)"
@@ -23,6 +35,7 @@
   </div>
 
   <app-codetude-grid
+    *ngIf="codetudesDisplayMode === CodetudesDisplayMode.Grid"
     [codetudes]="displayedCodetudes"
     (codetudeClicked)="navigateToCodetudeDetails($event)"
   ></app-codetude-grid>
