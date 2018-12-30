@@ -1,0 +1,17 @@
+<div id="ct-grid">
+  <div class="ct-cell" *ngFor="let codetude of codetudes">
+    <div class="ct-card" (click)="onCodetudeClicked(codetude)">
+      <div class="ct-card-preview"></div>
+      <div class="ct-card-content">
+        <p class="ct-card-content-title">{{ codetude.title }}</p>
+        <p class="ct-card-content-description">
+          {{ codetude.description | snippet: 200 }}
+        </p>
+        <p *ngIf="codetude.started">{{ codetude.started | date: 'MMMM y' }}</p>
+        <div>
+          <app-tag *ngFor="let tag of codetude.tags" [model]="tag"></app-tag>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

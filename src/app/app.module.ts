@@ -28,6 +28,7 @@ import { BackButtonComponent } from './components/back-button/back-button.compon
 import { CircleButtonComponent } from './components/circle-button/circle-button.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { FilterFacetService } from './services/filter-facet.service';
+import { CodetudeGridComponent } from './components/codetude-grid/codetude-grid.component';
 
 const appRoutes: Routes = [
   { path: 'auth', component: LoginComponent },
@@ -61,6 +62,7 @@ const appRoutes: Routes = [
     BackButtonComponent,
     CircleButtonComponent,
     ModalComponent,
+    CodetudeGridComponent,
   ],
   imports: [
     BrowserModule,
