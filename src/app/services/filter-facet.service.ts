@@ -6,14 +6,14 @@ import { FilterFacetType } from '../enums/filter-facet-type';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
 import { CodetudeService } from './codetude.service';
-import { FilterStateService } from './filter-state.service';
+import { AppStateService } from './app-state.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FilterFacetService {
   constructor(
-    private filterStateService: FilterStateService,
+    private filterStateService: AppStateService,
     private authSerivce: AuthService
   ) {}
 

@@ -25,14 +25,14 @@
     </div>
     <button
       class="input-bar-button"
-      [disabled]="currentFilterFacetMode === FilterFacetMode.And"
+      [disabled]="filterFacetMode === FilterFacetMode.And"
       (click)="onFilterFacetModeButtonClick(FilterFacetMode.And)"
     >
       And
     </button>
     <button
       class="input-bar-button"
-      [disabled]="currentFilterFacetMode === FilterFacetMode.Or"
+      [disabled]="filterFacetMode === FilterFacetMode.Or"
       (click)="onFilterFacetModeButtonClick(FilterFacetMode.Or)"
     >
       Or

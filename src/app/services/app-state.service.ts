@@ -1,3 +1,4 @@
+import { CodetudesDisplayMode } from '../enums/codetudes-display-mode';
 import { Injectable } from '@angular/core';
 import { FilterFacet } from '../models/filter-facet.model';
 import { FilterFacetMode } from '../enums/fitter-facet-mode';
@@ -7,10 +8,11 @@ import { Tag } from '../models/tag.model';
 @Injectable({
   providedIn: 'root',
 })
-export class FilterStateService {
+export class AppStateService {
   filterValue = '';
   appliedFacets: FilterFacet[] = [];
-  currentFilterFacetMode = FilterFacetMode.And;
+  filterFacetMode = FilterFacetMode.And;
+  codetudesDisplayMode = CodetudesDisplayMode.Grid;
 
   // stuff from backend
   allCodetudes: Codetude[] = [];

@@ -1,5 +1,5 @@
 import { CodetudesDisplayMode } from './../../enums/codetudes-display-mode';
-import { FilterStateService } from './../../services/filter-state.service';
+import { AppStateService } from '../../services/app-state.service';
 import { Component, OnInit } from '@angular/core';
 
 import { Codetude } from '../../models/codetude.model';
@@ -19,17 +19,19 @@ export class CodetudesComponent implements OnInit {
   displayedCodetudes: Codetude[] = [];
   appliedFacets: FilterFacet[] = [];
   CodetudesDisplayMode = CodetudesDisplayMode;
-  codetudesDisplayMode: CodetudesDisplayMode = CodetudesDisplayMode.Grid;
-  currentFilterFacetMode: FilterFacetMode = FilterFacetMode.And;
+  codetudesDisplayMode: CodetudesDisplayMode = null;
+  filterFacetMode: FilterFacetMode = FilterFacetMode.And;
 
   constructor(
     private codetudeService: CodetudeService,
-    private filterStateService: FilterStateService,
+    private filterStateService: AppStateService,
     private authService: AuthService,
     private router: Router
   ) {}
 
   ngOnInit() {
+    this.codetudesDisplayMode = this.filterStateService.codetudesDisplayMode;
+
     this.codetudeService.findAll().subscribe((codetudes: Codetude[]) => {
       this.filterStateService.allCodetudes = codetudes;
       this.updateDisplayedCodetudes();
@@ -62,12 +64,13 @@ export class CodetudesComponent implements OnInit {
   }
 
   onFilterFacetModeChanged(mode: FilterFacetMode) {
-    this.currentFilterFacetMode = mode;
+    this.filterFacetMode = mode;
     this.updateDisplayedCodetudes();
   }
 
   setCodetudesDisplayMode(mode: CodetudesDisplayMode): void {
     this.codetudesDisplayMode = mode;
+    this.filterStateService.codetudesDisplayMode = mode;
   }
 
   updateDisplayedCodetudes() {
@@ -83,7 +86,7 @@ export class CodetudesComponent implements OnInit {
       let meetsAllCriteria = true; // default
 
       // All applied facets must match (unless there aren't any facets)
-      if (this.currentFilterFacetMode === FilterFacetMode.And) {
+      if (this.filterFacetMode === FilterFacetMode.And) {
         meetsAllCriteria =
           !this.appliedFacets.length ||
           this.appliedFacets.every(facet => {
@@ -92,7 +95,7 @@ export class CodetudesComponent implements OnInit {
       }
 
       // At least one applied facet must match (unless there aren't any facets)
-      if (this.currentFilterFacetMode === FilterFacetMode.Or) {
+      if (this.filterFacetMode === FilterFacetMode.Or) {
         meetsAllCriteria =
           !this.appliedFacets.length ||
           this.appliedFacets.some(facet => {

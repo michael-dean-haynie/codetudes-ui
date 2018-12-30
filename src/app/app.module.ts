@@ -22,7 +22,7 @@ import { TagsComponent } from './components/tags/tags.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { CodetudeFilterComponent } from './components/codetude-filter/codetude-filter.component';
 import { FilterFacetComponent } from './components/filter-facet/filter-facet.component';
-import { FilterStateService } from './services/filter-state.service';
+import { AppStateService } from './services/app-state.service';
 import { TagManagerComponent } from './components/tag-manager/tag-manager.component';
 import { BackButtonComponent } from './components/back-button/back-button.component';
 import { CircleButtonComponent } from './components/circle-button/circle-button.component';
@@ -78,7 +78,7 @@ const appRoutes: Routes = [
   ],
   providers: [
     CodetudeService,
-    FilterStateService,
+    AppStateService,
     FilterFacetService,
     AuthService,
     AuthGuardService,

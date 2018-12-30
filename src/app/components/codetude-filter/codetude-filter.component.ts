@@ -1,4 +1,4 @@
-import { FilterStateService } from './../../services/filter-state.service';
+import { AppStateService } from '../../services/app-state.service';
 import {
   Component,
   OnInit,
@@ -32,13 +32,13 @@ export class CodetudeFilterComponent implements OnInit, OnDestroy {
   suggestedFacets: FilterFacet[] = [];
   suggestedFacetsFocusIndex = 0;
   keepFocusOnInputFlag = false;
-  currentFilterFacetMode = null;
+  filterFacetMode = null;
   FilterFacetMode = FilterFacetMode; // so the enum is accessible to the template
 
   constructor(
     private tagService: TagService,
     private filterFacetService: FilterFacetService,
-    private filterStateService: FilterStateService
+    private filterStateService: AppStateService
   ) {}
 
   ngOnInit() {
@@ -67,8 +67,8 @@ export class CodetudeFilterComponent implements OnInit, OnDestroy {
     this.filterValue = this.filterStateService.filterValue;
 
     // load previous filter facet mode
-    this.currentFilterFacetMode = this.filterStateService.currentFilterFacetMode;
-    this.filterFacetModeChanged.emit(this.currentFilterFacetMode);
+    this.filterFacetMode = this.filterStateService.filterFacetMode;
+    this.filterFacetModeChanged.emit(this.filterFacetMode);
 
     // auto focus
     this.focusOnFilterInput();
@@ -77,7 +77,7 @@ export class CodetudeFilterComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.filterStateService.appliedFacets = this.appliedFacets;
     this.filterStateService.filterValue = this.filterValue;
-    this.filterStateService.currentFilterFacetMode = this.currentFilterFacetMode;
+    this.filterStateService.filterFacetMode = this.filterFacetMode;
   }
 
   onFilterChange(): void {
@@ -85,7 +85,7 @@ export class CodetudeFilterComponent implements OnInit, OnDestroy {
   }
 
   setFilterFacetMode(mode: FilterFacetMode): void {
-    this.currentFilterFacetMode = mode;
+    this.filterFacetMode = mode;
     this.filterFacetModeChanged.emit(mode);
   }
 
