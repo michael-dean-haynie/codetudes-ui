@@ -39,4 +39,10 @@
     [codetudes]="displayedCodetudes"
     (codetudeClicked)="navigateToCodetudeDetails($event)"
   ></app-codetude-grid>
+
+  <app-codetude-table
+    *ngIf="codetudesDisplayMode === CodetudesDisplayMode.Table"
+    [codetudes]="displayedCodetudes"
+    (codetudeClicked)="navigateToCodetudeDetails($event)"
+  ></app-codetude-table>
 </div>

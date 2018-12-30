@@ -12,7 +12,7 @@ export class AppStateService {
   filterValue = '';
   appliedFacets: FilterFacet[] = [];
   filterFacetMode = FilterFacetMode.And;
-  codetudesDisplayMode = CodetudesDisplayMode.Grid;
+  codetudesDisplayMode = CodetudesDisplayMode.Table;
 
   // stuff from backend
   allCodetudes: Codetude[] = [];

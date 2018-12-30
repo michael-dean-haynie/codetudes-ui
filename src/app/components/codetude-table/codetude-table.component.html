@@ -1,0 +1,20 @@
+<div class="codetude-table">
+  <div class="heading">
+    <div class="row">
+      <div>Title</div>
+      <div>Subtitle</div>
+      <div>Description</div>
+      <div>Tags</div>
+      <div>Finished</div>
+    </div>
+  </div>
+  <div class="body">
+    <div class="row" *ngFor="let codetude of codetudes">
+      <div>{{ codetude.title }}</div>
+      <div>{{ codetude.subtitle }}</div>
+      <div>{{ codetude.description }}</div>
+      <div>tags</div>
+      <div>{{ codetude.finished }}</div>
+    </div>
+  </div>
+</div>

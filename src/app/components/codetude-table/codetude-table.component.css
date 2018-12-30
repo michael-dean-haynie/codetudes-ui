@@ -1,0 +1,10 @@
+.codetude-table {
+  display: grid;
+  width: 100%l;
+}
+
+.row {
+  display: grid;
+  /* Title Subtitle Description Tags Finished */
+  grid-template-columns: repeat(5, 1fr);
+}
