@@ -11,7 +11,7 @@ import { CodetudesComponent } from './components/codetudes/codetudes.component';
 
 import { CodetudeService } from './services/codetude.service';
 import { SnippetPipe } from './pipes/snippet.pipe';
-import { LoginComponent } from './components/login/login.component';
+import { AuthComponent } from './components/login/auth.component';
 import { CodetudeDetailComponent } from './components/codetude-detail/codetude-detail.component';
 import { TagComponent } from './components/tag/tag.component';
 import { TagSelectorComponent } from './components/tag-selector/tag-selector.component';
@@ -35,7 +35,7 @@ import { CodetudeSortingService } from './services/codetude-sorting.service';
 import { TagSortingService } from './services/tag-sorting.service';
 
 const appRoutes: Routes = [
-  { path: 'auth', component: LoginComponent },
+  { path: 'auth', component: AuthComponent },
   { path: 'about', component: AboutComponent },
   { path: 'codetudes', component: CodetudesComponent },
   { path: 'codetudes/:id', component: CodetudeDetailComponent },
@@ -55,7 +55,7 @@ const appRoutes: Routes = [
     AboutComponent,
     CodetudesComponent,
     SnippetPipe,
-    LoginComponent,
+    AuthComponent,
     CodetudeDetailComponent,
     TagComponent,
     TagSelectorComponent,
