@@ -31,35 +31,35 @@ export class CodetudeTableComponent implements OnInit {
   }
 
   updateSortState(): void {
-    this.sortField = this.appStateService.sortField;
-    this.sortMode = this.appStateService.sortMode;
+    this.sortField = this.appStateService.getSortField();
+    this.sortMode = this.appStateService.getSortMode();
   }
 
   onSortableColumnHeaderClicked(sortField: SortableFields): void {
     // update app state sort mode
-    if (this.appStateService.sortField !== sortField) {
+    if (this.appStateService.getSortField() !== sortField) {
       // reset sortMode to initial value
-      this.appStateService.sortMode = SortMode.Ascending;
+      this.appStateService.setSortMode(SortMode.Ascending);
     } else {
       // cycle sort mode
-      switch (this.appStateService.sortMode) {
+      switch (this.appStateService.getSortMode()) {
         case SortMode.None: {
-          this.appStateService.sortMode = SortMode.Ascending;
+          this.appStateService.setSortMode(SortMode.Ascending);
           break;
         }
         case SortMode.Ascending: {
-          this.appStateService.sortMode = SortMode.Descending;
+          this.appStateService.setSortMode(SortMode.Descending);
           break;
         }
         case SortMode.Descending: {
-          this.appStateService.sortMode = SortMode.None;
+          this.appStateService.setSortMode(SortMode.None);
           break;
         }
       }
     }
 
     // update app state sort field
-    this.appStateService.sortField = sortField;
+    this.appStateService.setSortField(sortField);
 
     // emmit event to reload codetudes
     this.sortUpdated.emit(true);

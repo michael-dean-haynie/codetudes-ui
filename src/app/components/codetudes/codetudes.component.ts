@@ -34,7 +34,7 @@ export class CodetudesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.codetudesDisplayMode = this.appStateService.codetudesDisplayMode;
+    this.codetudesDisplayMode = this.appStateService.getCodetudesDisplayMode();
     this.getCodetudes();
   }
 
@@ -85,7 +85,7 @@ export class CodetudesComponent implements OnInit {
 
   setCodetudesDisplayMode(mode: CodetudesDisplayMode): void {
     this.codetudesDisplayMode = mode;
-    this.appStateService.codetudesDisplayMode = mode;
+    this.appStateService.setCodetudesDisplayMode(mode);
   }
 
   updateDisplayedCodetudes() {
@@ -130,8 +130,8 @@ export class CodetudesComponent implements OnInit {
   sortDisplayedCodetudes(): void {
     this.displayedCodetudes = this.codetudeSortingService.sortCodetudes(
       this.displayedCodetudes,
-      this.appStateService.sortField,
-      this.appStateService.sortMode
+      this.appStateService.getSortField(),
+      this.appStateService.getSortMode()
     );
   }
 

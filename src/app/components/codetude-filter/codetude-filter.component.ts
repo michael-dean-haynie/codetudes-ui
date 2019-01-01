@@ -48,8 +48,9 @@ export class CodetudeFilterComponent implements OnInit, OnDestroy {
       this.appStateService.allTags = tags;
 
       // load previous applied facets (only text type or (tag type that match one in allTags))
-      this.appliedFacets = this.appStateService.appliedFacets.filter(
-        oldFacet => {
+      this.appliedFacets = this.appStateService
+        .getAppliedFacets()
+        .filter(oldFacet => {
           return (
             oldFacet.type === FilterFacetType.Text ||
             (oldFacet.type === FilterFacetType.Tag &&
@@ -57,17 +58,16 @@ export class CodetudeFilterComponent implements OnInit, OnDestroy {
                 currentTag => currentTag.name === oldFacet.value
               ))
           );
-        }
-      );
+        });
 
       this.appliedFacetsChanged.emit(this.appliedFacets);
     });
 
     // load previous filter value
-    this.filterValue = this.appStateService.filterValue;
+    this.filterValue = this.appStateService.getFilterValue();
 
     // load previous filter facet mode
-    this.filterFacetMode = this.appStateService.filterFacetMode;
+    this.filterFacetMode = this.appStateService.getFilterFacetMode();
     this.filterFacetModeChanged.emit(this.filterFacetMode);
 
     // auto focus
@@ -75,9 +75,9 @@ export class CodetudeFilterComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.appStateService.appliedFacets = this.appliedFacets;
-    this.appStateService.filterValue = this.filterValue;
-    this.appStateService.filterFacetMode = this.filterFacetMode;
+    this.appStateService.setAppliedFacets(this.appliedFacets);
+    this.appStateService.setFilterValue(this.filterValue);
+    this.appStateService.setFilterFacetMode(this.filterFacetMode);
   }
 
   onFilterChange(): void {
