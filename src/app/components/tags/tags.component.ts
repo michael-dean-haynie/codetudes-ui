@@ -1,3 +1,4 @@
+import { TagSortingService } from './../../services/tag-sorting.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { TagService } from '../../services/tag.service';
 import { Tag } from '../../models/tag.model';
@@ -23,7 +24,10 @@ export class TagsComponent implements OnInit {
 
   confirmedTagToDelete: Tag = null;
 
-  constructor(private tagService: TagService) {}
+  constructor(
+    private tagService: TagService,
+    private tagSortingService: TagSortingService
+  ) {}
 
   ngOnInit() {
     this.loadAllTags();
@@ -38,7 +42,7 @@ export class TagsComponent implements OnInit {
 
   private loadAllTags(): void {
     this.tagService.findAll().subscribe((tags: Tag[]) => {
-      this.tags = tags;
+      this.tags = this.tagSortingService.sortTags(tags);
     });
   }
 
@@ -55,6 +59,12 @@ export class TagsComponent implements OnInit {
   onDeleteTagModalDidConfirm(didConfirm: boolean): void {
     if (didConfirm) {
       this.confirmedTagToDelete = this.tagToDelete;
+    }
+  }
+
+  onNewTagInputKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Enter') {
+      this.create();
     }
   }
 }

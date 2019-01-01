@@ -1,3 +1,4 @@
+import { TagSortingService } from './../../services/tag-sorting.service';
 import { CodetudesDisplayMode } from './../../enums/codetudes-display-mode';
 import { AppStateService } from '../../services/app-state.service';
 import { Component, OnInit } from '@angular/core';
@@ -27,15 +28,27 @@ export class CodetudesComponent implements OnInit {
     private codetudeService: CodetudeService,
     private appStateService: AppStateService,
     private codetudeSortingService: CodetudeSortingService,
+    private tagSortingService: TagSortingService,
     private authService: AuthService,
     private router: Router
   ) {}
 
   ngOnInit() {
     this.codetudesDisplayMode = this.appStateService.codetudesDisplayMode;
+    this.getCodetudes();
+  }
 
+  getCodetudes(): void {
     this.codetudeService.findAll().subscribe((codetudes: Codetude[]) => {
+      // sort tags on codetudes
+      codetudes.forEach(codetude => {
+        codetude.tags = this.tagSortingService.sortTags(codetude.tags);
+      });
+
+      // cache
       this.appStateService.allCodetudes = codetudes;
+
+      // display
       this.updateDisplayedCodetudes();
     });
   }
