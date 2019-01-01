@@ -2,7 +2,7 @@ import { TestBed, inject } from '@angular/core/testing';
 
 import { AppStateService } from './app-state.service';
 
-describe('FilterStateService', () => {
+describe('appStateService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [AppStateService],

@@ -38,22 +38,22 @@ export class CodetudeFilterComponent implements OnInit, OnDestroy {
   constructor(
     private tagService: TagService,
     private filterFacetService: FilterFacetService,
-    private filterStateService: AppStateService
+    private appStateService: AppStateService
   ) {}
 
   ngOnInit() {
     // TODO move this logic into the service
     // load all tags
     this.tagService.findAll().subscribe((tags: Tag[]) => {
-      this.filterStateService.allTags = tags;
+      this.appStateService.allTags = tags;
 
       // load previous applied facets (only text type or (tag type that match one in allTags))
-      this.appliedFacets = this.filterStateService.appliedFacets.filter(
+      this.appliedFacets = this.appStateService.appliedFacets.filter(
         oldFacet => {
           return (
             oldFacet.type === FilterFacetType.Text ||
             (oldFacet.type === FilterFacetType.Tag &&
-              this.filterStateService.allTags.some(
+              this.appStateService.allTags.some(
                 currentTag => currentTag.name === oldFacet.value
               ))
           );
@@ -64,10 +64,10 @@ export class CodetudeFilterComponent implements OnInit, OnDestroy {
     });
 
     // load previous filter value
-    this.filterValue = this.filterStateService.filterValue;
+    this.filterValue = this.appStateService.filterValue;
 
     // load previous filter facet mode
-    this.filterFacetMode = this.filterStateService.filterFacetMode;
+    this.filterFacetMode = this.appStateService.filterFacetMode;
     this.filterFacetModeChanged.emit(this.filterFacetMode);
 
     // auto focus
@@ -75,9 +75,9 @@ export class CodetudeFilterComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.filterStateService.appliedFacets = this.appliedFacets;
-    this.filterStateService.filterValue = this.filterValue;
-    this.filterStateService.filterFacetMode = this.filterFacetMode;
+    this.appStateService.appliedFacets = this.appliedFacets;
+    this.appStateService.filterValue = this.filterValue;
+    this.appStateService.filterFacetMode = this.filterFacetMode;
   }
 
   onFilterChange(): void {

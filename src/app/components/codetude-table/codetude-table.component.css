@@ -31,5 +31,8 @@
 .heading .row div {
   font-weight: bold;
   color: white;
-  background-color: rgba(0, 0, 0, 0.699);
+  background-color: rgba(0, 0, 0, 0.39);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-column-gap: 0.5em;
 }

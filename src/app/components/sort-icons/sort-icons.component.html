@@ -1,0 +1,10 @@
+<span class="sort-icons">
+  <span
+    class="glyphicon glyphicon-triangle-top sort-asc"
+    [ngClass]="{ 'sort-selected': sortMode === SortMode.Ascending }"
+  ></span>
+  <span
+    class="glyphicon glyphicon-triangle-bottom sort-desc"
+    [ngClass]="{ 'sort-selected': sortMode === SortMode.Descending }"
+  ></span>
+</span>

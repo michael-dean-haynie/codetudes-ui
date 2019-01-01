@@ -13,7 +13,7 @@ import { AppStateService } from './app-state.service';
 })
 export class FilterFacetService {
   constructor(
-    private filterStateService: AppStateService,
+    private appStateService: AppStateService,
     private authSerivce: AuthService
   ) {}
 
@@ -33,7 +33,7 @@ export class FilterFacetService {
       }
 
       // suggest tags (if not already applied)
-      this.filterStateService.allTags.forEach(tag => {
+      this.appStateService.allTags.forEach(tag => {
         const potentialTagFacet = new FilterFacet(
           FilterFacetType.Tag,
           tag.name
@@ -61,7 +61,7 @@ export class FilterFacetService {
   }
 
   getMatchCountForFilterFacet(facet: FilterFacet): number {
-    return this.filterStateService.allCodetudes.filter(
+    return this.appStateService.allCodetudes.filter(
       codetude =>
         codetude.matchesFacet(facet) &&
         (codetude.live || this.authSerivce.userIsLoggedIn())

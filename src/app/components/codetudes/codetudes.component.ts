@@ -9,6 +9,7 @@ import { AuthService } from '../../services/auth.service';
 import { FilterFacet } from '../../models/filter-facet.model';
 import { FilterFacetMode } from '../../enums/fitter-facet-mode';
 import { Router } from '@angular/router';
+import { SortingService } from 'src/app/services/sorting.service';
 
 @Component({
   selector: 'app-codetudes',
@@ -24,16 +25,17 @@ export class CodetudesComponent implements OnInit {
 
   constructor(
     private codetudeService: CodetudeService,
-    private filterStateService: AppStateService,
+    private appStateService: AppStateService,
+    private sortingService: SortingService,
     private authService: AuthService,
     private router: Router
   ) {}
 
   ngOnInit() {
-    this.codetudesDisplayMode = this.filterStateService.codetudesDisplayMode;
+    this.codetudesDisplayMode = this.appStateService.codetudesDisplayMode;
 
     this.codetudeService.findAll().subscribe((codetudes: Codetude[]) => {
-      this.filterStateService.allCodetudes = codetudes;
+      this.appStateService.allCodetudes = codetudes;
       this.updateDisplayedCodetudes();
     });
   }
@@ -70,7 +72,7 @@ export class CodetudesComponent implements OnInit {
 
   setCodetudesDisplayMode(mode: CodetudesDisplayMode): void {
     this.codetudesDisplayMode = mode;
-    this.filterStateService.codetudesDisplayMode = mode;
+    this.appStateService.codetudesDisplayMode = mode;
   }
 
   updateDisplayedCodetudes() {
@@ -78,7 +80,7 @@ export class CodetudesComponent implements OnInit {
 
     // First, only admins (logged in users) can see non "live" codetudes
     const isAdmin = this.userIsLoggedIn();
-    const visibleCodetudes = this.filterStateService.allCodetudes.filter(
+    const visibleCodetudes = this.appStateService.allCodetudes.filter(
       codetude => (isAdmin ? true : codetude.live)
     );
 
@@ -108,5 +110,19 @@ export class CodetudesComponent implements OnInit {
         this.displayedCodetudes.push(codetude);
       }
     });
+
+    this.sortDisplayedCodetudes();
+  }
+
+  sortDisplayedCodetudes(): void {
+    this.displayedCodetudes = this.sortingService.sortCodetudes(
+      this.displayedCodetudes,
+      this.appStateService.sortField,
+      this.appStateService.sortMode
+    );
+  }
+
+  onSortUpdated(): void {
+    this.sortDisplayedCodetudes();
   }
 }

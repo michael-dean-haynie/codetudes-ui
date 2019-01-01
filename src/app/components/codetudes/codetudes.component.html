@@ -56,5 +56,6 @@
     *ngIf="codetudesDisplayMode === CodetudesDisplayMode.Table"
     [codetudes]="displayedCodetudes"
     (codetudeClicked)="navigateToCodetudeDetails($event)"
+    (sortUpdated)="onSortUpdated()"
   ></app-codetude-table>
 </div>

@@ -30,6 +30,8 @@ import { ModalComponent } from './components/modal/modal.component';
 import { FilterFacetService } from './services/filter-facet.service';
 import { CodetudeGridComponent } from './components/codetude-grid/codetude-grid.component';
 import { CodetudeTableComponent } from './components/codetude-table/codetude-table.component';
+import { SortIconsComponent } from './components/sort-icons/sort-icons.component';
+import { SortingService } from './services/sorting.service';
 
 const appRoutes: Routes = [
   { path: 'auth', component: LoginComponent },
@@ -65,6 +67,7 @@ const appRoutes: Routes = [
     ModalComponent,
     CodetudeGridComponent,
     CodetudeTableComponent,
+    SortIconsComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,6 +85,7 @@ const appRoutes: Routes = [
     CodetudeService,
     AppStateService,
     FilterFacetService,
+    SortingService,
     AuthService,
     AuthGuardService,
     {

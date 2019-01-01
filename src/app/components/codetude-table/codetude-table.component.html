@@ -1,10 +1,25 @@
 <div class="codetude-table">
   <div class="heading">
     <div class="row">
-      <div>Title</div>
-      <div>Subtitle</div>
-      <div>Tags</div>
-      <div>Date</div>
+      <div (click)="onSortableColumnHeaderClicked(SortableFields.Title)">
+        <span>Title</span>
+        <app-sort-icons
+          [sortMode]="sortField === SortableFields.Title ? sortMode : null"
+        ></app-sort-icons>
+      </div>
+      <div (click)="onSortableColumnHeaderClicked(SortableFields.Subtitle)">
+        <span>Subtitle</span>
+        <app-sort-icons
+          [sortMode]="sortField === SortableFields.Subtitle ? sortMode : null"
+        ></app-sort-icons>
+      </div>
+      <div><span>Tags</span></div>
+      <div (click)="onSortableColumnHeaderClicked(SortableFields.Date)">
+        <span>Date</span>
+        <app-sort-icons
+          [sortMode]="sortField === SortableFields.Date ? sortMode : null"
+        ></app-sort-icons>
+      </div>
     </div>
   </div>
   <div class="body">

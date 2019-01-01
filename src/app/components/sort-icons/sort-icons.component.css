@@ -1,0 +1,9 @@
+.sort-icons {
+  font-size: 0.5em;
+  display: grid;
+  grid-template-rows: auto auto;
+}
+
+.sort-selected {
+  color: black;
+}
