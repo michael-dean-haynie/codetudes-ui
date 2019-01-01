@@ -17,8 +17,8 @@ export class AppStateService {
   codetudesDisplayMode = CodetudesDisplayMode.Table;
 
   // sort selections
-  sortField = SortableFields.Title;
-  sortMode: SortMode = SortMode.Ascending;
+  sortField = SortableFields.Date;
+  sortMode: SortMode = SortMode.Descending;
 
   // stuff from backend
   allCodetudes: Codetude[] = [];

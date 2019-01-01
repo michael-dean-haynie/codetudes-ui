@@ -32,7 +32,6 @@ export class SortingService {
       if (sortMode === SortMode.Descending) {
         result = result * -1;
       }
-
       return result;
     });
   }
@@ -53,14 +52,14 @@ export class SortingService {
   }
 
   private getTitleCompareValue(codetude: Codetude): string {
-    return codetude.title ? codetude.title.toLowerCase() : null;
+    return codetude.title ? codetude.title.toLowerCase() : '';
   }
 
   private getSubtitleCompareValue(codetude: Codetude): string {
-    return codetude.subtitle ? codetude.subtitle.toLowerCase() : null;
+    return codetude.subtitle ? codetude.subtitle.toLowerCase() : '';
   }
 
   private getDateCompareValue(codetude: Codetude): number {
-    return codetude.finished ? codetude.finished.valueOf() : null;
+    return codetude.started ? Date.parse(codetude.started.toString()) : 0;
   }
 }

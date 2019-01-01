@@ -92,7 +92,6 @@ export class TagManagerComponent
   }
 
   nameHasChanged(): boolean {
-    console.log(this.model.name !== this.originalModel.name);
     return this.model.name !== this.originalModel.name;
   }
 

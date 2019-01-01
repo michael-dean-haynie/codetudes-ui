@@ -7,7 +7,7 @@ export class Tag {
   constructor(jsonTag: any) {
     this.id = jsonTag.id;
     this.name = jsonTag.name;
-    this.created = jsonTag.created;
-    this.updated = jsonTag.updated;
+    this.created = jsonTag.created ? jsonTag.created : null;
+    this.updated = jsonTag.updated ? jsonTag.updated : null;
   }
 }

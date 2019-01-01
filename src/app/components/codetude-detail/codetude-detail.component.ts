@@ -53,7 +53,6 @@ export class CodetudeDetailComponent implements OnInit {
 
   delete(): void {
     this.codetudeService.delete(this.model.src.id).subscribe((id: number) => {
-      console.log(id);
       this.router.navigateByUrl('/codetudes');
     });
   }

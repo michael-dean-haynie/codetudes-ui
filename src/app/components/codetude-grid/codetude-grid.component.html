@@ -3,9 +3,11 @@
     <div class="ct-card" (click)="onCodetudeClicked(codetude)">
       <div class="ct-card-preview"></div>
       <div class="ct-card-content">
-        <p class="ct-card-content-title">{{ codetude.title }}</p>
+        <p class="ct-card-content-title">{{ codetude.title || '' }}</p>
         <p class="ct-card-content-description">
-          {{ codetude.description | snippet: 200 }}
+          <ng-container *ngIf="codetude.description">
+            {{ codetude.description | snippet: 200 }}
+          </ng-container>
         </p>
         <p *ngIf="codetude.started">{{ codetude.started | date: 'MMMM y' }}</p>
         <div>

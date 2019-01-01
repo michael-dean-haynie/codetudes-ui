@@ -18,10 +18,12 @@ export class Codetude {
 
   constructor(jsonCodetude: any) {
     this.id = jsonCodetude.id;
-    this.created = jsonCodetude.created;
-    this.updated = jsonCodetude.updated;
-    this.started = jsonCodetude.started;
-    this.finished = jsonCodetude.finished;
+    this.created = jsonCodetude.created ? new Date(jsonCodetude.created) : null;
+    this.updated = jsonCodetude.updated ? new Date(jsonCodetude.updated) : null;
+    this.started = jsonCodetude.started ? new Date(jsonCodetude.started) : null;
+    this.finished = jsonCodetude.finished
+      ? new Date(jsonCodetude.finished)
+      : null;
     this.title = jsonCodetude.title;
     this.subtitle = jsonCodetude.subtitle;
     this.description = jsonCodetude.description;
