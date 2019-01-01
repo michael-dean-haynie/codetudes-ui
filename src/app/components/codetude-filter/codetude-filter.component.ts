@@ -70,8 +70,8 @@ export class CodetudeFilterComponent implements OnInit, OnDestroy {
     this.filterFacetMode = this.appStateService.filterFacetMode;
     this.filterFacetModeChanged.emit(this.filterFacetMode);
 
-    // auto focus
-    this.focusOnFilterInput();
+    // auto focus (this got annoying on mobile)
+    // this.focusOnFilterInput();
   }
 
   ngOnDestroy() {
