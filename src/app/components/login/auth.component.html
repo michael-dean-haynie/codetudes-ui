@@ -1,11 +1,20 @@
-<div *ngIf="!userIsLoggedIn(); then thenBlock; else elseBlock"></div>
-<ng-template #thenBlock>
-  <form>
-    <label>Password</label>
-    <input type="password" [(ngModel)]="password" name="password" />
-    <button type="submit" (click)="login()">Login</button>
-  </form>
-</ng-template>
-<ng-template #elseBlock>
-  <button (click)="logout()">Logout</button>
-</ng-template>
+<div class="auth-container">
+  <app-back-button></app-back-button>
+  <ng-container *ngIf="!userIsLoggedIn()">
+    <form class="centered-container">
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        [(ngModel)]="password"
+      />
+      <button type="submit" (click)="login()">Login</button>
+    </form>
+  </ng-container>
+  <ng-container *ngIf="userIsLoggedIn()" #notLoggedInBlock>
+    <div class="centered-container">
+      <div>You are logged in.</div>
+      <button (click)="logout()">Logout</button>
+    </div>
+  </ng-container>
+</div>
