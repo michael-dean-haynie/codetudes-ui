@@ -71,6 +71,18 @@ export class CodetudeDetailComponent implements OnInit {
     window.location.href = this.model.src.sourceCodeLink;
   }
 
+  onPreviewClicked(): void {
+    if (!this.inEditMode()) {
+      this.navigateToLiveDemoLink();
+    }
+  }
+
+  onSourceCodeClicked(): void {
+    if (!this.inEditMode()) {
+      this.navigateToSourceCodeLink();
+    }
+  }
+
   private fetchCodetude(): void {
     const id: number = parseInt(this.route.snapshot.paramMap.get('id'), 10);
     this.codetudeService.findOne(id).subscribe((codetude: Codetude) => {

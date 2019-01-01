@@ -34,7 +34,7 @@
   </div>
 
   <!-- Preview -->
-  <div class="preview" (click)="navigateToLiveDemoLink()">
+  <div class="preview" (click)="onPreviewClicked()">
     <!-- Live Demo -->
     <div class="preview-caption">
       <ng-container *ngIf="!inEditMode()">
@@ -84,7 +84,7 @@
   </div>
 
   <!-- Source Code -->
-  <div class="source-code-container" (click)="navigateToSourceCodeLink()">
+  <div class="source-code-container" (click)="onSourceCodeClicked()">
     <ng-container *ngIf="!inEditMode()">
       <span class="glyphicon glyphicon-link"></span>
       <span>&nbsp;View Source Code</span>
