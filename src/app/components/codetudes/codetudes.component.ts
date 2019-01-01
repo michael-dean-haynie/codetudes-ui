@@ -9,7 +9,7 @@ import { AuthService } from '../../services/auth.service';
 import { FilterFacet } from '../../models/filter-facet.model';
 import { FilterFacetMode } from '../../enums/fitter-facet-mode';
 import { Router } from '@angular/router';
-import { SortingService } from 'src/app/services/sorting.service';
+import { CodetudeSortingService } from 'src/app/services/codetude-sorting.service';
 
 @Component({
   selector: 'app-codetudes',
@@ -26,7 +26,7 @@ export class CodetudesComponent implements OnInit {
   constructor(
     private codetudeService: CodetudeService,
     private appStateService: AppStateService,
-    private sortingService: SortingService,
+    private codetudeSortingService: CodetudeSortingService,
     private authService: AuthService,
     private router: Router
   ) {}
@@ -115,7 +115,7 @@ export class CodetudesComponent implements OnInit {
   }
 
   sortDisplayedCodetudes(): void {
-    this.displayedCodetudes = this.sortingService.sortCodetudes(
+    this.displayedCodetudes = this.codetudeSortingService.sortCodetudes(
       this.displayedCodetudes,
       this.appStateService.sortField,
       this.appStateService.sortMode

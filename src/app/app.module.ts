@@ -31,7 +31,7 @@ import { FilterFacetService } from './services/filter-facet.service';
 import { CodetudeGridComponent } from './components/codetude-grid/codetude-grid.component';
 import { CodetudeTableComponent } from './components/codetude-table/codetude-table.component';
 import { SortIconsComponent } from './components/sort-icons/sort-icons.component';
-import { SortingService } from './services/sorting.service';
+import { CodetudeSortingService } from './services/codetude-sorting.service';
 
 const appRoutes: Routes = [
   { path: 'auth', component: LoginComponent },
@@ -85,7 +85,7 @@ const appRoutes: Routes = [
     CodetudeService,
     AppStateService,
     FilterFacetService,
-    SortingService,
+    CodetudeSortingService,
     AuthService,
     AuthGuardService,
     {

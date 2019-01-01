@@ -1,4 +1,4 @@
-import { SortableFields } from './../enums/sortable-fields';
+import { SortableFields } from '../enums/sortable-fields';
 import { SortMode } from 'src/app/enums/sort-mode';
 import { Injectable } from '@angular/core';
 import { Codetude } from '../models/codetude.model';
@@ -6,7 +6,7 @@ import { Codetude } from '../models/codetude.model';
 @Injectable({
   providedIn: 'root',
 })
-export class SortingService {
+export class CodetudeSortingService {
   constructor() {}
 
   sortCodetudes(
