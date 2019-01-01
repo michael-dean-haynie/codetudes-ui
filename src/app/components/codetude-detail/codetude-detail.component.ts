@@ -1,3 +1,4 @@
+import { TagSortingService } from './../../services/tag-sorting.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EditableCodetude } from '../../models/editable-codetude.model';
@@ -20,6 +21,7 @@ export class CodetudeDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private codetudeService: CodetudeService,
     private authService: AuthService,
+    private tagSortingService: TagSortingService,
     private router: Router
   ) {}
 
@@ -73,6 +75,7 @@ export class CodetudeDetailComponent implements OnInit {
     const id: number = parseInt(this.route.snapshot.paramMap.get('id'), 10);
     this.codetudeService.findOne(id).subscribe((codetude: Codetude) => {
       this.model = new EditableCodetude(codetude);
+      this.sortTags();
       this.model.isInEditMode =
         this.route.snapshot.queryParams['edit'] === 'true';
     });
@@ -81,6 +84,11 @@ export class CodetudeDetailComponent implements OnInit {
   private saveChanges(codetude: Codetude): void {
     this.codetudeService.update(codetude).subscribe((ct: Codetude) => {
       this.model.src = ct;
+      this.sortTags();
     });
+  }
+
+  private sortTags(): void {
+    this.model.src.tags = this.tagSortingService.sortTags(this.model.src.tags);
   }
 }

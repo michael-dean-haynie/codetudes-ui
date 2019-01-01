@@ -1,3 +1,4 @@
+import { TagSortingService } from './../../services/tag-sorting.service';
 import {
   Component,
   OnInit,
@@ -26,7 +27,10 @@ export class TagSelectorComponent implements OnInit, OnChanges {
   @Output() tagAdded = new EventEmitter<Tag>();
   @Output() tagRemoved = new EventEmitter<Tag>();
 
-  constructor(private tagService: TagService) {}
+  constructor(
+    private tagService: TagService,
+    private tagSortingService: TagSortingService
+  ) {}
 
   ngOnInit() {
     this.loadAllTags();
@@ -76,5 +80,16 @@ export class TagSelectorComponent implements OnInit, OnChanges {
         }
       }
     });
+
+    this.sortTags();
+  }
+
+  private sortTags(): void {
+    this.displayedTagsOnCodetude = this.tagSortingService.sortTags(
+      this.displayedTagsOnCodetude
+    );
+    this.displayedTagsNotOnCodetude = this.tagSortingService.sortTags(
+      this.displayedTagsNotOnCodetude
+    );
   }
 }
