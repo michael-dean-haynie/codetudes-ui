@@ -14,7 +14,7 @@ export class AppStateService {
   filterValue = '';
   appliedFacets: FilterFacet[] = [];
   filterFacetMode = FilterFacetMode.And;
-  codetudesDisplayMode = CodetudesDisplayMode.Table;
+  codetudesDisplayMode = CodetudesDisplayMode.Grid;
 
   // sort selections
   sortField = SortableFields.Date;

@@ -1,7 +1,10 @@
 <div id="ct-grid">
   <div class="ct-cell" *ngFor="let codetude of codetudes">
     <div class="ct-card" (click)="onCodetudeClicked(codetude)">
-      <div class="ct-card-preview"></div>
+      <div
+        class="ct-card-preview"
+        [ngStyle]="{ 'background-image': cssImageValue }"
+      ></div>
       <div class="ct-card-content">
         <p class="ct-card-content-title">{{ codetude.title || '' }}</p>
         <p class="ct-card-content-description">
