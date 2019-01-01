@@ -1,30 +1,42 @@
 <div class="codetudes">
   <div class="header">
     <div class="title">Codetudes</div>
-    <ng-container *ngIf="userIsLoggedIn()">
-      <app-circle-button
+    <div class="header-buttons">
+      <ng-container *ngIf="userIsLoggedIn()">
+        <div class="header-button">
+          <app-circle-button
+            [iconClass]="'plus'"
+            (click)="createNewCodetude()"
+          ></app-circle-button>
+        </div>
+        <div class="header-button">
+          <app-circle-button
+            [iconClass]="'tags'"
+            (click)="navigateToTags()"
+          ></app-circle-button>
+        </div>
+      </ng-container>
+      <div
         class="header-button"
-        [iconClass]="'plus'"
-        (click)="createNewCodetude()"
-      ></app-circle-button>
-      <app-circle-button
-        class="header-button"
-        [iconClass]="'tags'"
-        (click)="navigateToTags()"
-      ></app-circle-button>
-      <app-circle-button
         *ngIf="codetudesDisplayMode === CodetudesDisplayMode.Table"
+      >
+        <app-circle-button
+          class="header-button"
+          [iconClass]="'th'"
+          (click)="setCodetudesDisplayMode(CodetudesDisplayMode.Grid)"
+        ></app-circle-button>
+      </div>
+      <div
         class="header-button"
-        [iconClass]="'th'"
-        (click)="setCodetudesDisplayMode(CodetudesDisplayMode.Grid)"
-      ></app-circle-button>
-      <app-circle-button
         *ngIf="codetudesDisplayMode === CodetudesDisplayMode.Grid"
-        class="header-button"
-        [iconClass]="'align-justify'"
-        (click)="setCodetudesDisplayMode(CodetudesDisplayMode.Table)"
-      ></app-circle-button>
-    </ng-container>
+      >
+        <app-circle-button
+          class="header-button"
+          [iconClass]="'align-justify'"
+          (click)="setCodetudesDisplayMode(CodetudesDisplayMode.Table)"
+        ></app-circle-button>
+      </div>
+    </div>
   </div>
 
   <div class="filter-bar">
