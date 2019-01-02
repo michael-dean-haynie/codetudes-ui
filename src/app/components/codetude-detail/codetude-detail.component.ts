@@ -83,6 +83,24 @@ export class CodetudeDetailComponent implements OnInit {
     }
   }
 
+  onPreviewImageInputChange(event: Event): void {
+    // try to access file
+    if (event.target['files'] && event.target['files'].length > 0) {
+      const reader = new FileReader();
+      const file = event.target['files'][0];
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.model.src.previewImage = <string>reader.result;
+        this.saveChanges(this.model.src);
+      };
+    }
+  }
+
+  onRemovePreviewImage(): void {
+    this.model.src.previewImage = null;
+    this.saveChanges(this.model.src);
+  }
+
   private fetchCodetude(): void {
     const id: number = parseInt(this.route.snapshot.paramMap.get('id'), 10);
     this.codetudeService.findOne(id).subscribe((codetude: Codetude) => {

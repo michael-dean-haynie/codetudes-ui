@@ -34,7 +34,37 @@
   </div>
 
   <!-- Preview -->
-  <div class="preview" (click)="onPreviewClicked()">
+  <div
+    class="preview"
+    [ngClass]="{ 'in-edit-mode': inEditMode() }"
+    [ngStyle]="{
+      'background-image': model.src.previewImage | backgroundImage
+    }"
+    (click)="onPreviewClicked()"
+  >
+    <div class="preview-image-controls-container" *ngIf="inEditMode()">
+      <div class="preview-image-controls">
+        <input
+          id="previewImageInput"
+          type="file"
+          accept="image/*"
+          multiple="false"
+          (change)="onPreviewImageInputChange($event)"
+        />
+        <label for="previewImageInput">
+          <span class="glyphicon glyphicon-cloud-upload"></span>
+          <span>&nbsp;Upload Image</span>
+        </label>
+        <ng-container *ngIf="!!model.src.previewImage">
+          <span>&nbsp;|&nbsp;</span>
+          <span id="remove-image-button" (click)="onRemovePreviewImage()">
+            <span class="glyphicon glyphicon-trash"></span>
+            <span>&nbsp;Remove Image</span>
+          </span>
+        </ng-container>
+      </div>
+    </div>
+
     <!-- Live Demo -->
     <div class="preview-caption">
       <ng-container *ngIf="!inEditMode()">
@@ -120,12 +150,5 @@
       </ng-container>
     </div>
   </div>
-  <br />
-  <br />
-  <br />
-  <br />
-  <br />
-  <br />
-
   <div *ngIf="inEditMode()"><button (click)="delete()">DELETE</button></div>
 </div>

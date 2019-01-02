@@ -33,6 +33,7 @@ import { CodetudeTableComponent } from './components/codetude-table/codetude-tab
 import { SortIconsComponent } from './components/sort-icons/sort-icons.component';
 import { CodetudeSortingService } from './services/codetude-sorting.service';
 import { TagSortingService } from './services/tag-sorting.service';
+import { BackgroundImagePipe } from './pipes/background-image.pipe';
 
 const appRoutes: Routes = [
   { path: 'auth', component: AuthComponent },
@@ -69,6 +70,7 @@ const appRoutes: Routes = [
     CodetudeGridComponent,
     CodetudeTableComponent,
     SortIconsComponent,
+    BackgroundImagePipe,
   ],
   imports: [
     BrowserModule,

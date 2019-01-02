@@ -29,27 +29,57 @@ textarea {
 }
 
 .preview {
-  background-color: rgb(230, 230, 230); /* fallback */
-  background-image: url('../../../assets/images/preview.jpg');
   background-size: cover;
   border-radius: 5px;
   overflow: hidden;
   height: 12rem;
   margin-top: 1rem;
   cursor: pointer;
-
   display: grid;
   align-content: end;
+  grid-row-gap: 1rem;
+}
+
+.preview.in-edit-mode {
+  cursor: default;
 }
 
 .preview:hover {
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.35);
 }
 
+.preview-image-controls-container {
+  display: grid;
+  justify-items: end;
+}
+
+.preview-image-controls {
+  color: white;
+  background: rgba(51, 51, 51, 0.8);
+  padding: 0.4em;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  overflow: hidden;
+}
+
+#previewImageInput {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+}
+
+#remove-image-button {
+  cursor: pointer;
+}
+
+label[for='previewImageInput'] {
+  cursor: pointer;
+}
+
 .preview-caption {
   color: white;
   background: rgba(51, 51, 51, 0.8);
-  padding: 0.3em;
+  padding: 0.4em;
 }
 
 .subtitle-container {

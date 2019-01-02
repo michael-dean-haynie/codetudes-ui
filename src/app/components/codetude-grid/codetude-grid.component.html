@@ -3,7 +3,9 @@
     <div class="ct-card" (click)="onCodetudeClicked(codetude)">
       <div
         class="ct-card-preview"
-        [ngStyle]="{ 'background-image': cssImageValue }"
+        [ngStyle]="{
+          'background-image': codetude.previewImage | backgroundImage
+        }"
       ></div>
       <div class="ct-card-content">
         <p class="ct-card-content-title">{{ codetude.title || '' }}</p>
