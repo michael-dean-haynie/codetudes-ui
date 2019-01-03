@@ -38,7 +38,7 @@
     class="preview"
     [ngClass]="{ 'in-edit-mode': inEditMode() }"
     [ngStyle]="{
-      'background-image': model.src.previewImage | backgroundImage
+      'background-image': model.src.previewImageId | backgroundImage | async
     }"
     (click)="onPreviewClicked()"
   >
@@ -55,7 +55,7 @@
           <span class="glyphicon glyphicon-cloud-upload"></span>
           <span>&nbsp;Upload Image</span>
         </label>
-        <ng-container *ngIf="!!model.src.previewImage">
+        <ng-container *ngIf="!!model.src.previewImageId">
           <span>&nbsp;|&nbsp;</span>
           <span id="remove-image-button" (click)="onRemovePreviewImage()">
             <span class="glyphicon glyphicon-trash"></span>

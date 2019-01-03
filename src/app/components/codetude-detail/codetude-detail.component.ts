@@ -6,6 +6,8 @@ import { CodetudeService } from '../../services/codetude.service';
 import { Codetude } from '../../models/codetude.model';
 import { Tag } from '../../models/tag.model';
 import { AuthService } from '../../services/auth.service';
+import { ImageService } from 'src/app/services/image.service';
+import { Image } from 'src/app/models/image.model';
 
 @Component({
   selector: 'app-codetude-detail',
@@ -22,6 +24,7 @@ export class CodetudeDetailComponent implements OnInit {
     private codetudeService: CodetudeService,
     private authService: AuthService,
     private tagSortingService: TagSortingService,
+    private imageService: ImageService,
     private router: Router
   ) {}
 
@@ -90,15 +93,25 @@ export class CodetudeDetailComponent implements OnInit {
       const file = event.target['files'][0];
       reader.readAsDataURL(file);
       reader.onload = () => {
-        this.model.src.previewImage = <string>reader.result;
-        this.saveChanges(this.model.src);
+        // persist new image
+        this.imageService
+          .create(new Image({ value: <string>reader.result }))
+          .subscribe(newImage => {
+            // update fk with new image id
+            this.model.src.previewImageId = newImage.id;
+            this.saveChanges(this.model.src);
+            // TODO: somehow should delete old image
+          });
       };
     }
   }
 
   onRemovePreviewImage(): void {
-    this.model.src.previewImage = null;
-    this.saveChanges(this.model.src);
+    this.imageService.delete(this.model.src.previewImageId).subscribe(id => {
+      this.model.src.previewImageId = null;
+      this.saveChanges(this.model.src);
+      // TODO: somehow should delete old image
+    });
   }
 
   private fetchCodetude(): void {

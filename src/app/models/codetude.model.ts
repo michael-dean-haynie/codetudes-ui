@@ -14,7 +14,7 @@ export class Codetude {
   sourceCodeLink: string;
   liveDemoLink: string;
   live: boolean;
-  previewImage: string;
+  previewImageId: number;
   tags: Tag[];
 
   constructor(jsonCodetude: any) {
@@ -31,7 +31,7 @@ export class Codetude {
     this.sourceCodeLink = jsonCodetude.sourceCodeLink;
     this.liveDemoLink = jsonCodetude.liveDemoLink;
     this.live = jsonCodetude.live;
-    this.previewImage = jsonCodetude.previewImage;
+    this.previewImageId = jsonCodetude.previewImageId;
     this.tags = jsonCodetude.tags
       ? jsonCodetude.tags.map(jsonTag => new Tag(jsonTag))
       : [];

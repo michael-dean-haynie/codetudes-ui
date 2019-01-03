@@ -4,7 +4,7 @@
       <div
         class="ct-card-preview"
         [ngStyle]="{
-          'background-image': codetude.previewImage | backgroundImage
+          'background-image': codetude.previewImageId | backgroundImage | async
         }"
       ></div>
       <div class="ct-card-content">

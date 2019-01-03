@@ -34,6 +34,7 @@ import { SortIconsComponent } from './components/sort-icons/sort-icons.component
 import { CodetudeSortingService } from './services/codetude-sorting.service';
 import { TagSortingService } from './services/tag-sorting.service';
 import { BackgroundImagePipe } from './pipes/background-image.pipe';
+import { ImageService } from './services/image.service';
 
 const appRoutes: Routes = [
   { path: 'auth', component: AuthComponent },
@@ -86,6 +87,7 @@ const appRoutes: Routes = [
   ],
   providers: [
     CodetudeService,
+    ImageService,
     AppStateService,
     FilterFacetService,
     CodetudeSortingService,
