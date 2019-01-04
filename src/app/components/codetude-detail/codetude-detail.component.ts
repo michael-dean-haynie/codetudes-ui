@@ -8,6 +8,7 @@ import { Tag } from '../../models/tag.model';
 import { AuthService } from '../../services/auth.service';
 import { ImageService } from 'src/app/services/image.service';
 import { Image } from 'src/app/models/image.model';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-codetude-detail',
@@ -91,27 +92,49 @@ export class CodetudeDetailComponent implements OnInit {
     if (event.target['files'] && event.target['files'].length > 0) {
       const reader = new FileReader();
       const file = event.target['files'][0];
+      event.target['value'] = ''; // empty file input
       reader.readAsDataURL(file);
       reader.onload = () => {
-        // persist new image
-        this.imageService
-          .create(new Image({ value: <string>reader.result }))
-          .subscribe(newImage => {
-            // update fk with new image id
-            this.model.src.previewImageId = newImage.id;
-            this.saveChanges(this.model.src);
-            // TODO: somehow should delete old image
-          });
+        this.updatePreviewImage(new Image({ value: <string>reader.result }));
       };
     }
   }
 
   onRemovePreviewImage(): void {
-    this.imageService.delete(this.model.src.previewImageId).subscribe(id => {
-      this.model.src.previewImageId = null;
+    this.updatePreviewImage(null);
+  }
+
+  // first delete current image (if exists)
+  // then create new one (if there's one to create)
+  // then update local model
+  // just messing around with observables and closures
+  updatePreviewImage(newImage: Image): void {
+    console.log(`updatePreviewImage() started. newImage: ${newImage}`);
+    const deleteExisting = (): Observable<number> => {
+      if (this.model.src.previewImageId) {
+        return this.imageService.delete(this.model.src.previewImageId);
+      } else {
+        return of(null);
+      }
+    };
+
+    const addNew = (): Observable<Image> => {
+      console.log(`addNew() started. newImage: ${newImage}`);
+      if (newImage) {
+        return this.imageService.create(newImage);
+      } else {
+        return of(null);
+      }
+    };
+
+    const updateLocalModel = (image: Image): void => {
+      this.model.src.previewImageId = image ? image.id : null;
       this.saveChanges(this.model.src);
-      // TODO: somehow should delete old image
-    });
+    };
+
+    deleteExisting().subscribe(() =>
+      addNew().subscribe(addedImage => updateLocalModel(addedImage))
+    );
   }
 
   private fetchCodetude(): void {
