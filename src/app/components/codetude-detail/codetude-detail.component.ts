@@ -9,7 +9,8 @@ import { Tag } from '../../models/tag.model';
 import { AuthService } from '../../services/auth.service';
 import { ImageService } from 'src/app/services/image.service';
 import { Image } from 'src/app/models/image.model';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/internal/operators';
 
 @Component({
   selector: 'app-codetude-detail',
@@ -20,6 +21,7 @@ export class CodetudeDetailComponent implements OnInit {
   // to stop weird errors in template
   model: EditableCodetude = new EditableCodetude(new Codetude({}));
   userCanEdit = false;
+  fieldChangedSubject = new Subject<Event>();
 
   constructor(
     private route: ActivatedRoute,
@@ -33,11 +35,15 @@ export class CodetudeDetailComponent implements OnInit {
   ngOnInit() {
     this.userCanEdit = this.authService.userIsLoggedIn();
     this.fetchCodetude();
+
+    // pipe debounce and subscribe to fieldChangedSubject
+    this.fieldChangedSubject.pipe(debounceTime(500)).subscribe(event => {
+      this.saveChanges(this.model.src);
+    });
   }
 
-  onFieldChanged() {
-    // TODO: This is super non-performant. DB request every key stroke.
-    this.saveChanges(this.model.src);
+  onFieldChanged(event: Event) {
+    this.fieldChangedSubject.next(event);
   }
 
   toggleEditMode(): void {
