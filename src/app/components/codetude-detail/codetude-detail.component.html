@@ -150,5 +150,16 @@
       </ng-container>
     </div>
   </div>
-  <div *ngIf="inEditMode()"><button (click)="delete()">DELETE</button></div>
+  <div *ngIf="inEditMode()">
+    <button (click)="deleteCodetudeModal.setHidden(false)">DELETE</button>
+  </div>
 </div>
+
+<app-modal
+  #deleteCodetudeModal
+  [headerText]="'Delete Codetude?'"
+  [bodyText]="'There\'s no going back. It will be gone gone.'"
+  [confirmText]="'Yes, Delete'"
+  [cancelText]="'Cancel'"
+  (didConfirm)="onDeleteCodetudeModalDidConfirm($event)"
+></app-modal>

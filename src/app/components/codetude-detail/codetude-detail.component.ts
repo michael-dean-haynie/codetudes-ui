@@ -1,3 +1,4 @@
+import { ModalComponent } from './../modal/modal.component';
 import { TagSortingService } from './../../services/tag-sorting.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -135,6 +136,12 @@ export class CodetudeDetailComponent implements OnInit {
         updateLocalModel(addedImage);
       });
     });
+  }
+
+  onDeleteCodetudeModalDidConfirm(didConfirm: boolean) {
+    if (didConfirm) {
+      this.delete();
+    }
   }
 
   private fetchCodetude(): void {
