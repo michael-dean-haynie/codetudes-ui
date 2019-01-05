@@ -97,6 +97,10 @@ label[for='previewImageInput'] {
   resize: vertical;
 }
 
+.description {
+  white-space: pre-wrap;
+}
+
 .source-code-container {
   color: white;
   background: rgba(51, 51, 51, 0.8);
