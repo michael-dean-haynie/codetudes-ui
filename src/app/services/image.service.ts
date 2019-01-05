@@ -22,7 +22,7 @@ export class ImageService {
       : ServiceHelpers.pipeJsonToModel<Image>(
           this.http.get<Image>(`${this.ENDPOINT}/${id}`),
           Image
-        );
+        ).pipe(tap(image => this.cacheImage(image)));
   }
 
   create(image: Image): Observable<Image> {
