@@ -151,6 +151,13 @@
     </div>
   </div>
   <div *ngIf="inEditMode()">
+    <button (click)="toggleLive()">
+      {{
+        model.src.live
+          ? 'This Codetude is Live (mark inactive)'
+          : 'This Codetude is Inactive (go live)'
+      }}
+    </button>
     <button (click)="deleteCodetudeModal.setHidden(false)">DELETE</button>
   </div>
 </div>

@@ -144,6 +144,11 @@ export class CodetudeDetailComponent implements OnInit {
     }
   }
 
+  toggleLive(): void {
+    this.model.src.live = !this.model.src.live;
+    this.saveChanges(this.model.src);
+  }
+
   private fetchCodetude(): void {
     const id: number = parseInt(this.route.snapshot.paramMap.get('id'), 10);
     this.codetudeService.findOne(id).subscribe((codetude: Codetude) => {
