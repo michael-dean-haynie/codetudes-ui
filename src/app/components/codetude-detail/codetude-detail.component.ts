@@ -109,7 +109,6 @@ export class CodetudeDetailComponent implements OnInit {
   // then update local model
   // just messing around with observables and closures
   updatePreviewImage(newImage: Image): void {
-    console.log(`updatePreviewImage() started. newImage: ${newImage}`);
     const deleteExisting = (): Observable<number> => {
       if (this.model.src.previewImageId) {
         return this.imageService.delete(this.model.src.previewImageId);
@@ -119,7 +118,6 @@ export class CodetudeDetailComponent implements OnInit {
     };
 
     const addNew = (): Observable<Image> => {
-      console.log(`addNew() started. newImage: ${newImage}`);
       if (newImage) {
         return this.imageService.create(newImage);
       } else {
@@ -132,9 +130,11 @@ export class CodetudeDetailComponent implements OnInit {
       this.saveChanges(this.model.src);
     };
 
-    deleteExisting().subscribe(() =>
-      addNew().subscribe(addedImage => updateLocalModel(addedImage))
-    );
+    deleteExisting().subscribe(() => {
+      addNew().subscribe(addedImage => {
+        updateLocalModel(addedImage);
+      });
+    });
   }
 
   private fetchCodetude(): void {
