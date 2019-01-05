@@ -64,8 +64,9 @@ textarea {
 
 #previewImageInput {
   position: absolute;
-  width: 1px;
-  height: 1px;
+  width: 0;
+  height: 0;
+  border: 0;
 }
 
 #remove-image-button {
