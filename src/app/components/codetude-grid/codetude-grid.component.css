@@ -11,6 +11,8 @@
   background-color: rgb(255, 255, 255);
   box-shadow: 0 0 5px rgb(150, 150, 150);
   cursor: pointer;
+  overflow: hidden;
+  position: relative;
 }
 
 .ct-card:hover {
@@ -18,14 +20,7 @@
 }
 
 .ct-card-preview {
-  /* TODO just do overflow thing from filter button */
-  border-top-right-radius: inherit;
-  border-top-left-radius: inherit;
-
-  background-color: rgb(230, 230, 230); /* fallback */
-  /* background-image: url('../../../assets/images/preview.jpg'); */
   background-size: cover;
-
   height: 10em;
 }
 
@@ -42,12 +37,36 @@
   font-size: 1.5em;
 }
 
+.not-live-cover {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  background-color: rgba(51, 51, 51, 0.2);
+}
+
+.not-live-corner {
+  width: 0;
+  height: 0;
+  position: absolute;
+  border-top: 2.5rem solid rgba(51, 51, 51, 0.5);
+  border-right: 2.5rem solid transparent;
+  border-bottom: 2.5rem solid transparent;
+  border-left: 2.5rem solid rgba(51, 51, 51, 0.5);
+}
+
+.not-live-icon {
+  position: absolute;
+  font-size: 2rem;
+  color: white;
+  margin: 0.5rem 0 0 0.5rem;
+}
 @media (min-width: 675px) {
   #ct-grid {
     grid-template-columns: 1fr 1fr;
   }
 }
-
 @media (min-width: 1000px) {
   #ct-grid {
     grid-template-columns: 1fr 1fr 1fr;

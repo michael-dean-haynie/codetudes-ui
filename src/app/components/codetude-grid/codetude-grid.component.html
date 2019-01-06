@@ -19,6 +19,12 @@
           <app-tag *ngFor="let tag of codetude.tags" [model]="tag"></app-tag>
         </div>
       </div>
+      <div class="not-live-cover" *ngIf="!codetude.live">
+        <div class="not-live-corner"><div class="not-live-icon"></div></div>
+        <div class="not-live-icon">
+          <span class="glyphicon glyphicon-eye-close"></span>
+        </div>
+      </div>
     </div>
   </div>
 </div>
