@@ -23,6 +23,8 @@ export class CodetudesComponent implements OnInit {
   CodetudesDisplayMode = CodetudesDisplayMode;
   codetudesDisplayMode: CodetudesDisplayMode = null;
   filterFacetMode: FilterFacetMode = FilterFacetMode.And;
+  loading = true;
+  matchCountTotal = 0;
 
   constructor(
     private codetudeService: CodetudeService,
@@ -50,6 +52,7 @@ export class CodetudesComponent implements OnInit {
 
       // display
       this.updateDisplayedCodetudes();
+      this.loading = false;
     });
   }
 
@@ -96,6 +99,7 @@ export class CodetudesComponent implements OnInit {
     const visibleCodetudes = this.appStateService.allCodetudes.filter(
       codetude => (isAdmin ? true : codetude.live)
     );
+    this.matchCountTotal = visibleCodetudes.length;
 
     visibleCodetudes.forEach(codetude => {
       let meetsAllCriteria = true; // default

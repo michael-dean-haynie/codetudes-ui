@@ -7,16 +7,21 @@
     />
   </div>
   <div class="included-section">
-    <div>Included</div>
+    <div class="included-header">
+      Included ({{ displayedTagsOnCodetude.length }})
+    </div>
     <app-tag
       *ngFor="let tag of displayedTagsOnCodetude"
       [cursor]="'pointer'"
       [model]="tag"
       (click)="removeTag(tag)"
     ></app-tag>
+    <div class="empty-text" *ngIf="!displayedTagsOnCodetude.length">Empty</div>
   </div>
   <div class="not-included-section">
-    <div>Not Included</div>
+    <div class="not-included-header">
+      Not Included ({{ displayedTagsNotOnCodetude.length }})
+    </div>
     <app-tag
       *ngFor="let tag of displayedTagsNotOnCodetude"
       [cursor]="'pointer'"
@@ -24,4 +29,5 @@
       (click)="addTag(tag)"
     ></app-tag>
   </div>
+  <div class="empty-text" *ngIf="!displayedTagsNotOnCodetude.length">Empty</div>
 </div>

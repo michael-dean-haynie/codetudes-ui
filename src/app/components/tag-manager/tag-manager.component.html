@@ -24,7 +24,7 @@
   />
   <button
     class="tag-manager-button"
-    [disabled]="!nameHasChanged()"
+    [disabled]="!nameHasChanged() || !model.name"
     (click)="acceptChanges()"
   >
     <span class="glyphicon glyphicon-ok"></span>

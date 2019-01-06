@@ -66,7 +66,10 @@
     </div>
 
     <!-- Live Demo -->
-    <div class="preview-caption">
+    <div
+      class="preview-caption"
+      *ngIf="model.src.liveDemoLink || model.isInEditMode"
+    >
       <ng-container *ngIf="!inEditMode()">
         <span class="glyphicon glyphicon-link"></span>
         <span>&nbsp;View Live Demo</span>
@@ -114,7 +117,11 @@
   </div>
 
   <!-- Source Code -->
-  <div class="source-code-container" (click)="onSourceCodeClicked()">
+  <div
+    class="source-code-container"
+    *ngIf="model.src.sourceCodeLink || model.isInEditMode"
+    (click)="onSourceCodeClicked()"
+  >
     <ng-container *ngIf="!inEditMode()">
       <span class="glyphicon glyphicon-link"></span>
       <span>&nbsp;View Source Code</span>
@@ -134,11 +141,12 @@
   <div class="tags-container">
     <div class="tags-header">
       <span class="glyphicon glyphicon-tags"></span>
-      <span>&nbsp;&nbsp;Tags</span>
+      <span>&nbsp;&nbsp;Tags&nbsp; ({{ model.src.tags.length }})</span>
     </div>
     <div class="tags-body">
       <ng-container *ngIf="!inEditMode()">
         <app-tag *ngFor="let tag of model.src.tags" [model]="tag"></app-tag>
+        <div *ngIf="!model.src.tags.length">This Codetude has no tags.</div>
       </ng-container>
 
       <ng-container *ngIf="inEditMode()">

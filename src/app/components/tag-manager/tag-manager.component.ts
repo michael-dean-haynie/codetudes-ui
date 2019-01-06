@@ -88,7 +88,7 @@ export class TagManagerComponent
   }
 
   getPlaceholder(): string {
-    return `${this.originalModel.name} (previous value)`;
+    return `${this.originalModel.name}`;
   }
 
   nameHasChanged(): boolean {

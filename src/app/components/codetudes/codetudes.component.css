@@ -35,3 +35,9 @@
 .filter-bar {
   margin-top: 1rem;
 }
+
+.no-matches-message,
+.match-count {
+  font-style: italic;
+  text-align: center;
+}

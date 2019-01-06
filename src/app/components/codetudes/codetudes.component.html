@@ -46,6 +46,19 @@
     ></app-codetude-filter>
   </div>
 
+  <ng-container *ngIf="!loading">
+    <div class="match-count" *ngIf="displayedCodetudes.length">
+      {{ displayedCodetudes.length }} matches found ({{
+        matchCountTotal
+      }}
+      total)
+    </div>
+
+    <div class="no-matches-message" *ngIf="!displayedCodetudes.length">
+      No matches for the current filter criteria.
+    </div>
+  </ng-container>
+
   <app-codetude-grid
     *ngIf="codetudesDisplayMode === CodetudesDisplayMode.Grid"
     [codetudes]="displayedCodetudes"

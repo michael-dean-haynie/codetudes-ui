@@ -22,3 +22,17 @@ input {
 .not-included-section {
   margin-top: 1rem;
 }
+
+.included-header,
+.not-included-header {
+  font-weight: bold;
+  background: rgba(51, 51, 51, 0.1);
+  border-radius: 5px;
+  padding: 0.25em;
+  margin-bottom: 0.25em;
+}
+
+.empty-text {
+  font-style: italic;
+  padding: 0.25em;
+}
