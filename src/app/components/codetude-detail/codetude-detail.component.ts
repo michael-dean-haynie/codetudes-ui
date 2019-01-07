@@ -1,6 +1,11 @@
-import { ModalComponent } from './../modal/modal.component';
 import { TagSortingService } from './../../services/tag-sorting.service';
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EditableCodetude } from '../../models/editable-codetude.model';
 import { CodetudeService } from '../../services/codetude.service';
@@ -11,6 +16,7 @@ import { ImageService } from 'src/app/services/image.service';
 import { Image } from 'src/app/models/image.model';
 import { Observable, of, Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/internal/operators';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-codetude-detail',
@@ -21,7 +27,10 @@ export class CodetudeDetailComponent implements OnInit {
   // to stop weird errors in template
   model: EditableCodetude = new EditableCodetude(new Codetude({}));
   userCanEdit = false;
+  startedIsInEditMode = false;
   fieldChangedSubject = new Subject<Event>();
+
+  @ViewChild('startedInput') startedInput: ElementRef;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,7 +38,8 @@ export class CodetudeDetailComponent implements OnInit {
     private authService: AuthService,
     private tagSortingService: TagSortingService,
     private imageService: ImageService,
-    private router: Router
+    private router: Router,
+    private changeDectorRef: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -153,6 +163,30 @@ export class CodetudeDetailComponent implements OnInit {
   toggleLive(): void {
     this.model.src.live = !this.model.src.live;
     this.saveChanges(this.model.src);
+  }
+
+  onStartedEdit(): void {
+    this.startedIsInEditMode = true;
+    // enable imediately otherwise the focus doesn't work;
+    this.startedInput.nativeElement.disabled = false;
+    this.startedInput.nativeElement.focus();
+  }
+
+  onStartedAccept(): void {
+    this.startedIsInEditMode = false;
+    this.model.src.started = new Date(this.startedInput.nativeElement['value']);
+    console.log(this.model.src.started);
+    console.log(this.startedInput);
+    this.saveChanges(this.model.src);
+  }
+
+  onStartedCancel(): void {
+    // trigger change detection to reload formatted date via pipe in template
+    const previousValue = this.model.src.started;
+    this.model.src.started = new Date();
+    this.changeDectorRef.detectChanges();
+    this.model.src.started = previousValue;
+    this.startedIsInEditMode = false;
   }
 
   private fetchCodetude(): void {

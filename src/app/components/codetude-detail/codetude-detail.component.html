@@ -116,6 +116,38 @@
     </ng-container>
   </div>
 
+  <!-- Started -->
+  <div class="date-container" *ngIf="model.src.started || model.isInEditMode">
+    <ng-container *ngIf="!inEditMode()">
+      <div>
+        <span class="glyphicon glyphicon-calendar"></span>
+        <span>&nbsp;{{ model.src.started | date: 'MMMM y' }}</span>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="inEditMode()">
+      <div class="date-input-container">
+        <span>Start Date:</span>
+        <input
+          type="text"
+          placeholder="mm/dd/yyyy"
+          #startedInput
+          [disabled]="!startedIsInEditMode"
+          [value]="model.src.started | date: 'MM/dd/yyyy'"
+        />
+      </div>
+      <button *ngIf="!startedIsInEditMode" (click)="onStartedEdit()">
+        &nbsp;<span class="glyphicon glyphicon-pencil"></span>&nbsp;
+      </button>
+      <button *ngIf="startedIsInEditMode" (click)="onStartedAccept()">
+        &nbsp;<span class="glyphicon glyphicon-ok"></span>&nbsp;
+      </button>
+      <button *ngIf="startedIsInEditMode" (click)="onStartedCancel()">
+        &nbsp;<span class="glyphicon glyphicon-ban-circle"></span>&nbsp;
+      </button>
+    </ng-container>
+  </div>
+
   <!-- Source Code -->
   <div
     class="source-code-container"

@@ -111,6 +111,21 @@ label[for='previewImageInput'] {
   border-radius: 5px;
 }
 
+.date-container {
+  color: white;
+  background: rgba(51, 51, 51, 0.8);
+  padding: 0.5em;
+  margin-top: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+}
+
+.date-container button {
+  border-radius: 5px;
+}
+
 .tags-container {
   margin-top: 1rem;
   border-radius: 5px;
