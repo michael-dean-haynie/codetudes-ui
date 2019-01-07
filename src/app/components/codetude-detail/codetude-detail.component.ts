@@ -16,7 +16,6 @@ import { ImageService } from 'src/app/services/image.service';
 import { Image } from 'src/app/models/image.model';
 import { Observable, of, Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/internal/operators';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-codetude-detail',
@@ -47,7 +46,7 @@ export class CodetudeDetailComponent implements OnInit {
     this.fetchCodetude();
 
     // pipe debounce and subscribe to fieldChangedSubject
-    this.fieldChangedSubject.pipe(debounceTime(500)).subscribe(event => {
+    this.fieldChangedSubject.pipe(debounceTime(2000)).subscribe(event => {
       this.saveChanges(this.model.src);
     });
   }
