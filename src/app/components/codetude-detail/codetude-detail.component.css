@@ -38,6 +38,7 @@ textarea {
   display: grid;
   align-content: end;
   grid-row-gap: 1rem;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.35);
 }
 
 .preview.in-edit-mode {
@@ -45,7 +46,7 @@ textarea {
 }
 
 .preview:hover {
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.35);
+  box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.35);
 }
 
 .preview-image-controls-container {
