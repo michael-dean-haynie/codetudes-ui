@@ -189,6 +189,12 @@ export class CodetudeDetailComponent implements OnInit {
     this.startedIsInEditMode = false;
   }
 
+  onStartedInputKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Enter') {
+      this.onStartedAccept();
+    }
+  }
+
   private fetchCodetude(): void {
     const id: number = parseInt(this.route.snapshot.paramMap.get('id'), 10);
     this.codetudeService.findOne(id).subscribe((codetude: Codetude) => {
