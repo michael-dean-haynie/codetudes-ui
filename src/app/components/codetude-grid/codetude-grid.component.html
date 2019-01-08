@@ -14,7 +14,9 @@
             {{ codetude.description | snippet: 200 }}
           </ng-container>
         </p>
-        <p *ngIf="codetude.started">{{ codetude.started | date: 'MMMM y' }}</p>
+        <p *ngIf="codetude.started">
+          {{ codetude.started | date: 'MMMM y':'+0000' }}
+        </p>
         <div>
           <app-tag *ngFor="let tag of codetude.tags" [model]="tag"></app-tag>
         </div>

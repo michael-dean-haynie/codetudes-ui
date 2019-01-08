@@ -130,10 +130,10 @@
         <span>Start Date:</span>
         <input
           type="text"
-          placeholder="mm/dd/yyyy"
+          placeholder="yyyy-mm-dd"
           #startedInput
           [disabled]="!startedIsInEditMode"
-          [value]="model.src.started | date: 'MM/dd/yyyy'"
+          [value]="model.src.started | date: 'yyyy-MM-dd':'+0000'"
         />
       </div>
       <button *ngIf="!startedIsInEditMode" (click)="onStartedEdit()">

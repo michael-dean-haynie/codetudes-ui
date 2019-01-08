@@ -16,6 +16,7 @@ import { ImageService } from 'src/app/services/image.service';
 import { Image } from 'src/app/models/image.model';
 import { Observable, of, Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/internal/operators';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-codetude-detail',
@@ -173,16 +174,16 @@ export class CodetudeDetailComponent implements OnInit {
 
   onStartedAccept(): void {
     this.startedIsInEditMode = false;
-    this.model.src.started = new Date(this.startedInput.nativeElement['value']);
-    console.log(this.model.src.started);
-    console.log(this.startedInput);
+    this.model.src.started = moment.utc(
+      this.startedInput.nativeElement['value']
+    );
     this.saveChanges(this.model.src);
   }
 
   onStartedCancel(): void {
     // trigger change detection to reload formatted date via pipe in template
     const previousValue = this.model.src.started;
-    this.model.src.started = new Date();
+    this.model.src.started = moment.utc();
     this.changeDectorRef.detectChanges();
     this.model.src.started = previousValue;
     this.startedIsInEditMode = false;
