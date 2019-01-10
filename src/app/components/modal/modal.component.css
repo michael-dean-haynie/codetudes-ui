@@ -44,3 +44,14 @@
   display: grid;
   justify-items: center;
 }
+
+.modal-buttons {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-column-gap: 1em;
+}
+
+button {
+  display: block;
+  padding: 0.5em;
+}
