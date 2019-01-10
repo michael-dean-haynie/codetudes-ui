@@ -191,13 +191,20 @@
       </ng-container>
     </div>
   </div>
-  <div *ngIf="inEditMode()">
+
+  <!-- Buttons -->
+  <div class="buttons" *ngIf="inEditMode()">
     <button (click)="toggleLive()">
-      {{
-        model.src.live
-          ? 'This Codetude is Live (mark inactive)'
-          : 'This Codetude is Inactive (go live)'
-      }}
+      <ng-container *ngIf="model.src.live">
+        This Codetude is Live&nbsp;<span
+          class="glyphicon glyphicon-eye-open"
+        ></span>
+      </ng-container>
+      <ng-container *ngIf="!model.src.live">
+        This Codetude is Not Live&nbsp;<span
+          class="glyphicon glyphicon-eye-close"
+        ></span>
+      </ng-container>
     </button>
     <button (click)="deleteCodetudeModal.setHidden(false)">DELETE</button>
   </div>
