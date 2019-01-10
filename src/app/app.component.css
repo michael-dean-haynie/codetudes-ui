@@ -1,3 +1,9 @@
 #app-container {
   margin: 1em;
+  display: grid;
+  justify-items: center;
+}
+
+#app-content {
+  max-width: 1000px;
 }
