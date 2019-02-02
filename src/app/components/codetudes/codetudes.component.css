@@ -4,6 +4,11 @@
   grid-template-rows: auto auto;
 }
 
+/* Set's default width to expand to max size of app-content, but it can still shrink with window resizing*/
+.width-spacer {
+  width: 1000px;
+}
+
 .header {
   grid-row: 1 / 2;
   grid-column: 1 / -1;
