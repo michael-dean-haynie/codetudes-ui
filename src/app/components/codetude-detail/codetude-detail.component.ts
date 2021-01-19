@@ -85,11 +85,11 @@ export class CodetudeDetailComponent implements OnInit {
   }
 
   navigateToLiveDemoLink(): void {
-    window.location.href = this.model.src.liveDemoLink;
+    window.open(this.model.src.liveDemoLink, "_blank");
   }
 
   navigateToSourceCodeLink(): void {
-    window.location.href = this.model.src.sourceCodeLink;
+    window.open(this.model.src.sourceCodeLink, "_blank");
   }
 
   onPreviewClicked(): void {
